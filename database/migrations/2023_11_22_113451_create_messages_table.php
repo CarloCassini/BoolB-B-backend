@@ -16,8 +16,8 @@ return new class extends Migration
         Schema::create('messages', function (Blueprint $table) {
             $table->id();
 
-            $table->foreignId('apartment_id');
-            // $table->foreign('apartment_id')->references('id')->on('apartments');
+           
+            $table->foreign('apartment_id')->references('id')->on('apartments');
             $table->text('message');
             $table->string('name', 50);
             $table->string('surname', 50);
