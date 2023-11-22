@@ -12,14 +12,10 @@ return new class extends Migration {
      */
     public function up()
     {
-        Schema::create('messages', function (Blueprint $table) {
-            $table->id();
-            $table->text('message');
-            $table->string('name', 50);
-            $table->string('surname', 50);
-            $table->string('sender_e-mail', 100);
-
-            // $table->timestamps();
+        Schema::table('messages', function (Blueprint $table) {
+            $table->foreignId('apartment_id')
+                ->after('id')
+                ->constrained();
         });
     }
 
@@ -30,6 +26,9 @@ return new class extends Migration {
      */
     public function down()
     {
-        Schema::dropIfExists('messages');
+        Schema::table('messages', function (Blueprint $table) {
+            $table->dropForeign('messages_apartment_id_foreign');
+            $table->dropColumn('apartment_id');
+        });
     }
 };

@@ -16,10 +16,10 @@ class Apartment extends Model
 
     // todo : togliere i commenti quando avremo le tabelle
     // ** per i messaggi
-    // public function messages()
-    // {
-    //     return $this->hasMany(Messages::class);
-    // }
+    public function messages()
+    {
+        return $this->hasMany(Message::class);
+    }
 
     // ** per le foto
     // public function photos() {
