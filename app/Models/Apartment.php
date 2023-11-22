@@ -22,9 +22,9 @@ class Apartment extends Model
     }
 
     // ** per le foto
-    // public function photos() {
-    //     return $this->hasMany(Photo::class);
-    //   }
+    public function photos() {
+        return $this->hasMany(Photo::class);
+      }
 
     // ** per le views
     // public function views() {

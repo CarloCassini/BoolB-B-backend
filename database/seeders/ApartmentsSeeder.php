@@ -46,6 +46,7 @@ class ApartmentsSeeder extends Seeder
             $apartment->longitude_int = $faker->longitude($min = -180, $max = 180) * (10 * 6);
 
 
+            // al momento uso solo l'utente 1
             $apartment->user_id = 1;
 
             $apartment->save();
