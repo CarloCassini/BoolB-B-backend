@@ -41,10 +41,10 @@ class ApartmentsController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Apartments  $apartments
+     * @param  \App\Models\Apartment  $apartment
      * @return \Illuminate\Http\Response
      */
-    public function show(Apartments $apartments)
+    public function show(Apartment $apartment)
     {
         //
     }
@@ -52,10 +52,10 @@ class ApartmentsController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Apartments  $apartments
+     * @param  \App\Models\Apartment  $apartment
      * @return \Illuminate\Http\Response
      */
-    public function edit(Apartments $apartments)
+    public function edit(Apartment $apartment)
     {
         //
     }
@@ -64,10 +64,10 @@ class ApartmentsController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Apartments  $apartments
+     * @param  \App\Models\Apartment  $apartment
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Apartments $apartments)
+    public function update(Request $request, Apartment $apartment)
     {
         //
     }
@@ -75,10 +75,10 @@ class ApartmentsController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Apartments  $apartments
+     * @param  \App\Models\Apartment  $apartment
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Apartments $apartments)
+    public function destroy(Apartment $apartment)
     {
         //
     }

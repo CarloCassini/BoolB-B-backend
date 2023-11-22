@@ -14,7 +14,6 @@ return new class extends Migration {
     {
         Schema::create('apartments', function (Blueprint $table) {
             $table->id();
-            // $table->foreignId('user_id')->constrained()->nullOnDelete();
             $table->string('title', 50);
             $table->unsignedTinyInteger('rooms');
             $table->unsignedTinyInteger('beds');

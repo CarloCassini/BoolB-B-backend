@@ -47,6 +47,6 @@ class User extends Authenticatable
     // collegamento ad apartments
     public function apartments()
     {
-        return $this->hasMany(Apartments::class);
+        return $this->hasMany(Apartment::class);
     }
 }
