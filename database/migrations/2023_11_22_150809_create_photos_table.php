@@ -12,19 +12,13 @@ return new class extends Migration {
      */
     public function up()
     {
-        Schema::create('views', function (Blueprint $table) {
+        Schema::create('photos', function (Blueprint $table) {
             $table->id();
-
-            //* apartment_id
             $table->foreignId('apartment_id')
                 ->constrained()
                 ->cascadeOnDelete();
-
-            $table->datetime('date');
-            $table->string('ip', 15);
-            $table->string('ip', 15);
+            $table->text('path');
             $table->timestamps();
-
         });
     }
 
@@ -35,6 +29,6 @@ return new class extends Migration {
      */
     public function down()
     {
-        Schema::dropIfExists('views');
+        Schema::dropIfExists('photos');
     }
 };
