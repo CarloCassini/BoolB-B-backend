@@ -22,7 +22,6 @@ return new class extends Migration {
 
             $table->datetime('date');
             $table->string('ip', 15);
-            $table->string('ip', 15);
             $table->timestamps();
 
         });
