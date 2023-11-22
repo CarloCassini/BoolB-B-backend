@@ -22,7 +22,7 @@ return new class extends Migration
                 ->cascadeOnDelete();
 
             $table->datetime('date');
-            $table->text('ip');
+            $table->varchar('ip',15);
             $table->timestamps();
 
         });
