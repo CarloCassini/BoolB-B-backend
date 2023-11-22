@@ -6,17 +6,22 @@ use App\Models\Message;
 use Illuminate\Database\Seeder;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
-class MessagesTableSeeder extends Seeder
-{
-    public function run()
-    {
-        foreach (config('bnb.messages') as $message) {
-            $newMessage = new Message();
+// uso Faker
+use Faker\Generator as Faker;
 
-            $newMessage->apartment_id = $message["apartment_id"];
-            $newMessage->email_sender = $message["sender_e-mail"];
-            $newMessage->text_message = $message["message"];
-            
+class MessageSeeder extends Seeder
+{
+    public function run(Faker $faker)
+    {
+        for ($i = 0; $i < 10; $i++) {
+            $newMessage = new Message();
+            $newMessage->sender_email = $faker->email();
+            $newMessage->message = $faker->paragraph(2);
+            $newMessage->name = $faker->firstName();
+            $newMessage->surname = $faker->lastName();
+
+            // arbitrariamente messaggi solo su appartamento 1
+            $newMessage->apartment_id = 1;
 
             $newMessage->save();
         }

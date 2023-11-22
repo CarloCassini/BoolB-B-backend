@@ -21,8 +21,9 @@ class PhotoSeeder extends Seeder
     {
         for ($i = 0; $i < 10; $i++) {
             $photo = new Photo();
-            $photo->apartmen_id = 2;
+            $photo->apartment_id = 2;
             $photo->path = $faker->imageUrl(640, 480, 'Apartment', true);
+            $photo->save();
         }
     }
 }
