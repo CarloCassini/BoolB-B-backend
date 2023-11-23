@@ -6,6 +6,11 @@ use App\Models\User;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
+// per salare la password
+use Illuminate\Support\Facades\Hash;
+
+// per l'hash
+
 class UsersSeeder extends Seeder
 {
     /**
@@ -27,7 +32,7 @@ class UsersSeeder extends Seeder
         $user->surname = 'admin';
         $user->date_of_birth = '2023-11-06';
         $user->email = 'admin@admin.com';
-        $user->password = 'password';
+        $user->password = Hash::make("password");
         $user->save();
     }
 }
