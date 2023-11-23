@@ -38,7 +38,7 @@ class Apartment extends Model
        }
 
     // **per gli sponsor
-    // public function sponsors() {
-    //     return $this->belongsToMany(Sponsor::class);
-    //   }
+     public function sponsors() {
+         return $this->belongsToMany(Sponsor::class);
+       }
 }
