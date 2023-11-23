@@ -100,11 +100,12 @@
                 @enderror
             </div>
 
+            {{-- todo : inserimento dello user della sessione --}}
             {{-- todo : gestione delle coordinate di latitudine e longitudine  --}}
             {{-- todo : gestione della cover image ::: è un campo nullable --}}
             {{-- todo : gestione della is_hidden ::: messo un default a 0 nel booleano --}}
 
-            <button type="submit" class="btn btn-primary">Salva</button>
+            <button type="submit" class="btn btn-primary my-3">Salva</button>
         </form>
     </div>
 @endsection
