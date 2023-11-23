@@ -5,8 +5,13 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 
 use App\Http\Requests\StoreApartmentRequest;
-use App\Models\Apartment;
+use App\Http\Requests\UpdateApartmentRequest;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
+
+// importo i modelli
+use app\Models\User;
+use App\Models\Apartment;
 
 use Illuminate\Support\Facades\Storage;
 
@@ -20,6 +25,9 @@ class ApartmentsController extends Controller
      */
     public function index()
     {
+        // prendo id user dallo user loggato
+        $user = Auth::user();
+
         $apartments = Apartment::orderBy('id', 'desc')->paginate(12);
         return view('admin.apartments.index', compact('apartments'));
     }
@@ -38,23 +46,26 @@ class ApartmentsController extends Controller
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-    //  * @return \Illuminate\Http\Response
+     //  * @return \Illuminate\Http\Response
      */
     public function store(StoreApartmentRequest $request)
     {
+        // prendo id user dallo user loggato
+        $user = Auth::user();
+
         $data = $request->validated();
         $apartment = new Apartment;
         $apartment->fill($data);
+        // user_id viene valorizzato in base a chi è collegato
+        $apartment->user_id = $user->id;
 
         //todo -> forso l'inserimento dei campi per vedere il salvataggio
-        $apartment->user_id = 1;
-        $apartment->is_hidden = 0;
         $apartment->latitude_int = 200;
         $apartment->longitude_int = 200;
 
         $apartment->save();
 
-        return view('admin.apartments.show', $apartment);
+        return view('admin.apartments.show', compact('apartment'));
 
     }
 
@@ -66,6 +77,11 @@ class ApartmentsController extends Controller
      */
     public function show(Apartment $apartment)
     {
+
+        // ricevere ip e altro per show tra i parametri.
+// salvataggio in tabella view
+// view->save()
+
         return view('admin.apartments.show', compact('apartment'));
     }
 
@@ -77,7 +93,7 @@ class ApartmentsController extends Controller
      */
     public function edit(Apartment $apartment)
     {
-        //
+        return view('admin.apartments.edit', compact('apartment'));
     }
 
     /**
@@ -87,9 +103,11 @@ class ApartmentsController extends Controller
      * @param  \App\Models\Apartment  $apartment
     //  * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Apartment $apartment)
+    public function update(UpdateApartmentRequest $request, Apartment $apartment)
     {
-        //
+        $data = $request->validated();
+        $apartment->update($data);
+        return redirect()->route('admin.apartments.show', $apartment);
     }
 
     /**
@@ -101,11 +119,11 @@ class ApartmentsController extends Controller
     public function destroy(Request $request, Apartment $apartment)
     {
         $apartment->services()->detach();
-        if($request->hasFile('cover_image')){
+        if ($request->hasFile('cover_image')) {
             Storage::delete($apartment->cover_image_path);
         }
         $apartment->delete();
-        
+
         return redirect()->route('admin.apartments.index');
     }
 }
