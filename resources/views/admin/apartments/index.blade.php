@@ -1,130 +1,108 @@
 @extends('layouts.app')
+@section('content')
+    <div class="container mt-5">
+        <h1 class="mb-4">Apartments - {{ $user->first_name }}</h1>
+        <h6 class="text-secondary">Clicca sulle card per maggiori informazioni</h6>
+        <div class="row row-cols-lg-4 row-cols-1 g-4 ">
 
-@section('main-content')
-    <section class="container mt-5">
-        <div class="row">
-            <h1 class="mb-3">Detail section</h1>
-            <div>
-                <a href="{{ route('apartment.index') }}" class="btn btn-primary mb-3">GO BACK</a>
-            </div>
-            <div class="col-6 mx-auto">
-                <div class="card">
-                    <div class="card-header text-center">
-                        {{ $apartment->title }}
-                    </div>
-                    <div class="d-flex">
-                        <div class="card-body" style="max-width: 60%">
-                            <ul class="list-unstyled">
-                                <li>
-                                    <strong>
-                                        ID :
-                                    </strong>
-                                    <span>
-                                        {{ $apartment->id }}
-                                    </span>
-                                </li>
-                                <li>
-                                    <strong>
-                                        USER :
-                                    </strong>
-                                    <span>
-                                        {{ $apartment->user_id }}
-                                    </span>
-                                </li>
-                                <li>
-                                    <strong>
-                                        Title :
-                                    </strong>
-                                    <span>
-                                        {{ $apartment->title }}
-                                    </span>
-                                </li>
-                                <li>
-                                    <strong>
-                                        ROOMS :
-                                    </strong>
-                                    <span>
+            @foreach ($apartments as $apartment)
+                <div class="col">
+                    <a href="{{ route('admin.apartments.show', $apartment) }}" class=" text-decoration-none text-dark">
+                        <div class="card h-100 text-center">
+                            <div class="card-image">
+                                @if ($apartment->cover_img)
+                                    <img src="{{ asset('/storage/' . $apartment->cover_img) }}" alt=""
+                                        class="image-fluid w-100">
+                                @else
+                                <img src="https://placehold.co/400" alt="" class="image-fluid w-100">
+                                @endif
+                            </div>
+                            <div class="card-header">
+                                <h5 class="card-title">
+                                    {{ $apartment->id }}
+                                    {{ $apartment->user_id }}
+                                    {{ $apartment->title }}
+                                </h5>
+                            </div>
+                            <div class="card-body pb-0 text-start">
+                                <p>
+                                    @if ($apartment->rooms)
                                         {{ $apartment->rooms }}
-                                    </span>
-                                </li>
-                                <li>
-                                    <strong>
-                                        BEDS :
-                                    </strong>
-                                    <span>
+                                    @else
+                                        -
+                                    @endif
+                                </p>
+                                <p>
+                                    @if ($apartment->beds)
                                         {{ $apartment->beds }}
-                                    </span>
-                                </li>
-                                <li>
-                                    <strong>
-                                        BATHROOMS :
-                                    </strong>
-                                    <span>
+                                    @else
+                                        -
+                                    @endif
+                                </p>
+                                <p>
+                                    @if ($apartment->bathrooms)
                                         {{ $apartment->bathrooms }}
-                                    </span>
-                                </li>
-                                <li>
-                                    <strong>
-                                        M2 :
-                                    </strong>
-                                    <span>
+                                    @else
+                                        -
+                                    @endif
+                                </p>
+                                <p>
+                                    @if ($apartment->m2)
                                         {{ $apartment->m2 }}
-                                    </span>
-                                </li>
-                                <li>
-                                    <strong>
-                                        AVABLE :
-                                    </strong>
-                                    <span>
+                                    @else
+                                        -
+                                    @endif
+                                </p>
+                                <p>
+                                    @if ($apartment->is_hidden)
                                         {{ $apartment->is_hidden }}
-                                    </span>
-                                </li>
-                                <li>
-                                    <strong>
-                                        ADDRESS :
-                                    </strong>
-                                    <span>
-                                        {{ $apartment->address }}
-                                    </span>
-                                </li>
-                                <li>
-                                    <strong>
-                                        DESCRIPTION :
-                                    </strong>
-                                    <span>
+                                    @else
+                                        -
+                                    @endif
+                                </p>
+                                <p>
+                                    @if ($apartment->description)
                                         {{ $apartment->description }}
-                                    </span>
-                                </li>
-                                <li>
-                                    <strong>
-                                        COVER IMAGE :
-                                    </strong>
-                                    <span>
+                                    @else
+                                        -
+                                    @endif
+                                </p>
+                                <p>
+                                    @if ($apartment->address)
+                                        {{ $apartment->address }}
+                                    @else
+                                        -
+                                    @endif
+                                </p>
+                                <p>
+                                    @if ($apartment->cover_img_path)
                                         {{ $apartment->cover_img_path }}
-                                    </span>
-                                </li>
-                                <li>
-                                    <strong>
-                                        LATITUDE :
-                                    </strong>
-                                    <span>
+                                    @else
+                                        -
+                                    @endif
+                                </p>
+                                <p>
+                                    @if ($apartment->latitude_int)
                                         {{ $apartment->latitude_int }}
-                                    </span>
-                                </li>
-                                <li>
-                                    <strong>
-                                        LONGITUDE :
-                                    </strong>
-                                    <span>
+                                    @else
+                                        -
+                                    @endif
+                                </p>
+                                <p>
+                                    @if ($apartment->longitude_int)
                                         {{ $apartment->longitude_int }}
-                                    </span>
-                                </li>
-                            </ul>
+                                    @else
+                                        -
+                                    @endif
+                                </p>
+                            </div>
+                            <div class="card-footer mt-auto">
+                                <a href="#" class="btn col-4 btn-primary">EDIT</a>
+                            </div>
                         </div>
-                    </div>
+                    </a>
                 </div>
-            </div>
-           
+            @endforeach
         </div>
-    </section>
+    </div>
 @endsection

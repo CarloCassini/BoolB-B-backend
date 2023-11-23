@@ -16,7 +16,7 @@ class ApartmentsController extends Controller
      */
     public function show(Apartment $apartment)
     {
-      return view('apartments.show', compact('apartment'));
+        return view('admin.apartments.show', compact('apartment'));
     }
 
     /**
