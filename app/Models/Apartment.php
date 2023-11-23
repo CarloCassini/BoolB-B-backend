@@ -33,9 +33,9 @@ class Apartment extends Model
 
     // !! relazioni molti a molti
     // ** per i servizi
-    // public function services() {
-    //     return $this->belongsToMany(Service::class);
-    //   }
+     public function services() {
+         return $this->belongsToMany(Service::class);
+       }
 
     // **per gli sponsor
     // public function sponsors() {
