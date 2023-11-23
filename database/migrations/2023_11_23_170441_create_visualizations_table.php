@@ -4,7 +4,8 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration {
+return new class extends Migration
+{
     /**
      * Run the migrations.
      *
@@ -12,7 +13,7 @@ return new class extends Migration {
      */
     public function up()
     {
-        Schema::create('views', function (Blueprint $table) {
+        Schema::create('visualizations', function (Blueprint $table) {
             $table->id();
 
             //* apartment_id
@@ -22,8 +23,8 @@ return new class extends Migration {
 
             $table->datetime('date');
             $table->string('ip', 15);
-            $table->timestamps();
 
+            $table->timestamps();
         });
     }
 
@@ -34,6 +35,6 @@ return new class extends Migration {
      */
     public function down()
     {
-        Schema::dropIfExists('views');
+        Schema::dropIfExists('visualizations');
     }
 };
