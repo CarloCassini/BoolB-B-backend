@@ -6,8 +6,10 @@ use App\Http\Controllers\Controller;
 
 use App\Http\Requests\StoreApartmentRequest;
 use App\Http\Requests\UpdateApartmentRequest;
+use App\Models\Visualization;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
+use Carbon\Carbon;
 
 // importo i modelli
 use app\Models\User;
@@ -75,12 +77,16 @@ class ApartmentsController extends Controller
      * @param  \App\Models\Apartment  $apartment
     //  * @return \Illuminate\Http\Response
      */
-    public function show(Apartment $apartment)
+    public function show(Apartment $apartment, Request $request, Visualization $visualization )
     {
+        $visualization = new Visualization;
+        $visualization->apartment_id = $apartment->id;
+        $visualization->ip = $request->ip();
+        $visualization->date = Carbon::now();
+        
+        // $visualization->fill();
+        $visualization->save();
 
-        // ricevere ip e altro per show tra i parametri.
-// salvataggio in tabella view
-// view->save()
 
         return view('admin.apartments.show', compact('apartment'));
     }
