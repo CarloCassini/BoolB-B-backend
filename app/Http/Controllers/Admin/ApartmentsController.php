@@ -1,8 +1,10 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
-use App\Models\Apartments;
+use App\Http\Controllers\Controller;
+
+use App\Models\Apartment;
 use Illuminate\Http\Request;
 
 class ApartmentsController extends Controller
@@ -10,11 +12,12 @@ class ApartmentsController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * *@return \Illuminate\Http\Response
      */
     public function index()
     {
-        //
+        $apartments = Apartment::all();
+        return view('admin.apartments.index', compact('apartments'));
     }
 
     /**
