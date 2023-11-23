@@ -20,6 +20,7 @@ class DatabaseSeeder extends Seeder
             MessageSeeder::class,
             PhotoSeeder::class,
             ServicesSeeder::class,
+            SponsorSeeder::class,
 
         ]);
         // \App\Models\User::factory(10)->create();
