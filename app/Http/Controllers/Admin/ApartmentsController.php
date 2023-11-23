@@ -38,7 +38,20 @@ class ApartmentsController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data = $request->validated();
+        $apartment = new Apartment;
+        $apartment->fill($data);
+
+        //todo -> forso l'inserimento dei campi per vedere il salvataggio
+        $apartment->user_id = 1;
+        $apartment->is_hidden = 0;
+        $apartment->latitude_int = 200;
+        $apartment->longitude_int = 200;
+
+        $apartment->save();
+
+        return view('admin.apartments.show', $apartment);
+
     }
 
     /**
