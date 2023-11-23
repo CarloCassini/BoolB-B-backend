@@ -48,7 +48,6 @@ class ApartmentsController extends Controller
 
         //todo -> forso l'inserimento dei campi per vedere il salvataggio
         $apartment->user_id = 1;
-        $apartment->is_hidden = 0;
         $apartment->latitude_int = 200;
         $apartment->longitude_int = 200;
 
