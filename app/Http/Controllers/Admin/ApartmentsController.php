@@ -35,11 +35,24 @@ class ApartmentsController extends Controller
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * *@return \Illuminate\Http\Response
      */
     public function store(Request $request)
     {
-        //
+        $data = $request->all();
+        $apartment = new Apartment;
+        $apartment->fill($data);
+
+        //todo -> forso l'inserimento dei campi per vedere il salvataggio
+        $apartment->user_id = 1;
+        $apartment->is_hidden = 0;
+        $apartment->latitude_int = 200;
+        $apartment->longitude_int = 200;
+
+        $apartment->save();
+
+        return view('admin.apartments.show', $apartment);
+
     }
 
     /**
