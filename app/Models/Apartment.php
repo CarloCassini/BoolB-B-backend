@@ -7,37 +7,54 @@ use Illuminate\Database\Eloquent\Model;
 
 class Apartment extends Model
 {
-    use HasFactory;
+  use HasFactory;
+  protected $fillable = [
+    "title",
+    "rooms",
+    "beds",
+    "bathrooms",
+    "m2",
+    "address",
+    "description",
+    // 'cover_image_path',
+    // 'latitude_int',
+    // 'longitude_int',
+    // 'user_id',
+  ];
 
-    public function user()
-    {
-        return $this->belongsTo(User::class);
-    }
+  public function user()
+  {
+    return $this->belongsTo(User::class);
+  }
 
-    // todo : togliere i commenti quando avremo le tabelle
-    // ** per i messaggi
-    public function messages()
-    {
-        return $this->hasMany(Message::class);
-    }
+  // todo : togliere i commenti quando avremo le tabelle
+  // ** per i messaggi
+  public function messages()
+  {
+    return $this->hasMany(Message::class);
+  }
 
-    // ** per le foto
-    public function photos() {
-        return $this->hasMany(Photo::class);
-      }
+  // ** per le foto
+  public function photos()
+  {
+    return $this->hasMany(Photo::class);
+  }
 
-    public function views() {
-        return $this->hasMany(View::class);
-      }
+  public function views()
+  {
+    return $this->hasMany(View::class);
+  }
 
-    // !! relazioni molti a molti
-    // ** per i servizi
-     public function services() {
-         return $this->belongsToMany(Service::class);
-       }
+  // !! relazioni molti a molti
+  // ** per i servizi
+  public function services()
+  {
+    return $this->belongsToMany(Service::class);
+  }
 
-    // **per gli sponsor
-     public function sponsors() {
-         return $this->belongsToMany(Sponsor::class);
-       }
+  // **per gli sponsor
+  public function sponsors()
+  {
+    return $this->belongsToMany(Sponsor::class);
+  }
 }
