@@ -15,10 +15,9 @@ class ApartmentsController extends Controller
      *
      * *@return \Illuminate\Http\Response
      */
-    public function index()
+    public function show(Apartment $apartment)
     {
-        $apartments = Apartment::orderBy('id', 'desc')->paginate(12);
-        return view('admin.apartments.index', compact('apartments'));
+        return view('admin.apartments.show', compact('apartment'));
     }
 
     /**
@@ -56,16 +55,7 @@ class ApartmentsController extends Controller
 
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Apartment  $apartment
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Apartment $apartment)
-    {
-        //
-    }
+   
 
     /**
      * Show the form for editing the specified resource.
