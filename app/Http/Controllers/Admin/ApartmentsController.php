@@ -7,6 +7,9 @@ use App\Http\Controllers\Controller;
 use App\Models\Apartment;
 use Illuminate\Http\Request;
 
+use Illuminate\Support\Facades\Storage;
+
+
 class ApartmentsController extends Controller
 {
     /**
@@ -81,8 +84,14 @@ class ApartmentsController extends Controller
      * @param  \App\Models\Apartment  $apartment
     //  * @return \Illuminate\Http\Response
      */
-    public function destroy(Apartment $apartment)
+    public function destroy(Request $request, Apartment $apartment)
     {
-        //
+        $apartment->services()->detach();
+        if($request->hasFile('cover_image')){
+            Storage::delete($apartment->cover_image_path);
+        }
+        $apartment->delete();
+        
+        return redirect()->route('admin.apartments.index');
     }
 }
