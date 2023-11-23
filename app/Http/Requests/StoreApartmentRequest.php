@@ -50,7 +50,7 @@ class StoreApartmentRequest extends FormRequest
 
             'rooms.required' => 'rooms è obbligatorio',
             'rooms.between' => 'rooms deve essere minimo = 1 e massimo = 255',
-            // 'rooms.max' => 'rooms deve essere al massimo = 255',
+            // 'rooms.max' => 'rooms deve essere al massimo = 255', 
 
             'beds.required' => 'beds è obbligatorio',
             'beds.min' => 'beds deve essere minimo = 0',
