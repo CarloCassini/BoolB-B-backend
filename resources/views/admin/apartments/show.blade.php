@@ -4,13 +4,7 @@
     <div class="container mt-5">
         <div class="row g-3">
             <div class="col-12 col-lg-4">
-
-                @if ($apartment->cover_img_path)
-                    <img src="{{ asset('/storage/' . $apartment->cover_img_path) }}" alt=""
-                        class="image-fluid w-100 rounded">
-                @else
-                    <img src="https://placehold.co/400" alt="" class="image-fluid w-100 rounded">
-                @endif
+             <img src="@if($apartment->cover_image_path){{$apartment->cover_image_path}}@else{{'https://via.placeholder.com/2000x1500.png/333333?tex'}}@endif" class="img-fluid" alt="cover">
             </div>
             <div class="col-12 col-lg-8 text-center text-lg-start d-flex flex-column justify-content-between">
                 <h1>{{ $apartment->title }}</h1>
