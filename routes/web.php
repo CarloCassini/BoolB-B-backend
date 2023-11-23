@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\SponsorsController;
 use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\Admin\PageController as AdminPageController;
@@ -29,6 +30,9 @@ Route::middleware(['auth', 'verified'])
 
     // gestione rotte appartamenti utente registrato
     Route::resource('apartments', ApartmentsController::class);
+
+    // utenti sponsorizzati
+    Route::resource('/sponsors', SponsorsController::class); 
 
   });
 
