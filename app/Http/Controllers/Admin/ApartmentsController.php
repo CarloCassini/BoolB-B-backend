@@ -6,8 +6,12 @@ use App\Http\Controllers\Controller;
 
 use App\Http\Requests\StoreApartmentRequest;
 use App\Http\Requests\UpdateApartmentRequest;
-use App\Models\Apartment;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
+
+// importo i modelli
+use app\Models\User;
+use App\Models\Apartment;
 
 use Illuminate\Support\Facades\Storage;
 
@@ -21,6 +25,9 @@ class ApartmentsController extends Controller
      */
     public function index()
     {
+        // prendo id user dallo user loggato
+        $user = Auth::user();
+
         $apartments = Apartment::orderBy('id', 'desc')->paginate(12);
         return view('admin.apartments.index', compact('apartments'));
     }
@@ -39,16 +46,20 @@ class ApartmentsController extends Controller
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-    //  * @return \Illuminate\Http\Response
+     //  * @return \Illuminate\Http\Response
      */
     public function store(StoreApartmentRequest $request)
     {
+        // prendo id user dallo user loggato
+        $user = Auth::user();
+
         $data = $request->validated();
         $apartment = new Apartment;
         $apartment->fill($data);
+        // user_id viene valorizzato in base a chi è collegato
+        $apartment->user_id = $user->id;
 
         //todo -> forso l'inserimento dei campi per vedere il salvataggio
-        $apartment->user_id = 1;
         $apartment->latitude_int = 200;
         $apartment->longitude_int = 200;
 
