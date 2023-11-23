@@ -28,7 +28,7 @@ class ApartmentsController extends Controller
         // prendo id user dallo user loggato
         $user = Auth::user();
 
-        $apartments = Apartment::orderBy('id', 'desc')->paginate(12);
+        $apartments = Apartment::orderBy('id', 'desc')->where('user_id', '=', $user->id)->paginate(12);
         return view('admin.apartments.index', compact('apartments'));
     }
 
