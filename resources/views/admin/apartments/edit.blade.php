@@ -25,7 +25,7 @@
         @endif
 
         {{-- corpo --}}
-        <form action="{{ route('admin.apartments.update') }}" method="POST">
+        <form action="{{ route('admin.apartments.update', $apartment) }}" method="POST">
             @csrf
             @method('PUT')
 
