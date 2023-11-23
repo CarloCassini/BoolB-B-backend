@@ -14,10 +14,9 @@ class ApartmentsController extends Controller
      *
      * *@return \Illuminate\Http\Response
      */
-    public function index()
+    public function show(Apartment $apartment)
     {
-        $apartments = Apartment::all();
-        return view('admin.apartments.index', compact('apartments'));
+      return view('apartments.show', compact('apartment'));
     }
 
     /**
