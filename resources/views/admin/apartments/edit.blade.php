@@ -25,8 +25,9 @@
         @endif
 
         {{-- corpo --}}
-        <form action="{{ route('admin.apartments.store') }}" method="POST">
+        <form action="{{ route('admin.apartments.update') }}" method="POST">
             @csrf
+            @method('PUT')
 
             {{-- title --}}
             <div>
