@@ -26,10 +26,9 @@ class Apartment extends Model
         return $this->hasMany(Photo::class);
       }
 
-    // ** per le views
-    // public function views() {
-    //     return $this->hasMany(View::class);
-    //   }
+    public function views() {
+        return $this->hasMany(View::class);
+      }
 
     // !! relazioni molti a molti
     // ** per i servizi
