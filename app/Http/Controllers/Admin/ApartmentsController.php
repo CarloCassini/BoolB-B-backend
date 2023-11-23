@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 
 use App\Http\Requests\StoreApartmentRequest;
+use App\Http\Requests\UpdateApartmentRequest;
 use App\Models\Apartment;
 use Illuminate\Http\Request;
 
@@ -91,9 +92,9 @@ class ApartmentsController extends Controller
      * @param  \App\Models\Apartment  $apartment
     //  * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Apartment $apartment)
+    public function update(UpdateApartmentRequest $request, Apartment $apartment)
     {
-        $data = $request->all();
+        $data = $request->validated();
         $apartment->update($data);
         return redirect()->route('admin.apartments.show', $apartment);
     }
