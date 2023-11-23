@@ -93,7 +93,9 @@ class ApartmentsController extends Controller
      */
     public function update(Request $request, Apartment $apartment)
     {
-        //
+        $data = $request->all();
+        $apartment->update($data);
+        return redirect()->route('admin.apartments.show', $apartment);
     }
 
     /**
