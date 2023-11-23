@@ -54,7 +54,7 @@ class ApartmentsController extends Controller
 
         $apartment->save();
 
-        return view('admin.apartments.show', $apartment);
+        return view('admin.apartments.show', compact('apartment'));
 
     }
 
@@ -101,11 +101,11 @@ class ApartmentsController extends Controller
     public function destroy(Request $request, Apartment $apartment)
     {
         $apartment->services()->detach();
-        if($request->hasFile('cover_image')){
+        if ($request->hasFile('cover_image')) {
             Storage::delete($apartment->cover_image_path);
         }
         $apartment->delete();
-        
+
         return redirect()->route('admin.apartments.index');
     }
 }
