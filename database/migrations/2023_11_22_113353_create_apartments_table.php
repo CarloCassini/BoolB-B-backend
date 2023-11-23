@@ -21,6 +21,7 @@ return new class extends Migration {
             $table->unsignedInteger('m2');
             $table->boolean('is_hidden');
             $table->text('address');
+            $table->text('description')->nullable();
             $table->text('cover_image_path')->nullable();
             $table->integer('latitude_int');
             $table->integer('longitude_int');
