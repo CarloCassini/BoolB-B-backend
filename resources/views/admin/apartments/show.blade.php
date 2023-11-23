@@ -5,8 +5,8 @@
         <div class="row g-3">
             <div class="col-12 col-lg-4">
 
-                @if ($apartment->cover_img)
-                    <img src="{{ asset('/storage/' . $apartment->cover_img) }}" alt=""
+                @if ($apartment->cover_img_path)
+                    <img src="{{ asset('/storage/' . $apartment->cover_img_path) }}" alt=""
                         class="image-fluid w-100 rounded">
                 @else
                     <img src="https://placehold.co/400" alt="" class="image-fluid w-100 rounded">
