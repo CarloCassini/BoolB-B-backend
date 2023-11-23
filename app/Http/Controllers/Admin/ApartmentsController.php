@@ -65,6 +65,11 @@ class ApartmentsController extends Controller
      */
     public function show(Apartment $apartment)
     {
+
+        // ricevere ip e altro per show tra i parametri.
+// salvataggio in tabella view
+// view->save()
+
         return view('admin.apartments.show', compact('apartment'));
     }
 
