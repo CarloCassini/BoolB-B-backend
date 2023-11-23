@@ -26,10 +26,10 @@ class StoreApartmentRequest extends FormRequest
         return [
             'title' => ['required', 'string', 'unique:apartments,title', 'max:50'],
             'description' => ['nullable', 'string'],
-            'rooms' => ['required', 'min:1', 'max:255'],
-            'beds' => ['required', 'min:0', 'max:255'],
-            'bathrooms' => ['required', 'min:0', 'max:255'],
-            'm2' => ['required', 'min:1'],
+            'rooms' => ['required', 'integer', 'min:0', 'max:255'],
+            'beds' => ['required', 'integer', 'min:0', 'max:255'],
+            'bathrooms' => ['required', 'integer', 'min:0', 'max:255'],
+            'm2' => ['required', 'integer', 'min:1'],
             'address' => ['required', 'string'],
             // 'cover_image_path',
             // 'latitude_int',
@@ -43,14 +43,14 @@ class StoreApartmentRequest extends FormRequest
         return [
             'title.required' => 'title è obbligatiorio',
             'title.string' => 'title deve essere un testo',
-            'title.unique' => 'title esiste già nel nostor Database',
+            'title.unique' => 'title esiste già nel nostro Database',
             'title.max' => 'title deve essere max di 50 caratteri',
 
             'description.string' => 'description deve essere un campo testuale',
 
             'rooms.required' => 'rooms è obbligatorio',
-            'rooms.min' => 'rooms deve essere minimo = 1',
-            'rooms.max' => 'rooms deve essere al massimo = 255',
+            'rooms.between' => 'rooms deve essere minimo = 1 e massimo = 255',
+            // 'rooms.max' => 'rooms deve essere al massimo = 255',
 
             'beds.required' => 'beds è obbligatorio',
             'beds.min' => 'beds deve essere minimo = 0',

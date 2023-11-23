@@ -12,6 +12,18 @@
             </a>
         </div>
 
+        {{-- gestione degli errori --}}
+        @if ($errors->any())
+            <div class="alert alert-warning">
+                <h5>correggi i seguenti errori</h5>
+                <ul>
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
+
         {{-- corpo --}}
         <form action="{{ route('admin.apartments.store') }}" method="POST">
             @csrf
