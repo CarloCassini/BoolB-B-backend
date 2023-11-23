@@ -9,15 +9,17 @@
         <div class="col">
             <div class="card">
                 <div class="card-header">{{ __('User Dashboard') }}</div>
-
                 <div class="card-body">
                     @if (session('status'))
-                    <div class="alert alert-success" role="alert">
-                        {{ session('status') }}
-                    </div>
+                        <div class="alert alert-success" role="alert">
+                            {{ session('status') }}
+                        </div>
                     @endif
 
                     {{ __('You are logged in!') }}
+                    <div class="my-3">
+                        <a class="btn btn-primary" href="{{ route('admin.apartments.index') }}">My Apartments</a>
+                    </div>
                 </div>
             </div>
         </div>

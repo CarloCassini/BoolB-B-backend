@@ -30,8 +30,9 @@ class ApartmentsSeeder extends Seeder
             $apartment->beds = $faker->numberBetween(1, 255);
             $apartment->bathrooms = $faker->numberBetween(1, 255);
             $apartment->m2 = $faker->numberBetween(20, 5000);
-            $apartment->is_hidden = $faker->numberBetween(0, 1);
+            $apartment->is_hidden = $faker->boolean();
             $apartment->address = $faker->address();
+            $apartment->description = $faker->paragraph(5);
 
             // inserisco una immagine si e una no a tutti gli appartamenti.
             // da rivedere quando ci sarà la tabella foto
