@@ -188,7 +188,7 @@
                         <br>
                         from the database?
                     </p>
-                    <p class="text-danger">THIS ACTION IS IRREVERIBLE</p>
+                    <p class="text-danger">THIS ACTION IS IRREVERSIBLE</p>
 
                     <hr>
 
@@ -203,6 +203,5 @@
                 </div>
             </div>
         </div>
-    </div>
     </div>
 @endsection
