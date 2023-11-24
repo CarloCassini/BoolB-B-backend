@@ -123,10 +123,15 @@ class ApartmentsController extends Controller
         $data = $request->validated();
         $apartment->update($data);
 
-        if (Arr::exists($data, "tags"))
+        if (Arr::exists($data, "services")) {
+
+            dd('ciccio');
             $apartment->services()->sync($data["services"]);
-        else
+        } else {
+
+            dd('lollo');
             $apartment->services()->detach();
+        }
 
         return redirect()->route('admin.apartments.show', $apartment);
     }
