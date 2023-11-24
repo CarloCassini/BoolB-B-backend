@@ -8,14 +8,16 @@
                 <div class="card-header">{{ __('Register') }}</div>
 
                 <div class="card-body">
-                    <form method="POST" action="{{ route('register') }}">
+
+                    {{-- form --}}
+                    <form method="POST" action="{{ route('register') }}" class="needs-validation" novalidate>
                         @csrf
                         {{--* name --}}
                         <div class="mb-4 row">
                             <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('Name') }}</label>
 
                             <div class="col-md-6">
-                                <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" required autocomplete="given-name" autofocus>
+                                <input id="name" type="text" class="form-control no-validation @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}"  autocomplete="family-name" autofocus>
 
                                 @error('name')
                                 <span class="invalid-feedback" role="alert">
@@ -29,7 +31,7 @@
                             <label for="surname" class="col-md-4 col-form-label text-md-right">{{ __('Surname') }}</label>
 
                             <div class="col-md-6">
-                                <input id="surname" type="text" class="form-control @error('surname') is-invalid @enderror" name="surname" value="{{ old('surname') }}" required autocomplete="family-name" autofocus>
+                                <input id="surname" type="text" class="form-control no-validation  @error('surname') is-invalid @enderror" name="surname" value="{{ old('surname') }}"  autocomplete="given-name" autofocus>
 
                                 @error('surname')
                                 <span class="invalid-feedback" role="alert">
@@ -43,8 +45,10 @@
                             <label for="date_of_birth" class="col-md-4 col-form-label text-md-right">{{ __('Date of birth') }}</label>
 
                             <div class="col-md-6">
-                                <input id="date_of_birth" type="date" class="form-control @error('date_of_birth') is-invalid @enderror" name="date_of_birth" value="{{ old('date_of_birth') }}" required autocomplete="family-name" autofocus>
-
+                                <input id="date_of_birth" type="date" class="form-control no-validation @error('date_of_birth') is-invalid @enderror" name="date_of_birth" value="{{ old('date_of_birth') }}"  autocomplete="family-name" autofocus>
+                                <div class="invalid-feedback">
+                                    Please insert a valid date.
+                                </div>
                                 @error('date_of_birth')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
@@ -58,7 +62,9 @@
 
                             <div class="col-md-6">
                                 <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email">
-
+                                <div class="invalid-feedback">
+                                    Please insert a valid e-mail.
+                                </div>
                                 @error('email')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
@@ -72,7 +78,9 @@
 
                             <div class="col-md-6">
                                 <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="new-password">
-
+                                <div class="invalid-feedback">
+                                    Please choose a Password.
+                                </div>
                                 @error('password')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
@@ -83,9 +91,11 @@
                         {{--* password confirm--}}
                         <div class="mb-4 row">
                             <label for="password-confirm" class="col-md-4 col-form-label text-md-right">{{ __('Confirm Password') }}</label>
-
                             <div class="col-md-6">
                                 <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required autocomplete="new-password">
+                                <div class="invalid-feedback">
+                                    Passwords do not match.
+                                </div> 
                             </div>
                         </div>
 
@@ -102,4 +112,42 @@
         </div>
     </div>
 </div>
+<script>
+(() => {
+  'use strict';
+
+  // Fetch all the forms we want to apply custom Bootstrap validation styles to
+  const forms = document.querySelectorAll('.needs-validation');
+
+  // Loop over them and prevent submission
+  Array.from(forms).forEach(form => {
+    form.addEventListener('submit', event => {
+      // Exclude validation for fields with the class 'no-validation'
+      const fieldsToValidate = form.querySelectorAll('.form-control:not(.no-validation)');
+
+      // Additional check: Verify that password1 matches password2
+      const password1 = form.querySelector('#password'); // Replace with the actual ID of your first password field
+      const password2 = form.querySelector('#password-confirm'); // Replace with the actual ID of your second password field
+
+      if (password1.value !== password2.value) {
+        // Passwords do not match, prevent form submission
+        password2.setCustomValidity("Passwords must match");
+        event.preventDefault();
+        event.stopPropagation();
+      } else {
+        password2.setCustomValidity(""); // Reset custom validity
+      }
+
+      Array.from(fieldsToValidate).forEach(field => {
+        if (!field.checkValidity()) {
+          event.preventDefault();
+          event.stopPropagation();
+        }
+      });
+
+      form.classList.add('was-validated');
+    }, false);
+  });
+})();
+</script>
 @endsection
