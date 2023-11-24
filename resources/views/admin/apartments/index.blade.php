@@ -79,7 +79,9 @@
         @else
             <h1> No Apartments Found :( </h1>
         @endif
+    @endsection
 
+    @section('modals')
         {{-- * modals --}}
 
         @foreach ($apartments as $apartment)

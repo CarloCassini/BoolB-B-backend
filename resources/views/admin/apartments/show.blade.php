@@ -169,59 +169,61 @@
             </div>
         </div> --}}
 
-        <div class="">
-            <h4>Services</h4>
-            <ul class="list-unstyled m-0 row row-cols-1 row-cols-md-2 g-3">
-                @foreach ($apartment->services as $service)
-                    <li>
-                        <i class="{{ $service->symbol }}"></i>
-                        {{ $service->label }}
-                    </li>
-                @endforeach
-            </ul>
+            <div class="">
+                <h4>Services</h4>
+                <ul class="list-unstyled m-0 row row-cols-1 row-cols-md-2 g-3">
+                    @foreach ($apartment->services as $service)
+                        <li>
+                            <i class="{{ $service->symbol }}"></i>
+                            {{ $service->label }}
+                        </li>
+                    @endforeach
+                </ul>
+            </div>
+
         </div>
+    @endsection
 
-    </div>
+    @section('modals')
+        {{-- * modals --}}
+        <div class="modal fade" tabindex="-1" id="modal-{{ $apartment->id }}">
+            <div class="modal-dialog ">
+                <div class="modal-content">
+                    <div class="modal-header red-strip">
+                        <h5 class="modal-title">DELETE FROM DATABASE</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body ">
+                        <strong class="text-danger text-align-center">W A R N I N G</strong> <br>
+                        <hr>
 
-    {{-- * modals --}}
-    <div class="modal fade" tabindex="-1" id="modal-{{ $apartment->id }}">
-        <div class="modal-dialog ">
-            <div class="modal-content">
-                <div class="modal-header red-strip">
-                    <h5 class="modal-title">DELETE FROM DATABASE</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body ">
-                    <strong class="text-danger text-align-center">W A R N I N G</strong> <br>
-                    <hr>
+                        <p> Are you shure you want to delete permanently:
+                            <br>
+                            <strong>
+                                ' {{ $apartment->title }} '
+                            </strong>
+                            <br>
+                            <strong>
+                                ID :
+                            </strong>
+                            {{ $apartment->id }}
+                            <br>
+                            from the database?
+                        </p>
+                        <p class="text-danger">THIS ACTION IS IRREVERSIBLE</p>
 
-                    <p> Are you shure you want to delete permanently:
-                        <br>
-                        <strong>
-                            ' {{ $apartment->title }} '
-                        </strong>
-                        <br>
-                        <strong>
-                            ID :
-                        </strong>
-                        {{ $apartment->id }}
-                        <br>
-                        from the database?
-                    </p>
-                    <p class="text-danger">THIS ACTION IS IRREVERSIBLE</p>
+                        <hr>
 
-                    <hr>
-
-                    <form action="{{ route('admin.apartments.destroy', $apartment) }}" method="post">
-                        @csrf
-                        @method('DELETE')
-                        <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Close</button>
-                        <button type="send" class="btn btn-outline-danger"><strong>DELETE</strong></button>
-                    </form>
-                </div>
-                <div class="modal-footer red-strip"">
+                        <form action="{{ route('admin.apartments.destroy', $apartment) }}" method="post">
+                            @csrf
+                            @method('DELETE')
+                            <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Close</button>
+                            <button type="send" class="btn btn-outline-danger"><strong>DELETE</strong></button>
+                        </form>
+                    </div>
+                    <div class="modal-footer red-strip"">
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-@endsection
+    @endsection
