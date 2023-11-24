@@ -48,7 +48,10 @@ class ApartmentsController extends Controller
      */
     public function create()
     {
-        return view('admin.apartments.create');
+        // prendo i services in ordine alfabetico 
+
+        $services = Service::orderBy('label')->get();
+        return view('admin.apartments.create', compact('services'));
     }
 
     /**
@@ -72,7 +75,11 @@ class ApartmentsController extends Controller
         $apartment->latitude_int = 200;
         $apartment->longitude_int = 200;
 
+        // dd($data);
+
         $apartment->save();
+
+        if(Arr::exists($data, "services")) $apartment->services()->attach($data["services"]);
 
         return view('admin.apartments.show', compact('apartment'));
 
