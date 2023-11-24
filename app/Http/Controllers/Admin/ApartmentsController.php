@@ -95,6 +95,7 @@ class ApartmentsController extends Controller
      */
     public function show(Apartment $apartment, Request $request, Visualization $visualization)
     {
+        // dd($apartment);
         $visualization = new Visualization;
         $visualization->apartment_id = $apartment->id;
         $visualization->ip = $request->ip();
@@ -105,8 +106,8 @@ class ApartmentsController extends Controller
         // $visualization->fill();
         $visualization->save();
 
-    
-        return view('admin.apartments.show', compact('apartment' , 'services'));
+
+        return view('admin.apartments.show', compact('apartment', 'services'));
     }
 
     /**

@@ -7,6 +7,7 @@ use App\Http\Controllers\Admin\PageController as AdminPageController;
 use App\Http\Controllers\Guest\PageController as GuestPageController;
 use App\Http\Controllers\Admin\ApartmentsController;
 
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -20,6 +21,8 @@ use App\Http\Controllers\Admin\ApartmentsController;
 
 Route::get('/', [GuestPageController::class, 'index'])->name('guest.home');
 
+Route::get('/guest/show/{apartment}', [GuestPageController::class, 'show'])->name('guest.apartments.show');
+
 
 Route::middleware(['auth', 'verified'])
   ->prefix('admin')
@@ -32,7 +35,7 @@ Route::middleware(['auth', 'verified'])
     Route::resource('apartments', ApartmentsController::class);
 
     // utenti sponsorizzati
-    Route::resource('/sponsors', SponsorsController::class); 
+    Route::resource('/sponsors', SponsorsController::class);
 
   });
 

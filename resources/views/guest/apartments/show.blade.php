@@ -5,21 +5,9 @@
         {{-- per tornare alla index --}}
 
         <div class=" my-5 d-flex">
-            <a href="{{ route('admin.apartments.index') }}" class="btn btn-outline-secondary">
+            <a href="{{ route('guest.home') }}" class="btn btn-outline-secondary">
                 <i class="fa-solid fa-arrow-left me-1"></i>
-                Torna alla lista
-            </a>
-
-            {{-- per modificare l'appartamento --}}
-            <a href="{{ route('admin.apartments.edit', $apartment) }}" class="btn btn-outline-warning ms-auto me-2 ">
-                <i class="fa-solid fa-pencil "></i>
-                modifica appartamento
-            </a>
-            {{-- per cancellare l'appartamento --}}
-            <a href="#"data-bs-toggle="modal" data-bs-target="#modal-{{ $apartment->id }}"
-                class="btn btn-outline-danger ">
-                <i class="fa-solid fa-trash text-danger"></i>
-                elimina appartamento
+                Torna alla homepage
             </a>
         </div>
 
@@ -146,27 +134,6 @@
                     <button type="submit" class="btn btn-secondary mb-2">Invia messaggio</button>
                 </form>
             </div>
-            {{-- <div class="col-12">
-                <hr>
-                <div class="row row-cols-1 row-cols-md-2">
-                   
-                    <div class="d-flex  flex-wrap">
-                        @foreach ($services as $service)
-                            <div class="col-4 mt-1">
-    
-                                <input type="checkbox" id="service-{{ $service->id }}" value="{{ $service->id }}"
-                                    name="services[]" class="form-check-control me-2"
-                                    @if (in_array($service->id, old('services', $apartment_service ?? []))) checked @endif>
-                                <label for="service-{{ $service->id }}">
-                                    <i class="{{ $service->symbol }}"></i> - {{ $service->label }}
-                                </label>
-                            </div>
-                        @endforeach
-                    </div>
-                </div>
-                </div>
-            </div>
-        </div> --}}
 
             <div class="">
                 <h4>Services</h4>
@@ -180,49 +147,5 @@
                 </ul>
             </div>
 
-        </div>
-    @endsection
-
-    @section('modals')
-        {{-- * modals --}}
-        <div class="modal fade" tabindex="-1" id="modal-{{ $apartment->id }}">
-            <div class="modal-dialog ">
-                <div class="modal-content">
-                    <div class="modal-header red-strip">
-                        <h5 class="modal-title">DELETE FROM DATABASE</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body ">
-                        <strong class="text-danger text-align-center">W A R N I N G</strong> <br>
-                        <hr>
-
-                        <p> Are you shure you want to delete permanently:
-                            <br>
-                            <strong>
-                                ' {{ $apartment->title }} '
-                            </strong>
-                            <br>
-                            <strong>
-                                ID :
-                            </strong>
-                            {{ $apartment->id }}
-                            <br>
-                            from the database?
-                        </p>
-                        <p class="text-danger">THIS ACTION IS IRREVERSIBLE</p>
-
-                        <hr>
-
-                        <form action="{{ route('admin.apartments.destroy', $apartment) }}" method="post">
-                            @csrf
-                            @method('DELETE')
-                            <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Close</button>
-                            <button type="send" class="btn btn-outline-danger"><strong>DELETE</strong></button>
-                        </form>
-                    </div>
-                    <div class="modal-footer red-strip"">
-                    </div>
-                </div>
-            </div>
         </div>
     @endsection
