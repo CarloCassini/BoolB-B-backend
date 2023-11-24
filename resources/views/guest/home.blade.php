@@ -1,13 +1,13 @@
 @extends('layouts.app')
 
-@section('content')
-    <section class="container mt-5 debug">
+@section('navigation-buttons')
+    <section class="container mt-5 debug text-center">
         ciccio
         <i class="fa-solid fa-poo fa-bounce fa-2xl"></i>
-        <h1 class="text-center">pagina home</h1>
     </section>
 
-    <div class="container mt-5">
+    <div class="container">
+        <h1 class="my-3 text-center">homepage guest generico</h1>
         {{-- go to my appartments list --}}
         @if (Auth::user())
             <div>
@@ -15,6 +15,13 @@
                     My Apartments</a>
             </div>
         @endif
+    </div>
+@endsection
+
+@section('content')
+
+
+    <div class="container mt-5">
 
         {{-- se esiste almeno un oggetto in apartment --}}
         @if ($apartments[0])

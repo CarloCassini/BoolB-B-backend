@@ -1,15 +1,21 @@
 @extends('layouts.app')
 
-@section('content')
-    <div class="container mt-5">
+@section('navigation-buttons')
+    <div class="container">
+        <h1 class="my-3 text-center">dettaglio apartment x guest generico</h1>
         {{-- per tornare alla index --}}
-
         <div class=" my-5 d-flex">
             <a href="{{ route('guest.home') }}" class="btn btn-outline-secondary">
                 <i class="fa-solid fa-arrow-left me-1"></i>
                 Torna alla homepage
             </a>
         </div>
+    </div>
+@endsection
+
+@section('content')
+    <div class="container mt-5">
+
 
         <div class="row g-3">
             <div class="col-12 col-lg-4">

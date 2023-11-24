@@ -1,11 +1,18 @@
 @extends('layouts.app')
 
-@section('content')
-    <div class="container mt-5">
+@section('navigation-buttons')
+    <div class="container">
+        <h1 class="my-3 text-center">my apartments</h1>
         {{-- go to my appartments list --}}
-        <div>
+        <div class="my-5">
             <a href="{{ route('admin.apartments.create') }}" class="btn btn-outline-success me-3 py-0">Add new Apartment</a>
         </div>
+    </div>
+@endsection
+
+@section('content')
+    <div class="container mt-5">
+
         {{-- se esiste almeno un oggetto in apartment --}}
         @if ($apartments[0])
             <table class="table table-striped table-hover">

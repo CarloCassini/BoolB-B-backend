@@ -49,6 +49,7 @@
         @endif
 
         <main class="">
+            @yield('navigation-buttons')
             @yield('content')
         </main>
     </div>

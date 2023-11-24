@@ -1,10 +1,9 @@
 @extends('layouts.app')
 
-@section('content')
+@section('navigation-buttons')
     <div class="container">
-        {{-- per tornare alla index --}}
-
         <h1 class="my-3 text-center">modifica apartment</h1>
+        {{-- per tornare alla index --}}
         <div class=" my-5 d-flex">
             <a href="{{ route('admin.apartments.index') }}" class="btn btn-outline-secondary">
                 <i class="fa-solid fa-arrow-left me-1"></i>
@@ -18,7 +17,11 @@
                 elimina appartamento
             </a>
         </div>
+    </div>
+@endsection
 
+@section('content')
+    <div class="container">
 
         {{-- gestione degli errori --}}
         @if ($errors->any())

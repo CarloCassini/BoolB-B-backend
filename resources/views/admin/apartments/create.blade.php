@@ -1,17 +1,21 @@
 @extends('layouts.app')
 
-@section('content')
+@section('navigation-buttons')
     <div class="container">
-
+        <h1 class="my-3 text-center">crea apartment</h1>
         {{-- per tornare alla index --}}
-
         <h1 class="my-3 text-center">Crea apartment</h1>
-        <div class="debug my-5">
+        <div class=" my-5">
             <a href="{{ route('admin.apartments.index') }}" class="btn btn-outline-secondary">
                 <i class="fa-solid fa-arrow-left me-1"></i>
                 Torna alla lista
             </a>
         </div>
+    </div>
+@endsection
+
+@section('content')
+    <div class="container">
 
         {{-- gestione degli errori --}}
         @if ($errors->any())
@@ -115,29 +119,29 @@
                 @enderror
             </div>
 
-             {{-- Services  --}}
-             <label class="form-label my-3">services</label>
+            {{-- Services  --}}
+            <label class="form-label my-3">services</label>
 
-             <div class="form-check @error('tags') is-invalid @enderror p-0">
-                 <div class="d-flex  flex-wrap">
-                     @foreach ($services as $service)
-                         <div class="col-3 mt-1">
- 
-                             <input type="checkbox" id="service-{{ $service->id }}" value="{{ $service->id }}"
-                                 name="services[]" class="form-check-control me-2"
-                                 @if (in_array($service->id, old('services', $apartment_service ?? []))) checked @endif>
-                             <label for="service-{{ $service->id }}">
-                                 <i class="{{ $service->symbol }}"></i> - {{ $service->label }}
-                             </label>
-                         </div>
-                     @endforeach
-                 </div>
-             </div>
-             @error('services')
-                 <div class="invalid-feedback">
-                     {{ $message }}
-                 </div>
-             @enderror
+            <div class="form-check @error('tags') is-invalid @enderror p-0">
+                <div class="d-flex  flex-wrap">
+                    @foreach ($services as $service)
+                        <div class="col-3 mt-1">
+
+                            <input type="checkbox" id="service-{{ $service->id }}" value="{{ $service->id }}"
+                                name="services[]" class="form-check-control me-2"
+                                @if (in_array($service->id, old('services', $apartment_service ?? []))) checked @endif>
+                            <label for="service-{{ $service->id }}">
+                                <i class="{{ $service->symbol }}"></i> - {{ $service->label }}
+                            </label>
+                        </div>
+                    @endforeach
+                </div>
+            </div>
+            @error('services')
+                <div class="invalid-feedback">
+                    {{ $message }}
+                </div>
+            @enderror
 
             {{-- todo : inserimento dello user della sessione --}}
             {{-- todo : gestione delle coordinate di latitudine e longitudine  --}}
