@@ -129,8 +129,13 @@
                     @csrf
                     <div class="d-flex my-2">
                         <label for="sender_email">Email:</label>
-                        <input type="email" id="sender_email" name="sender_email" placeholder="Inserisci la tua email"
-                            class="mx-2" required>
+                        @auth <!--verifica utente registrato ed eventuale autoinserimento email-->
+                            <input type="email" name="sender_email" value="{{ auth()->user()->email }}" class="mx-2"
+                                readonly>
+                        @else
+                            <input type="email" id="sender_email" name="sender_email" value="{{ $user->email ?? '' }}"
+                                placeholder="Inserisci la tua email" class="mx-2" required>
+                        @endauth
                     </div>
 
                     <div class="d-flex flex-column justify-content-center my-3">

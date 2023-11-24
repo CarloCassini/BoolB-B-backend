@@ -67,7 +67,10 @@ class ApartmentsController extends Controller
 
         $data = $request->validated();
         $apartment = new Apartment;
+
+        // inserisco i dati ricevuti nel data
         $apartment->fill($data);
+
         // user_id viene valorizzato in base a chi è collegato
         $apartment->user_id = $user->id;
 
@@ -75,11 +78,10 @@ class ApartmentsController extends Controller
         $apartment->latitude_int = 200;
         $apartment->longitude_int = 200;
 
-        // dd($data);
-
         $apartment->save();
 
-        if(Arr::exists($data, "services")) $apartment->services()->attach($data["services"]);
+        if (Arr::exists($data, "services"))
+            $apartment->services()->attach($data["services"]);
 
         return view('admin.apartments.show', compact('apartment'));
 
@@ -128,7 +130,9 @@ class ApartmentsController extends Controller
     public function update(UpdateApartmentRequest $request, Apartment $apartment)
     {
         $data = $request->validated();
-        $apartment->fill($data);
+        // $apartment->fill($data);
+        $apartment->update($data);
+
 
         if (Arr::exists($data, "services")) {
             $apartment->services()->sync($data["services"]);
