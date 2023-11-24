@@ -2,6 +2,23 @@
 
 @section('content')
     <div class="container mt-5">
+        {{-- per tornare alla index --}}
+
+        <h1 class="my-3 text-center">modifica apartment</h1>
+        <div class=" my-5 d-flex">
+            <a href="{{ route('admin.apartments.index') }}" class="btn btn-outline-secondary">
+                <i class="fa-solid fa-arrow-left me-1"></i>
+                Torna alla lista
+            </a>
+
+            {{-- per cancellare l'appartamento --}}
+            <a href="#"data-bs-toggle="modal" data-bs-target="#modal-{{ $apartment->id }}"
+                class="btn btn-outline-danger ms-auto">
+                <i class="fa-solid fa-trash text-danger"></i>
+                elimina appartamento
+            </a>
+        </div>
+
         <div class="row g-3">
             <div class="col-12 col-lg-4">
                 <img src="@if ($apartment->cover_image_path) {{ $apartment->cover_image_path }}@else{{ 'https://via.placeholder.com/2000x1500.png/333333?tex' }} @endif"
@@ -133,5 +150,47 @@
             </div>
         </div>
 
+    </div>
+
+    {{-- * modals --}}
+    <div class="modal fade" tabindex="-1" id="modal-{{ $apartment->id }}">
+        <div class="modal-dialog ">
+            <div class="modal-content">
+                <div class="modal-header red-strip">
+                    <h5 class="modal-title">DELETE FROM DATABASE</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body ">
+                    <strong class="text-danger text-align-center">W A R N I N G</strong> <br>
+                    <hr>
+
+                    <p> Are you shure you want to delete permanently:
+                        <br>
+                        <strong>
+                            ' {{ $apartment->title }} '
+                        </strong>
+                        <br>
+                        <strong>
+                            ID :
+                        </strong>
+                        {{ $apartment->id }}
+                        <br>
+                        from the database?
+                    </p>
+                    <p class="text-danger">THIS ACTION IS IRREVERSIBLE</p>
+
+                    <hr>
+
+                    <form action="{{ route('admin.apartments.destroy', $apartment) }}" method="post">
+                        @csrf
+                        @method('DELETE')
+                        <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="send" class="btn btn-outline-danger"><strong>DELETE</strong></button>
+                    </form>
+                </div>
+                <div class="modal-footer red-strip"">
+                </div>
+            </div>
+        </div>
     </div>
 @endsection
