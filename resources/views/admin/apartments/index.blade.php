@@ -2,14 +2,10 @@
 
 @section('content')
     <div class="container mt-5">
-
-        <h1 class="my-5">
-            Apartments List
-        </h1>
-        <hr>
-        {{-- todo da creare la rotta per il create --}}
-        <a href="{{ route('admin.apartments.create') }}" class="btn btn-outline-success me-3 py-0">Add new Apartment</a>
-        <hr>
+        {{-- go to my appartments list --}}
+        <div>
+            <a href="{{ route('admin.apartments.create') }}" class="btn btn-outline-success me-3 py-0">Add new Apartment</a>
+        </div>
         {{-- se esiste almeno un oggetto in apartment --}}
         @if ($apartments[0])
             <table class="table table-striped table-hover">
