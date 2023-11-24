@@ -100,11 +100,13 @@ class ApartmentsController extends Controller
         $visualization->ip = $request->ip();
         $visualization->date = Carbon::now();
 
+        $services = Service::all();
+
         // $visualization->fill();
         $visualization->save();
 
-
-        return view('admin.apartments.show', compact('apartment'));
+    
+        return view('admin.apartments.show', compact('apartment' , 'services'));
     }
 
     /**
