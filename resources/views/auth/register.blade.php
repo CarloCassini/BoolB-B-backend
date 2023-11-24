@@ -8,9 +8,12 @@
                 <div class="card-header">{{ __('Register') }}</div>
 
                 <div class="card-body">
-
+                    <h3>
+                        Registrati
+                    </h3>
+                    <span>registrati al nostro sito mediante questo form di registrazione,</span><br><span> i capi contrassegnati con <strong class="fs-4 text-warning">*</strong> sono obbligatori</span>
                     {{-- form --}}
-                    <form method="POST" action="{{ route('register') }}" class="needs-validation" novalidate>
+                    <form method="POST" action="{{ route('register') }}" class="needs-validation my-3" novalidate>
                         @csrf
                         {{--* name --}}
                         <div class="mb-4 row">
@@ -58,7 +61,7 @@
                         </div>
                         {{--* email --}}
                         <div class="mb-4 row">
-                            <label for="email" class="col-md-4 col-form-label text-md-right">{{ __('E-Mail Address') }}</label>
+                            <label for="email" class="col-md-4 col-form-label text-md-right">{{ __('E-Mail Address') }}<strong class="fs-4 ms-1 text-warning">*</strong></label>
 
                             <div class="col-md-6">
                                 <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email">
@@ -74,7 +77,7 @@
                         </div>
                         {{--* password --}}
                         <div class="mb-4 row">
-                            <label for="password" class="col-md-4 col-form-label text-md-right">{{ __('Password') }}</label>
+                            <label for="password" class="col-md-4 col-form-label text-md-right">{{ __('Password') }}<strong class="fs-4 ms-1 text-warning">*</strong></label>
 
                             <div class="col-md-6">
                                 <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="new-password">
@@ -90,7 +93,7 @@
                         </div>
                         {{--* password confirm--}}
                         <div class="mb-4 row">
-                            <label for="password-confirm" class="col-md-4 col-form-label text-md-right">{{ __('Confirm Password') }}</label>
+                            <label for="password-confirm" class="col-md-4 col-form-label text-md-right">{{ __('Confirm Password') }}<strong class="fs-4 ms-1 text-warning">*</strong></label>
                             <div class="col-md-6">
                                 <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required autocomplete="new-password">
                                 <div class="invalid-feedback">
