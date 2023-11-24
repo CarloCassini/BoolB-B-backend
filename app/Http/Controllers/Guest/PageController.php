@@ -22,9 +22,9 @@ class PageController extends Controller
 
   public function show(Apartment $apartment, Request $request, Visualization $visualization)
   {
-    dd($apartment);
-    $apartments = Apartment::all();
-    $apartment = $apartments->find(1);
+    // dd($apartment);
+    $apartment = Apartment::where('id', '=', $apartment->id)->first();
+
     // dd($request->getQueryString());
     // dd($apartment);
 

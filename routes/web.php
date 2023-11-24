@@ -21,7 +21,7 @@ use App\Http\Controllers\Admin\ApartmentsController;
 
 Route::get('/', [GuestPageController::class, 'index'])->name('guest.home');
 
-Route::get('/guest/show', [GuestPageController::class, 'show'])->name('guest.apartments.show');
+Route::get('/guest/show/{apartment}', [GuestPageController::class, 'show'])->name('guest.apartments.show');
 
 
 Route::middleware(['auth', 'verified'])

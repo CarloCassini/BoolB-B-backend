@@ -65,7 +65,7 @@
                             {{-- * actions buttons --}}
                             <td class="h-100">
                                 <div class="h-100 d-flex align-items-center justify-content-center">
-                                    <a href="{{ route('guest.apartments.show', $apartment->id) }}">
+                                    <a href="{{ route('guest.apartments.show', $apartment) }}">
                                         <i class="fa-solid fa-eye fa-2xl"></i></a>
                                 </div>
                             </td>
