@@ -145,6 +145,7 @@
             <div class="col-12">
                 <hr>
                 <div class="row row-cols-1 row-cols-md-2">
+                   
                     <p>ciccio</p>
                     <p>ciccio</p>
                     <p>ciccio</p>
