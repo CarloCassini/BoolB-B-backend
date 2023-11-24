@@ -23,8 +23,8 @@ return new class extends Migration {
             $table->text('address');
             $table->text('description')->nullable();
             $table->text('cover_image_path')->nullable();
-            $table->integer('latitude_int');
-            $table->integer('longitude_int');
+            $table->decimal('latitude_int');
+            $table->decimal('longitude_int');
             $table->timestamps();
         });
     }
