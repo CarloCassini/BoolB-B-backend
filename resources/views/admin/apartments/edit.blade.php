@@ -25,13 +25,6 @@
         @endif
 
 
-        {{-- come tiro fuori il dato --}}
-        <div class="debug py-2 my-2">
-            @foreach ($apartment->services as $service)
-                {{ $service->label }}
-                <br>
-            @endforeach
-        </div>
 
         {{-- corpo --}}
         <form action="{{ route('admin.apartments.update', $apartment) }}" method="POST">
@@ -126,7 +119,32 @@
                 @enderror
             </div>
 
-            {{-- todo : inserimento dello user della sessione --}}
+            {{-- todo : inserimento dei servizi --}}
+            {{-- todo --}}
+            {{-- come tiro fuori il dato --}}
+            <div class="debug py-2 my-2">
+                <h4>test 1</h4>
+                @foreach ($apartment->services as $service)
+                    {{ $service->label }}
+                    <br>
+                @endforeach
+
+                <h4>visualizzo tutti i servizi disponibili</h4>
+                @foreach ($services as $service)
+                    {{ $service->label }}
+                    <br>
+                @endforeach
+
+                <h4>visualizzo tutti i servizi dell'appartamento</h4>
+                @foreach ($apartment_service as $service)
+                    {{ $service }}
+                    <br>
+                @endforeach
+            </div>
+
+            {{-- elaboro i dati  --}}
+
+
             {{-- todo : gestione delle coordinate di latitudine e longitudine  --}}
             {{-- todo : gestione della cover image ::: è un campo nullable --}}
             {{-- todo : gestione della is_hidden ::: messo un default a 0 nel booleano --}}

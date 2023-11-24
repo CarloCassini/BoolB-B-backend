@@ -14,6 +14,7 @@ use Carbon\Carbon;
 // importo i modelli
 use app\Models\User;
 use App\Models\Apartment;
+use App\Models\Service;
 
 use Illuminate\Support\Facades\Storage;
 
@@ -77,13 +78,13 @@ class ApartmentsController extends Controller
      * @param  \App\Models\Apartment  $apartment
     //  * @return \Illuminate\Http\Response
      */
-    public function show(Apartment $apartment, Request $request, Visualization $visualization )
+    public function show(Apartment $apartment, Request $request, Visualization $visualization)
     {
         $visualization = new Visualization;
         $visualization->apartment_id = $apartment->id;
         $visualization->ip = $request->ip();
         $visualization->date = Carbon::now();
-        
+
         // $visualization->fill();
         $visualization->save();
 
@@ -99,7 +100,9 @@ class ApartmentsController extends Controller
      */
     public function edit(Apartment $apartment)
     {
-        return view('admin.apartments.edit', compact('apartment'));
+        $services = Service::orderBy('label')->get();
+        $apartment_service = $apartment->services->pluck('id')->toArray();
+        return view('admin.apartments.edit', compact('apartment', 'services', 'apartment_service'));
     }
 
     /**
