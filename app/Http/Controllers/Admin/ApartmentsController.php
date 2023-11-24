@@ -131,7 +131,7 @@ class ApartmentsController extends Controller
     {
         $data = $request->validated();
         // $apartment->fill($data);
-        $apartment->update($data)
+        $apartment->update($data);
 
 
         if (Arr::exists($data, "services")) {
