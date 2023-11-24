@@ -75,8 +75,8 @@ class ApartmentsController extends Controller
         $apartment->user_id = $user->id;
 
         //todo -> forso l'inserimento dei campi per vedere il salvataggio
-        $apartment->latitude_int = 200;
-        $apartment->longitude_int = 200;
+        $apartment->latitude = 200;
+        $apartment->longitude = 200;
 
         $apartment->save();
 
