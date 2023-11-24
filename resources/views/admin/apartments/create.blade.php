@@ -2,6 +2,7 @@
 
 @section('content')
     <div class="container">
+
         {{-- per tornare alla index --}}
 
         <h1 class="my-3 text-center">Crea apartment</h1>
@@ -27,6 +28,8 @@
         {{-- corpo --}}
         <form action="{{ route('admin.apartments.store') }}" method="POST">
             @csrf
+
+            <h6>i campi con l'* sono obbligatori</h6>
 
             {{-- title --}}
             <div>
@@ -54,7 +57,7 @@
 
             {{-- rooms --}}
             <div>
-                <label for="rooms" class="form-label">rooms</label>
+                <label for="rooms" class="form-label">rooms*</label>
                 <input type="number" name="rooms" id="rooms"
                     class="form-control @error('rooms') is-invalid @enderror" value="{{ old('rooms') }}">
                 @error('rooms')
@@ -66,7 +69,7 @@
 
             {{-- beds --}}
             <div>
-                <label for="beds" class="form-label">beds</label>
+                <label for="beds" class="form-label">beds*</label>
                 <input type="number" name="beds" id="beds" class="form-control @error('beds') is-invalid @enderror"
                     value="{{ old('beds') }}">
                 @error('beds')
@@ -78,7 +81,7 @@
 
             {{-- bathrooms --}}
             <div>
-                <label for="bathrooms" class="form-label">bathrooms</label>
+                <label for="bathrooms" class="form-label">bathrooms*</label>
                 <input type="number" name="bathrooms" id="bathrooms"
                     class="form-control @error('bathrooms') is-invalid @enderror" value="{{ old('bathrooms') }}">
                 @error('bathrooms')
@@ -90,7 +93,7 @@
 
             {{-- m2 --}}
             <div>
-                <label for="m2" class="form-label">m2</label>
+                <label for="m2" class="form-label">m2*</label>
                 <input type="number" name="m2" id="m2" class="form-control @error('m2') is-invalid @enderror"
                     value="{{ old('m2') }}">
                 @error('m2')
@@ -102,7 +105,7 @@
 
             {{-- address --}}
             <div>
-                <label for="address" class="form-label">address</label>
+                <label for="address" class="form-label">address*</label>
                 <input type="text" name="address" id="address"
                     class="form-control @error('address') is-invalid @enderror" value="{{ old('address') }}">
                 @error('address')
@@ -111,6 +114,30 @@
                     </div>
                 @enderror
             </div>
+
+             {{-- Services  --}}
+             <label class="form-label my-3">services</label>
+
+             <div class="form-check @error('tags') is-invalid @enderror p-0">
+                 <div class="d-flex  flex-wrap">
+                     @foreach ($services as $service)
+                         <div class="col-3 mt-1">
+ 
+                             <input type="checkbox" id="service-{{ $service->id }}" value="{{ $service->id }}"
+                                 name="services[]" class="form-check-control me-2"
+                                 @if (in_array($service->id, old('services', $apartment_service ?? []))) checked @endif>
+                             <label for="service-{{ $service->id }}">
+                                 <i class="{{ $service->symbol }}"></i> - {{ $service->label }}
+                             </label>
+                         </div>
+                     @endforeach
+                 </div>
+             </div>
+             @error('services')
+                 <div class="invalid-feedback">
+                     {{ $message }}
+                 </div>
+             @enderror
 
             {{-- todo : inserimento dello user della sessione --}}
             {{-- todo : gestione delle coordinate di latitudine e longitudine  --}}

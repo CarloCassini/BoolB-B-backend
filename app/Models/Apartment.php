@@ -16,7 +16,6 @@ class Apartment extends Model
     "m2",
     "address",
     "description",
-    "services",
     // 'cover_image_path',
     // 'latitude_int',
     // 'longitude_int',

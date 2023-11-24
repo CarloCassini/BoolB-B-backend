@@ -48,7 +48,10 @@ class ApartmentsController extends Controller
      */
     public function create()
     {
-        return view('admin.apartments.create');
+        // prendo i services in ordine alfabetico 
+
+        $services = Service::orderBy('label')->get();
+        return view('admin.apartments.create', compact('services'));
     }
 
     /**
@@ -64,7 +67,10 @@ class ApartmentsController extends Controller
 
         $data = $request->validated();
         $apartment = new Apartment;
+
+        // inserisco i dati ricevuti nel data
         $apartment->fill($data);
+
         // user_id viene valorizzato in base a chi è collegato
         $apartment->user_id = $user->id;
 
@@ -73,6 +79,9 @@ class ApartmentsController extends Controller
         $apartment->longitude_int = 200;
 
         $apartment->save();
+
+        if (Arr::exists($data, "services"))
+            $apartment->services()->attach($data["services"]);
 
         return view('admin.apartments.show', compact('apartment'));
 
@@ -121,7 +130,9 @@ class ApartmentsController extends Controller
     public function update(UpdateApartmentRequest $request, Apartment $apartment)
     {
         $data = $request->validated();
-        $apartment->fill($data);
+        // $apartment->fill($data);
+        $apartment->update($data);
+
 
         if (Arr::exists($data, "services")) {
             $apartment->services()->sync($data["services"]);
