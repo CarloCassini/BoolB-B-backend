@@ -145,14 +145,19 @@
             <label class="form-label">services</label>
 
             <div class="form-check @error('tags') is-invalid @enderror p-0">
-                @foreach ($services as $service)
-                    <input type="checkbox" id="service-{{ $service->id }}" value="{{ $service->id }}" name="services[]"
-                        class="form-check-control" @if (in_array($service->id, old('services', $apartment_service ?? []))) checked @endif>
-                    <label for="service-{{ $service->id }}">
-                        {{ $service->label }}
-                    </label>
-                    <br>
-                @endforeach
+                <div class="d-flex  flex-wrap">
+                    @foreach ($services as $service)
+                        <div class="col-3 mt-1">
+
+                            <input type="checkbox" id="service-{{ $service->id }}" value="{{ $service->id }}"
+                                name="services[]" class="form-check-control"
+                                @if (in_array($service->id, old('services', $apartment_service ?? []))) checked @endif>
+                            <label for="service-{{ $service->id }}">
+                                {{ $service->label }} - <font-awesome-icon icon="{{ $service->symbol }}" />
+                            </label>
+                        </div>
+                    @endforeach
+                </div>
             </div>
             @error('services')
                 <div class="invalid-feedback">
