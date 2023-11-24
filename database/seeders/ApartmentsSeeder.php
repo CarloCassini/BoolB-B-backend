@@ -43,8 +43,8 @@ class ApartmentsSeeder extends Seeder
             }
 
             // ho ancora dei dubbi sulla gestione longitudine latitudine
-            $apartment->latitude_int = $faker->latitude($min = -90, $max = 90) * (10 * 6);
-            $apartment->longitude_int = $faker->longitude($min = -180, $max = 180) * (10 * 6);
+            $apartment->latitude = $faker->latitude($min = -90, $max = 90);
+            $apartment->longitude = $faker->longitude($min = -180, $max = 180);
 
 
             // al momento uso solo l'utente 1
