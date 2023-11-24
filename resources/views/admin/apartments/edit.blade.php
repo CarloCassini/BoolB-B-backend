@@ -120,7 +120,6 @@
             </div>
 
             {{-- todo : inserimento dei servizi --}}
-            {{-- todo --}}
             {{-- come tiro fuori il dato --}}
             <div class="debug py-2 my-2">
                 <h4>test 1</h4>
@@ -143,6 +142,23 @@
             </div>
 
             {{-- elaboro i dati  --}}
+            <label class="form-label">services</label>
+
+            <div class="form-check @error('tags') is-invalid @enderror p-0">
+                @foreach ($services as $service)
+                    <input type="checkbox" id="service-{{ $service->id }}" value="{{ $service->id }}" name="services[]"
+                        class="form-check-control" @if (in_array($service->id, old('services', $apartment_service ?? []))) checked @endif>
+                    <label for="service-{{ $service->id }}">
+                        {{ $service->label }}
+                    </label>
+                    <br>
+                @endforeach
+            </div>
+            @error('services')
+                <div class="invalid-feedback">
+                    {{ $message }}
+                </div>
+            @enderror
 
 
             {{-- todo : gestione delle coordinate di latitudine e longitudine  --}}
