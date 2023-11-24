@@ -29,6 +29,11 @@
 <body>
     <div id="app">
         @include('partials._navbar')
+        @if (\Session::has('not_allowed_message'))
+            <div class="debug text-center container py-5">
+                {!! \Session::get('not_allowed_message') !!}
+            </div>
+        @endif
 
         <main class="">
             @yield('content')

@@ -49,7 +49,6 @@ class ApartmentsController extends Controller
     public function create()
     {
         // prendo i services in ordine alfabetico 
-
         $services = Service::orderBy('label')->get();
         return view('admin.apartments.create', compact('services'));
     }
@@ -95,7 +94,15 @@ class ApartmentsController extends Controller
      */
     public function show(Apartment $apartment, Request $request, Visualization $visualization)
     {
-        // dd($apartment);
+        // * gestione rotte protette
+        $user = Auth::user();
+        if ($user->id != $apartment->user_id) {
+            return redirect()->back()->with([
+                'not_allowed_message' => 'sorry, u can\'t touch this'
+            ]);
+        }
+        // *fine gestione rotta protetta
+
         $visualization = new Visualization;
         $visualization->apartment_id = $apartment->id;
         $visualization->ip = $request->ip();
@@ -118,6 +125,15 @@ class ApartmentsController extends Controller
      */
     public function edit(Apartment $apartment)
     {
+        // * gestione rotte protette
+        $user = Auth::user();
+        if ($user->id != $apartment->user_id) {
+            return redirect()->back()->with([
+                'not_allowed_message' => 'sorry, u can\'t touch this'
+            ]);
+        }
+        // *fine gestione rotta protetta
+
         $services = Service::orderBy('label')->get();
         $apartment_service = $apartment->services->pluck('id')->toArray();
         return view('admin.apartments.edit', compact('apartment', 'services', 'apartment_service'));
@@ -132,6 +148,15 @@ class ApartmentsController extends Controller
      */
     public function update(UpdateApartmentRequest $request, Apartment $apartment)
     {
+        // * gestione rotte protette
+        $user = Auth::user();
+        if ($user->id != $apartment->user_id) {
+            return redirect()->back()->with([
+                'not_allowed_message' => 'sorry, u can\'t touch this'
+            ]);
+        }
+        // *fine gestione rotta protetta
+        
         $data = $request->validated();
         // $apartment->fill($data);
         $apartment->update($data);
@@ -154,6 +179,15 @@ class ApartmentsController extends Controller
      */
     public function destroy(Request $request, Apartment $apartment)
     {
+        // * gestione rotte protette
+        $user = Auth::user();
+        if ($user->id != $apartment->user_id) {
+            return redirect()->back()->with([
+                'not_allowed_message' => 'sorry, u can\'t touch this'
+            ]);
+        }
+        // *fine gestione rotta protetta
+
         $apartment->services()->detach();
         if ($request->hasFile('cover_image')) {
             Storage::delete($apartment->cover_image_path);
