@@ -121,15 +121,11 @@ class ApartmentsController extends Controller
     public function update(UpdateApartmentRequest $request, Apartment $apartment)
     {
         $data = $request->validated();
-        $apartment->update($data);
+        $apartment->fill($data);
 
         if (Arr::exists($data, "services")) {
-
-            dd('ciccio');
             $apartment->services()->sync($data["services"]);
         } else {
-
-            dd('lollo');
             $apartment->services()->detach();
         }
 
