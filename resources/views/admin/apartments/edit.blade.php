@@ -5,7 +5,7 @@
         {{-- per tornare alla index --}}
 
         <h1 class="my-3 text-center">modifica apartment</h1>
-        <div class="debug my-5 d-flex">
+        <div class=" my-5 d-flex">
             <a href="{{ route('admin.apartments.index') }}" class="btn btn-outline-secondary">
                 <i class="fa-solid fa-arrow-left me-1"></i>
                 Torna alla lista
