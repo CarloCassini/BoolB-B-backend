@@ -25,6 +25,13 @@
         @endif
 
 
+        {{-- come tiro fuori il dato --}}
+        <div class="debug py-2 my-2">
+            @foreach ($apartment->services as $service)
+                {{ $service->label }}
+                <br>
+            @endforeach
+        </div>
 
         {{-- corpo --}}
         <form action="{{ route('admin.apartments.update', $apartment) }}" method="POST">
