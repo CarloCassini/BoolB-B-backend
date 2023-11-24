@@ -163,7 +163,6 @@
 
 
     {{-- * modals --}}
-
     <div class="modal fade" tabindex="-1" id="modal-{{ $apartment->id }}">
         <div class="modal-dialog ">
             <div class="modal-content">

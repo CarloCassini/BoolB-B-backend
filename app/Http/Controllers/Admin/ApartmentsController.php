@@ -7,16 +7,22 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreApartmentRequest;
 use App\Http\Requests\UpdateApartmentRequest;
 use App\Models\Visualization;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Http\Request;
 use Carbon\Carbon;
+
+// supports
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Str;
+use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Mail;
 
 // importo i modelli
 use app\Models\User;
 use App\Models\Apartment;
 use App\Models\Service;
 
-use Illuminate\Support\Facades\Storage;
+
 
 
 class ApartmentsController extends Controller
@@ -116,6 +122,12 @@ class ApartmentsController extends Controller
     {
         $data = $request->validated();
         $apartment->update($data);
+
+        if (Arr::exists($data, "tags"))
+            $apartment->services()->sync($data["services"]);
+        else
+            $apartment->services()->detach();
+
         return redirect()->route('admin.apartments.show', $apartment);
     }
 
