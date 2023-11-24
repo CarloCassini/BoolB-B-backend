@@ -24,7 +24,8 @@ class UpdateApartmentRequest extends FormRequest
     public function rules()
     {
         return [
-            'title' => ['required', 'string', 'unique:apartments,title', 'max:50'],
+            // 'title' => ['required', 'string', 'unique:apartments,title', 'max:50'],
+            'title' => ['required', 'string', 'max:50'],
             'description' => ['nullable', 'string'],
             'rooms' => ['required', 'integer', 'min:1', 'max:255'],
             'beds' => ['required', 'integer', 'min:0', 'max:255'],
@@ -44,7 +45,7 @@ class UpdateApartmentRequest extends FormRequest
         return [
             'title.required' => 'title è obbligatiorio',
             'title.string' => 'title deve essere un testo',
-            'title.unique' => 'title esiste già nel nostro Database',
+            // 'title.unique' => 'title esiste già nel nostro Database',
             'title.max' => 'title deve essere max di 50 caratteri',
 
             'description.string' => 'description deve essere un campo testuale',
