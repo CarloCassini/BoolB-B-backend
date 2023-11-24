@@ -2,6 +2,7 @@
 
 @section('content')
     <div class="container">
+
         {{-- per tornare alla index --}}
 
         <h1 class="my-3 text-center">Crea apartment</h1>
@@ -27,6 +28,8 @@
         {{-- corpo --}}
         <form action="{{ route('admin.apartments.store') }}" method="POST">
             @csrf
+
+            <h6>i campi con l'* sono obbligatori</h6>
 
             {{-- title --}}
             <div>
