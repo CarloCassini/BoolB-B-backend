@@ -147,18 +147,38 @@
                     <button type="submit" class="btn btn-secondary mb-2">Invia messaggio</button>
                 </form>
             </div>
-            <div class="col-12">
+            {{-- <div class="col-12">
                 <hr>
                 <div class="row row-cols-1 row-cols-md-2">
                    
-                    <p>ciccio</p>
-                    <p>ciccio</p>
-                    <p>ciccio</p>
-                    <p>ciccio</p>
-                    <p>ciccio</p>
-                    <p>ciccio</p>
+                    <div class="d-flex  flex-wrap">
+                        @foreach ($services as $service)
+                            <div class="col-4 mt-1">
+    
+                                <input type="checkbox" id="service-{{ $service->id }}" value="{{ $service->id }}"
+                                    name="services[]" class="form-check-control me-2"
+                                    @if (in_array($service->id, old('services', $apartment_service ?? []))) checked @endif>
+                                <label for="service-{{ $service->id }}">
+                                    <i class="{{ $service->symbol }}"></i> - {{ $service->label }}
+                                </label>
+                            </div>
+                        @endforeach
+                    </div>
+                </div>
                 </div>
             </div>
+        </div> --}}
+
+        <div class="">
+            <h4>Services</h4>
+            <ul class="list-unstyled m-0 row row-cols-1 row-cols-md-2 g-3">
+                @foreach ($apartment->services as $service)
+                    <li>
+                        <i class="{{ $service->symbol }}"></i>
+                        {{ $service->label }}
+                    </li>
+                @endforeach
+            </ul>
         </div>
 
     </div>
