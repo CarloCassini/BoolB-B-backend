@@ -4,13 +4,21 @@
     <div class="container">
         {{-- per tornare alla index --}}
 
-        <h1 class="my-3 text-center">Crea apartment</h1>
-        <div class="debug my-5">
+        <h1 class="my-3 text-center">modifica apartment</h1>
+        <div class="debug my-5 d-flex">
             <a href="{{ route('admin.apartments.index') }}" class="btn btn-outline-secondary">
                 <i class="fa-solid fa-arrow-left me-1"></i>
                 Torna alla lista
             </a>
+
+            {{-- per cancellare l'appartamento --}}
+            <a href="#"data-bs-toggle="modal" data-bs-target="#modal-{{ $apartment->id }}"
+                class="btn btn-outline-danger ms-auto">
+                <i class="fa-solid fa-trash text-danger"></i>
+                elimina appartamento
+            </a>
         </div>
+
 
         {{-- gestione degli errori --}}
         @if ($errors->any())
@@ -32,8 +40,9 @@
             @method('PUT')
 
             {{-- title --}}
+            <h6>i campi con l'* sono obbligatori</h6>
             <div>
-                <label for="title" class="form-label">Title</label>
+                <label for="title" class="form-label">Title*</label>
                 <input type="text" name="title" id="title"
                     class="form-control @error('title') is-invalid @enderror"
                     value="{{ old('title') ?? $apartment->title }}">
@@ -58,7 +67,7 @@
 
             {{-- rooms --}}
             <div>
-                <label for="rooms" class="form-label">rooms</label>
+                <label for="rooms" class="form-label">rooms*</label>
                 <input type="number" name="rooms" id="rooms"
                     class="form-control @error('rooms') is-invalid @enderror"
                     value="{{ old('rooms') ?? $apartment->rooms }}">
@@ -71,7 +80,7 @@
 
             {{-- beds --}}
             <div>
-                <label for="beds" class="form-label">beds</label>
+                <label for="beds" class="form-label">beds*</label>
                 <input type="number" name="beds" id="beds" class="form-control @error('beds') is-invalid @enderror"
                     value="{{ old('beds') ?? $apartment->beds }}">
                 @error('beds')
@@ -83,7 +92,7 @@
 
             {{-- bathrooms --}}
             <div>
-                <label for="bathrooms" class="form-label">bathrooms</label>
+                <label for="bathrooms" class="form-label">bathrooms*</label>
                 <input type="number" name="bathrooms" id="bathrooms"
                     class="form-control @error('bathrooms') is-invalid @enderror"
                     value="{{ old('bathrooms') ?? $apartment->bathrooms }}">
@@ -96,7 +105,7 @@
 
             {{-- m2 --}}
             <div>
-                <label for="m2" class="form-label">m2</label>
+                <label for="m2" class="form-label">m2*</label>
                 <input type="number" name="m2" id="m2" class="form-control @error('m2') is-invalid @enderror"
                     value="{{ old('m2') ?? $apartment->m2 }}">
                 @error('m2')
@@ -108,7 +117,7 @@
 
             {{-- address --}}
             <div>
-                <label for="address" class="form-label">address</label>
+                <label for="address" class="form-label">address*</label>
                 <input type="text" name="address" id="address"
                     class="form-control @error('address') is-invalid @enderror"
                     value="{{ old('address') ?? $apartment->address }}">
@@ -119,30 +128,8 @@
                 @enderror
             </div>
 
-            {{-- todo : inserimento dei servizi --}}
-            {{-- come tiro fuori il dato --}}
-            <div class="debug py-2 my-2">
-                <h4>test 1</h4>
-                @foreach ($apartment->services as $service)
-                    {{ $service->label }}
-                    <br>
-                @endforeach
-
-                <h4>visualizzo tutti i servizi disponibili</h4>
-                @foreach ($services as $service)
-                    {{ $service->label }}
-                    <br>
-                @endforeach
-
-                <h4>visualizzo tutti i servizi dell'appartamento</h4>
-                @foreach ($apartment_service as $service)
-                    {{ $service }}
-                    <br>
-                @endforeach
-            </div>
-
-            {{-- elaboro i dati  --}}
-            <label class="form-label">services</label>
+            {{-- Services  --}}
+            <label class="form-label my-3">services</label>
 
             <div class="form-check @error('tags') is-invalid @enderror p-0">
                 <div class="d-flex  flex-wrap">
@@ -150,10 +137,10 @@
                         <div class="col-3 mt-1">
 
                             <input type="checkbox" id="service-{{ $service->id }}" value="{{ $service->id }}"
-                                name="services[]" class="form-check-control"
+                                name="services[]" class="form-check-control me-2"
                                 @if (in_array($service->id, old('services', $apartment_service ?? []))) checked @endif>
                             <label for="service-{{ $service->id }}">
-                                {{ $service->label }} - <font-awesome-icon icon="{{ $service->symbol }}" />
+                                <i class="{{ $service->symbol }}"></i> - {{ $service->label }}
                             </label>
                         </div>
                     @endforeach
@@ -172,5 +159,50 @@
 
             <button type="submit" class="btn btn-primary my-3">Salva</button>
         </form>
+    </div>
+
+
+    {{-- * modals --}}
+
+    <div class="modal fade" tabindex="-1" id="modal-{{ $apartment->id }}">
+        <div class="modal-dialog ">
+            <div class="modal-content">
+                <div class="modal-header red-strip">
+                    <h5 class="modal-title">DELETE FROM DATABASE</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body ">
+                    <strong class="text-danger text-align-center">W A R N I N G</strong> <br>
+                    <hr>
+
+                    <p> Are you shure you want to delete permanently:
+                        <br>
+                        <strong>
+                            ' {{ $apartment->title }} '
+                        </strong>
+                        <br>
+                        <strong>
+                            ID :
+                        </strong>
+                        {{ $apartment->id }}
+                        <br>
+                        from the database?
+                    </p>
+                    <p class="text-danger">THIS ACTION IS IRREVERIBLE</p>
+
+                    <hr>
+
+                    <form action="{{ route('admin.apartments.destroy', $apartment) }}" method="post">
+                        @csrf
+                        @method('DELETE')
+                        <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="send" class="btn btn-outline-danger"><strong>DELETE</strong></button>
+                    </form>
+                </div>
+                <div class="modal-footer red-strip"">
+                </div>
+            </div>
+        </div>
+    </div>
     </div>
 @endsection
