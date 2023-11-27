@@ -16,10 +16,10 @@ class Apartment extends Model
     "m2",
     "address",
     "description",
+    'is_hidden',
     // 'cover_image_path',
     // 'latitude_int',
     // 'longitude_int',
-    // 'user_id',
   ];
 
   public function user()

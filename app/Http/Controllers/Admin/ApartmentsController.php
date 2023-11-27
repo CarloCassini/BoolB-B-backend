@@ -156,7 +156,7 @@ class ApartmentsController extends Controller
             ]);
         }
         // *fine gestione rotta protetta
-        
+
         $data = $request->validated();
         // $apartment->fill($data);
         $apartment->update($data);

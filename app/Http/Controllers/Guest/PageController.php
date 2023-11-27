@@ -16,7 +16,7 @@ class PageController extends Controller
 {
   public function index()
   {
-    $apartments = Apartment::orderBy('id', 'desc')->paginate(12);
+    $apartments = Apartment::orderBy('id', 'desc')->where('is_hidden', '=', '0')->paginate(12);
     return view('guest.home', compact('apartments'));
   }
 
