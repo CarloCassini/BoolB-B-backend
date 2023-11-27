@@ -19,7 +19,7 @@ return new class extends Migration {
             $table->unsignedTinyInteger('beds');
             $table->unsignedTinyInteger('bathrooms');
             $table->unsignedInteger('m2');
-            $table->boolean('is_hidden')->default(0);
+            $table->boolean('is_hidden')->default(1);
             $table->text('address');
             $table->text('description')->nullable();
             $table->text('cover_image_path')->nullable();
