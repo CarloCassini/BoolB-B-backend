@@ -76,24 +76,24 @@ class ApartmentsController extends Controller
         // user_id viene valorizzato in base a chi è collegato
         $apartment->user_id = $user->id;
 
-        //todo -> forso l'inserimento dei campi per vedere il salvataggio
+        // //todo -> forso l'inserimento dei campi per vedere il salvataggio
 
-        $client = new Client([
-            'verify' => false, // Ignora la verifica SSL
-        ]);
-        $response = $client->get('https://api.tomtom.com/search/2/geocode/Rome.json?key=t7a52T1QnfuvZp7X85QvVlLccZeC5a9P');
-        // Effettua una richiesta GET a un endpoint API
-        // $response = Http::get('https://api.tomtom.com/search/2/geocode/Rome.json?key=t7a52T1QnfuvZp7X85QvVlLccZeC5a9P');
-        dd($response);
+        // $client = new Client([
+        //     'true' => false, // Ignora la verifica SSL
+        // ]);
+        // dd($client->get('https://api.tomtom.com/search/2/geocode/Rome.json?key=t7a52T1QnfuvZp7X85QvVlLccZeC5a9P'));
+        // $response = $client->get('https://api.tomtom.com/search/2/geocode/Rome.json?key=t7a52T1QnfuvZp7X85QvVlLccZeC5a9P');
+        // // Effettua una richiesta GET a un endpoint API
+        // // $response = Http::get('https://api.tomtom.com/search/2/geocode/Rome.json?key=t7a52T1QnfuvZp7X85QvVlLccZeC5a9P');
 
-        $data2 = json_decode($response->getBody(), true);
-        // Esempio di come accedere ai dati di risposta
-        // $data2 = $response->json();
+        // $data2 = json_decode($response->getBody(), true);
+        // // Esempio di come accedere ai dati di risposta
+        // // $data2 = $response->json();
 
-        // Fai qualcosa con i dati ottenuti
+        // // Fai qualcosa con i dati ottenuti
 
-        dd($data2);
-        return response()->json(['data' => $data2]);
+        // dd($data2);
+        // return response()->json(['data' => $data2]);
 
 
 
