@@ -76,29 +76,20 @@ class ApartmentsController extends Controller
         // user_id viene valorizzato in base a chi è collegato
         $apartment->user_id = $user->id;
 
-        // //todo -> forso l'inserimento dei campi per vedere il salvataggio
+        // * ++++ gestione latitudine e longitudine
+        // *forzo il fatto di non usare la verifica ssl
+        $client = new Client([
+            'verify' => false, // Ignora la verifica SSL
+        ]);
+        // inserisco l'indirizzo fornito nella chiamata api tomtom
+        $response = $client->get('https://api.tomtom.com/search/2/geocode/' . $data['address'] . '.json?key=t7a52T1QnfuvZp7X85QvVlLccZeC5a9P');
 
-        // $client = new Client([
-        //     'true' => false, // Ignora la verifica SSL
-        // ]);
-        // dd($client->get('https://api.tomtom.com/search/2/geocode/Rome.json?key=t7a52T1QnfuvZp7X85QvVlLccZeC5a9P'));
-        // $response = $client->get('https://api.tomtom.com/search/2/geocode/Rome.json?key=t7a52T1QnfuvZp7X85QvVlLccZeC5a9P');
-        // // Effettua una richiesta GET a un endpoint API
-        // // $response = Http::get('https://api.tomtom.com/search/2/geocode/Rome.json?key=t7a52T1QnfuvZp7X85QvVlLccZeC5a9P');
+        $data_position = json_decode($response->getBody(), true);
 
-        // $data2 = json_decode($response->getBody(), true);
-        // // Esempio di come accedere ai dati di risposta
-        // // $data2 = $response->json();
-
-        // // Fai qualcosa con i dati ottenuti
-
-        // dd($data2);
-        // return response()->json(['data' => $data2]);
-
-
-
-        $apartment->latitude = 200;
-        $apartment->longitude = 200;
+        // distribuisco il valore di lat e lon ai campi del db
+        $apartment->latitude = $data_position['results'][0]['position']['lat'];
+        $apartment->longitude = $data_position['results'][0]['position']['lon'];
+        // * ++++ fine gestione latitudine e longitudine
 
         $apartment->save();
 
@@ -113,7 +104,7 @@ class ApartmentsController extends Controller
      * Display the specified resource.
      *
      * @param  \App\Models\Apartment  $apartment
-    //  * @return \Illuminate\Http\Response
+     //  * @return \Illuminate\Http\Response
      */
     public function show(Apartment $apartment, Request $request, Visualization $visualization)
     {
