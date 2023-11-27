@@ -162,8 +162,9 @@
                 </div>
             @enderror
 
-            {{-- todo : inserimento dello user della sessione --}}
             {{-- todo : gestione delle coordinate di latitudine e longitudine  --}}
+
+
             {{-- todo : gestione della cover image ::: è un campo nullable --}}
 
             <button type="submit" class="btn btn-primary my-3">Salva</button>
