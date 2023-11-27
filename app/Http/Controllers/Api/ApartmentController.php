@@ -17,11 +17,23 @@ class ApartmentController extends Controller
     public function index()
     {
 
-        $apartments = Apartment::where('is_hidden', '=', 0)->paginate(5);
+        $apartments = Apartment::with('services',)
+            ->select("id","user_id","title","rooms","beds","bathrooms","m2","address","description","cover_image_path")
+            ->where('is_hidden', '=', 0)
+            ->paginate(10);
+            
+        foreach ($apartments as $apartment) {
+            if (!empty($apartment->description)) {
+                $apartment->description = substr($apartment->description, 0, 50);
+            }
+        }
+
+
         return response()->json([
             'status' => 'success',
             'message' => 'ok',
-            'results' => $apartments
+            'results' => $apartments,
+            // 'description' => substr($apartments->description, 0, 50)
         ], 200);
 
     }
@@ -45,7 +57,10 @@ class ApartmentController extends Controller
      */
     public function show($id)
     {
-        $apartment = Apartment::where('id', '=', $id )-> where('is_hidden' , '=', 0)->first();
+        $apartment = Apartment::with('services',)
+        ->select("id","user_id","title","rooms","beds","bathrooms","m2","address","description","cover_image_path")
+        ->where('id', $id)
+        ->first();
 
         if ($apartment) {
             return response()->json([
@@ -70,7 +85,7 @@ class ApartmentController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        
     }
 
     /**
