@@ -142,13 +142,12 @@
                 </div>
             @enderror
 
-            {{-- todo : gestione della is_hidden ::: messo un default a 1 nel booleano --}}
             <div>
-                @dump(old('is_hidden'))
                 <p>does your apartment should be:</p>
-                <div class="d-flex">
+                <div class="d-flex gap-3">
+                    {{-- * il campo è valorizzato di default come visibile. --}}
                     <input type="radio" id="html" name="is_hidden" value="1"
-                        @if (old('is_hidden') == '1') checked @endif>
+                        @if (old('is_hidden') == '1' || old('is_hidden') == null) checked @endif>
                     <label for="html">Visible</label><br>
                     <input type="radio" id="css" name="is_hidden" value="0"
                         @if (old('is_hidden') == '0') checked @endif>
