@@ -32,7 +32,8 @@ class UpdateApartmentRequest extends FormRequest
             'bathrooms' => ['required', 'integer', 'min:0', 'max:255'],
             'm2' => ['required', 'integer', 'min:1'],
             'address' => ['required', 'string'],
-            'services' => ['nullable', 'exists:services,id']
+            'services' => ['nullable', 'exists:services,id'],
+            'is_hidden' => ['boolean'],
             // 'cover_image_path',
             // 'latitude_int',
             // 'longitude_int',
@@ -68,7 +69,9 @@ class UpdateApartmentRequest extends FormRequest
             'address.required' => 'title è obbligatiorio',
             'address.string' => 'title deve essere un testo',
 
-            'services.exists' => 'servizio non disponibile'
+            'services.exists' => 'servizio non disponibile',
+
+            'is_hidden' => 'non può essere diverso da visibile o nascosto',
         ];
     }
 }

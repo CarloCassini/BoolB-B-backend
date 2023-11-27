@@ -155,16 +155,39 @@
                 </div>
             @enderror
 
+            {{-- gestione campo is_hidden --}}
+            <div class=" form-check @error('is_hidden') is-invalid @enderror p-0">
+                <p>does your apartment should be:</p>
+                <div class="d-flex gap-3">
+                    @if (old('is_hidden') != null)
+                        <input type="radio" id="css" name="is_hidden" value="0"
+                            @if (old('is_hidden') == '0') checked @endif>
+                        <label for="css">visible</label>
+                        <input type="radio" id="html" name="is_hidden" value="1"
+                            @if (old('is_hidden') == '1') checked @endif>
+                        <label for="html">hidden</label>
+                    @else
+                        <input type="radio" id="css" name="is_hidden" value="0"
+                            @if ($apartment->is_hidden == '0') checked @endif>
+                        <label for="css">visible</label>
+                        <input type="radio" id="html" name="is_hidden" value="1"
+                            @if ($apartment->is_hidden == '1') checked @endif>
+                        <label for="html">hidden</label>
+                    @endif
+                </div>
+            </div>
+            @error('is_hidden')
+                <div class="invalid-feedback">
+                    {{ $message }}
+                </div>
+            @enderror
 
             {{-- todo : gestione delle coordinate di latitudine e longitudine  --}}
             {{-- todo : gestione della cover image ::: è un campo nullable --}}
-            {{-- todo : gestione della is_hidden ::: messo un default a 0 nel booleano --}}
 
             <button type="submit" class="btn btn-primary my-3">Salva</button>
         </form>
     </div>
-
-
 @endsection
 
 @section('modals')
