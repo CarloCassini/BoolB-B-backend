@@ -26,6 +26,7 @@
                         <th scope="col">bathrooms</th>
                         <th scope="col">m2</th>
                         <th scope='col'>address</th>
+                        <th scope='col'>is_hidden</th>
                         <th scope='col'>Actions</th>
                         {{-- todo is_hidden must be a btn (as published) --}}
                     </tr>
@@ -59,6 +60,19 @@
 
                             {{-- * address --}}
                             <td>{{ $apartment->address }}</td>
+
+                            {{-- * is_hidden --}}
+                            <td>
+                                @if ($apartment->is_hidden == '0')
+                                    <div class="strong">
+                                        visible
+                                    </div>
+                                @else
+                                    <div class="strong">
+                                        hidden
+                                    </div>
+                                @endif
+                            </td>
 
                             {{-- * actions buttons --}}
                             {{-- todo da creare le rotte corrette --}}

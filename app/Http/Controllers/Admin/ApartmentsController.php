@@ -17,6 +17,9 @@ use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Mail;
 
+use Illuminate\Support\Facades\Http;
+use GuzzleHttp\Client;
+
 // importo i modelli
 use app\Models\User;
 use App\Models\Apartment;
@@ -74,6 +77,26 @@ class ApartmentsController extends Controller
         $apartment->user_id = $user->id;
 
         //todo -> forso l'inserimento dei campi per vedere il salvataggio
+
+        $client = new Client([
+            'verify' => false, // Ignora la verifica SSL
+        ]);
+        $response = $client->get('https://api.tomtom.com/search/2/geocode/Rome.json?key=t7a52T1QnfuvZp7X85QvVlLccZeC5a9P');
+        // Effettua una richiesta GET a un endpoint API
+        // $response = Http::get('https://api.tomtom.com/search/2/geocode/Rome.json?key=t7a52T1QnfuvZp7X85QvVlLccZeC5a9P');
+        dd($response);
+
+        $data2 = json_decode($response->getBody(), true);
+        // Esempio di come accedere ai dati di risposta
+        // $data2 = $response->json();
+
+        // Fai qualcosa con i dati ottenuti
+
+        dd($data2);
+        return response()->json(['data' => $data2]);
+
+
+
         $apartment->latitude = 200;
         $apartment->longitude = 200;
 
@@ -156,7 +179,7 @@ class ApartmentsController extends Controller
             ]);
         }
         // *fine gestione rotta protetta
-        
+
         $data = $request->validated();
         // $apartment->fill($data);
         $apartment->update($data);

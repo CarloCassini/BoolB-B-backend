@@ -2,7 +2,6 @@
 
 @section('navigation-buttons')
     <div class="container">
-        <h1 class="my-3 text-center">crea apartment</h1>
         {{-- per tornare alla index --}}
         <h1 class="my-3 text-center">Crea apartment</h1>
         <div class=" my-5">
@@ -122,7 +121,7 @@
             {{-- Services  --}}
             <label class="form-label my-3">services</label>
 
-            <div class="form-check @error('tags') is-invalid @enderror p-0">
+            <div class="form-check @error('services') is-invalid @enderror p-0">
                 <div class="d-flex  flex-wrap">
                     @foreach ($services as $service)
                         <div class="col-3 mt-1">
@@ -143,10 +142,30 @@
                 </div>
             @enderror
 
-            {{-- todo : inserimento dello user della sessione --}}
+            {{-- gestione campo is_hidden --}}
+            <div class=" form-check @error('is_hidden') is-invalid @enderror p-0">
+                <p>does your apartment should be:</p>
+                <div class="d-flex gap-3">
+                    {{-- * il campo è valorizzato di default come visibile. --}}
+                    <input type="radio" id="css" name="is_hidden" value="0"
+                        @if (old('is_hidden') == '0' || old('is_hidden') == null) checked @endif>
+                    <label for="css">visible</label>
+                    <input type="radio" id="html" name="is_hidden" value="1"
+                        @if (old('is_hidden') == '1') checked @endif>
+                    <label for="html">hidden</label>
+
+                </div>
+            </div>
+            @error('is_hidden')
+                <div class="invalid-feedback">
+                    {{ $message }}
+                </div>
+            @enderror
+
             {{-- todo : gestione delle coordinate di latitudine e longitudine  --}}
+
+
             {{-- todo : gestione della cover image ::: è un campo nullable --}}
-            {{-- todo : gestione della is_hidden ::: messo un default a 0 nel booleano --}}
 
             <button type="submit" class="btn btn-primary my-3">Salva</button>
         </form>
