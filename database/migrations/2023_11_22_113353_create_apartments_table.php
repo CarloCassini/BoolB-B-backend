@@ -24,8 +24,8 @@ return new class extends Migration {
             $table->text('address');
             $table->text('description')->nullable();
             $table->text('cover_image_path')->nullable();
-            $table->decimal('latitude');
-            $table->decimal('longitude');
+            $table->decimal('latitude', 10, 6);
+            $table->decimal('longitude', 10, 6);
             $table->timestamps();
         });
     }
