@@ -116,30 +116,6 @@
                     @endif
                 </p>
             </div>
-            <div class="col-12 border border-3">
-                <h3 class="my-4">Invia un messaggio al proprietario:</h3>
-                <form action="" method="post">
-                    @csrf
-                    <div class="d-flex my-2">
-                        <label for="sender_email">Email:</label>
-                        @auth <!--verifica utente registrato ed eventuale autoinserimento email-->
-                            <input type="email" name="sender_email" value="{{ auth()->user()->email }}" class="mx-2"
-                                readonly>
-                        @else
-                            <input type="email" id="sender_email" name="sender_email" value="{{ $user->email ?? '' }}"
-                                placeholder="Inserisci la tua email" class="mx-2" required>
-                        @endauth
-                    </div>
-
-                    <div class="d-flex flex-column justify-content-center my-3">
-                        <label for="messages">Messaggio:</label>
-                        <textarea id="messages_id" name="messages" rows="4" class="col-12 my-2" placeholder="Scrivi il tuo messaggio"
-                            required></textarea>
-                    </div>
-
-                    <button type="submit" class="btn btn-secondary mb-2">Invia messaggio</button>
-                </form>
-            </div>
 
             <div class="">
                 <h4>Services</h4>
@@ -152,6 +128,58 @@
                     @endforeach
                 </ul>
             </div>
+            <!--stampa in caso di successo dell'invio del messaggio-->
+            @if (session('success'))
+                <div class="alert alert-success">
+                    {{ session('success') }}
+                </div>
+            @endif
 
+            <div class="col-12 border border-3 my-2">
+                <h3 class="my-2">Invia un messaggio al proprietario:</h3>
+                <form action="{{ route('invia.messaggio') }}" method="POST">
+                    @csrf
+                    <div class="d-flex my-2">
+                        <!--id appartamento associato-->
+                        <input type="hidden" name="apartment_id" value="{{ $apartment->id }}">
+                        <label for="sender_email">Email:</label>
+                        @auth <!--verifica utente registrato ed eventuale autoinserimento email-->
+                            <input type="email" name="sender_email" value="{{ auth()->user()->email }}" class="mx-2">
+                        @else
+                            <input type="email" id="sender_email" name="sender_email" value="{{ $user->email ?? '' }}"
+                                placeholder="Inserisci la tua email" class="mx-2" required>
+                        @endauth
+                    </div>
+                    <div class="d-flex my-2">
+                        <label for="name">Nome:</label>
+                        @if (auth()->check())
+                            <!--verifica utente registrato ed eventuale autoinserimento nome-->
+                            <input type="text" name="name" value="{{ auth()->user()->name }}" class="mx-2">
+                        @else
+                            <input type="text" id="name" name="name" value="{{ $user->name ?? '' }}"
+                                placeholder="Inserisci il tuo nome" class="mx-2">
+                        @endif
+                    </div>
+                    <div>
+                        <label for="surname">Cognome:</label>
+                        @if (auth()->check())
+                            <!--verifica utente registrato ed eventuale autoinserimento cognome-->
+                            <input type="text" name="surname" value="{{ auth()->user()->surname }}" class="mx-2">
+                        @else
+                            <input type="text" id="surname" name="surname" value="{{ $user->surname ?? '' }}"
+                                placeholder="Inserisci il tuo cognome" class="mx-2">
+                        @endif
+                    </div>
+
+                    <div class="d-flex flex-column justify-content-center my-3">
+                        <label for="message">Messaggio:</label>
+                        <textarea id="message" name="message" rows="4" class="col-12 my-2" placeholder="Scrivi il tuo messaggio"
+                            required></textarea>
+                    </div>
+
+                    <button type="submit" class="btn btn-secondary mb-2"><i class="fa-solid fa-paper-plane me-2"></i>Invia
+                        messaggio</button>
+                </form>
+            </div>
         </div>
     @endsection

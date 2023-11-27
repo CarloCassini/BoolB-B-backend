@@ -1,12 +1,37 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
+
+use App\Http\Controllers\Controller;
 
 use App\Models\Message;
 use Illuminate\Http\Request;
 
 class MessageController extends Controller
 {
+    // Funzione per l'invio deimessaggi
+    public function inviaMessaggio(Request $request)
+    {
+        // Validazione dei dati inviati dal form
+        $validatedData = $request->validate([
+            'sender_email' => 'required|email',
+            'name' => 'nullable|string',
+            'surname' => 'nullable|string',
+            'message' => 'required|string',
+            'apartment_id' => 'required|numeric',
+        ]);
+        // Salvataggio del messaggio nel database
+        $message = new Message();
+        $message->name = $validatedData['name'];
+        $message->surname = $validatedData['surname'];
+        $message->sender_email = $validatedData['sender_email'];
+        $message->message = $validatedData['message'];
+        $message->apartment_id = $validatedData['apartment_id'];
+        $message->save();
+
+        return redirect()->back()->with('success', 'Messaggio inviato con successo!');
+    }
+
     /**
      * Display a listing of the resource.
      *
