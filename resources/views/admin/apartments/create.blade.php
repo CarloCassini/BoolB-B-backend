@@ -142,31 +142,25 @@
                 </div>
             @enderror
 
-            <div>
+            {{-- gestione campo is_hidden --}}
+            <div class=" form-check @error('is_hidden') is-invalid @enderror p-0">
                 <p>does your apartment should be:</p>
                 <div class="d-flex gap-3">
                     {{-- * il campo è valorizzato di default come visibile. --}}
-                    <input type="radio" id="html" name="is_hidden" value="1"
-                        @if (old('is_hidden') == '1' || old('is_hidden') == null) checked @endif>
-                    <label for="html">Visible</label><br>
                     <input type="radio" id="css" name="is_hidden" value="0"
-                        @if (old('is_hidden') == '0') checked @endif>
-                    <label for="css">hidden</label><br>
+                        @if (old('is_hidden') == '0' || old('is_hidden') == null) checked @endif>
+                    <label for="css">visible</label>
+                    <input type="radio" id="html" name="is_hidden" value="1"
+                        @if (old('is_hidden') == '1') checked @endif>
+                    <label for="html">hidden</label>
 
-                    @error('is_hidden')
-                        <div class="invalid-feedback">
-                            {{ $message }}
-                        </div>
-                    @enderror
                 </div>
-
-
-                <label for="hidden" class="form-label">hidden*</label>
-                <input type="text" name="hidden" id="hidden"
-                    class="form-control @error('hidden') is-invalid @enderror" value="{{ old('hidden') }}">
-                <input type="text" name="hidden" id="hidden"
-                    class="form-control @error('hidden') is-invalid @enderror" value="{{ old('hidden') }}">
             </div>
+            @error('is_hidden')
+                <div class="invalid-feedback">
+                    {{ $message }}
+                </div>
+            @enderror
 
             {{-- todo : inserimento dello user della sessione --}}
             {{-- todo : gestione delle coordinate di latitudine e longitudine  --}}
