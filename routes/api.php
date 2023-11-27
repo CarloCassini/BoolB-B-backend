@@ -21,4 +21,4 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 //  creiamo la rotta dandogli la risposta in _Json_
 
-Route::apiResource("/apartment", ApartmentController::class)->only("index","show");
+Route::apiResource("/apartments", ApartmentController::class)->only("index","show");
