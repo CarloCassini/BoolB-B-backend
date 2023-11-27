@@ -146,18 +146,20 @@
             <div>
                 @dump(old('is_hidden'))
                 <p>does your apartment should be:</p>
-                <input type="radio" id="html" name="is_hidden" value="1"
-                    @if (old('is_hidden') == '1') checked @endif>
+                <div class="d-flex">
+                    <input type="radio" id="html" name="is_hidden" value="1"
+                        @if (old('is_hidden') == '1') checked @endif>
+                    <label for="html">Visible</label><br>
+                    <input type="radio" id="css" name="is_hidden" value="0"
+                        @if (old('is_hidden') == '0') checked @endif>
+                    <label for="css">hidden</label><br>
 
-                <label for="html">Visible</label><br>
-                <input type="radio" id="css" name="is_hidden" value="0"
-                    @if (old('is_hidden') == '0') checked @endif>
-                <label for="css">hidden</label><br>
-                @error('is_hidden')
-                    <div class="invalid-feedback">
-                        {{ $message }}
-                    </div>
-                @enderror
+                    @error('is_hidden')
+                        <div class="invalid-feedback">
+                            {{ $message }}
+                        </div>
+                    @enderror
+                </div>
 
 
                 <label for="hidden" class="form-label">hidden*</label>
