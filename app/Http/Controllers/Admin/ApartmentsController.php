@@ -172,6 +172,23 @@ class ApartmentsController extends Controller
         // *fine gestione rotta protetta
 
         $data = $request->validated();
+        // todo xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+        // * ++++ gestione latitudine e longitudine
+        // *forzo il fatto di non usare la verifica ssl
+        $client = new Client([
+            'verify' => false, // Ignora la verifica SSL
+        ]);
+        // inserisco l'indirizzo fornito nella chiamata api tomtom
+        $response = $client->get('https://api.tomtom.com/search/2/geocode/' . $data['address'] . '.json?key=t7a52T1QnfuvZp7X85QvVlLccZeC5a9P');
+
+        $data_position = json_decode($response->getBody(), true);
+
+        // distribuisco il valore di lat e lon ai campi del db
+        dd($data_position['results']);
+        $apartment->latitude = $data_position['results'][0]['position']['lat'];
+        $apartment->longitude = $data_position['results'][0]['position']['lon'];
+        // * ++++ fine gestione latitudine e longitudine
+        // todo xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
         // $apartment->fill($data);
         $apartment->update($data);
 
