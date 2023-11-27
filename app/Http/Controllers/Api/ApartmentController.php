@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Apartment;
 use Illuminate\Http\Request;
 
+
 class ApartmentController extends Controller
 {
     /**
@@ -16,7 +17,7 @@ class ApartmentController extends Controller
     public function index()
     {
 
-        $apartments = Apartment::with('sponsorships')->paginate(5);
+        $apartments = Apartment::where('is_hidden', '=', 0)->paginate(5);
         return response()->json([
             'status' => 'success',
             'message' => 'ok',
@@ -44,7 +45,7 @@ class ApartmentController extends Controller
      */
     public function show($id)
     {
-        $apartment = Apartment::with('services');
+        $apartment = Apartment::where('id', '=', $id )-> where('is_hidden' , '=', 0)->first();
 
         if ($apartment) {
             return response()->json([
