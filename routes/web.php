@@ -7,6 +7,8 @@ use App\Http\Controllers\Admin\PageController as AdminPageController;
 use App\Http\Controllers\Guest\PageController as GuestPageController;
 use App\Http\Controllers\Admin\ApartmentsController;
 
+use App\Http\Controllers\Admin\MessageController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -36,7 +38,10 @@ Route::middleware(['auth', 'verified'])
 
     // utenti sponsorizzati
     Route::resource('/sponsors', SponsorsController::class);
-
   });
+
+
+    //messaggi utente
+    Route::post('/invia-messaggio', [MessageController::class, 'inviaMessaggio'])->name('invia.messaggio');
 
 require __DIR__ . '/auth.php';

@@ -127,30 +127,6 @@
                     @endif
                 </p>
             </div>
-            <div class="col-12 border border-3">
-                <h3 class="my-4">Invia un messaggio al proprietario:</h3>
-                <form action="" method="post">
-                    @csrf
-                    <div class="d-flex my-2">
-                        <label for="sender_email">Email:</label>
-                        @auth <!--verifica utente registrato ed eventuale autoinserimento email-->
-                            <input type="email" name="sender_email" value="{{ auth()->user()->email }}" class="mx-2"
-                                readonly>
-                        @else
-                            <input type="email" id="sender_email" name="sender_email" value="{{ $user->email ?? '' }}"
-                                placeholder="Inserisci la tua email" class="mx-2" required>
-                        @endauth
-                    </div>
-
-                    <div class="d-flex flex-column justify-content-center my-3">
-                        <label for="messages">Messaggio:</label>
-                        <textarea id="messages_id" name="messages" rows="4" class="col-12 my-2" placeholder="Scrivi il tuo messaggio"
-                            required></textarea>
-                    </div>
-
-                    <button type="submit" class="btn btn-secondary mb-2">Invia messaggio</button>
-                </form>
-            </div>
             {{-- <div class="col-12">
                 <hr>
                 <div class="row row-cols-1 row-cols-md-2">
@@ -184,7 +160,6 @@
                     @endforeach
                 </ul>
             </div>
-
         </div>
     @endsection
 
