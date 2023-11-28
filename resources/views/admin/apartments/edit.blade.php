@@ -35,16 +35,10 @@
             </div>
         @endif
 
-
-
-        {{-- prove di tomtom --}}
-        <div class="my-5 debug btn" id="test">ciccio</div>
-
         {{-- corpo --}}
         <form action="{{ route('admin.apartments.update', $apartment) }}" method="POST">
             @csrf
             @method('PUT')
-
 
             {{-- title --}}
             <h6>i campi con l'* sono obbligatori</h6>
@@ -58,6 +52,16 @@
                         {{ $message }}
                     </div>
                 @enderror
+            </div>
+
+            {{-- prove di tomtom --}}
+            {{-- todox --}}
+            <div class="my-5 debug btn" id="test">ciccio</div>
+
+            <div class="w-50 debug mb-5">
+                <select class="form-select" aria-label="Default select example" id="select-tomtom">
+                    <option selected>Open this select menu</option>
+                </select>
             </div>
 
             {{-- description --}}
@@ -232,7 +236,7 @@
                         <button type="send" class="btn btn-outline-danger"><strong>DELETE</strong></button>
                     </form>
                 </div>
-                <div class="modal-footer red-strip"">
+                <div class="modal-footer red-strip">
                 </div>
             </div>
         </div>
@@ -242,6 +246,7 @@
 @section('scripts')
     <script>
         const testbutton = document.getElementById("test");
+        const select = document.getElementById("select-tomtom");
 
         testbutton.addEventListener("click", () => {
             // let apiUri =
@@ -249,11 +254,20 @@
             let apiUri =
                 'http://127.0.0.1:8000/api/tomtom';
 
-
+            // todox
             console.log("call search");
             console.log(apiUri);
             axios.get(apiUri).then((response) => {
-                console.log(response.data.results[0].position);
+                select.innerHTML = '';
+                for (let i = 0; i < response.data.results.length; i++) {
+                    const element = response.data.results[i].position;
+                    console.log(element);
+
+                    var nuovaOpzione = document.createElement('option');
+                    nuovaOpzione.value = element.lat;
+                    nuovaOpzione.text = 'lat: ' + element.lat + ' - lon: ' + element.lon;
+                    select.add(nuovaOpzione);
+                }
             });
         });
     </script>

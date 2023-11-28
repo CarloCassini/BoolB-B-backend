@@ -40,7 +40,7 @@ class TomtomController extends Controller
             'verify' => false, // Ignora la verifica SSL
         ]);
         // inserisco l'indirizzo fornito nella chiamata api tomtom
-        $response = $client->get('https://api.tomtom.com/search/2/geocode/via guidi 15 padova.json?key=t7a52T1QnfuvZp7X85QvVlLccZeC5a9P');
+        $response = $client->get('https://api.tomtom.com/search/2/geocode/padova.json?key=t7a52T1QnfuvZp7X85QvVlLccZeC5a9P');
 
         $data_position = json_decode($response->getBody(), true);
 
