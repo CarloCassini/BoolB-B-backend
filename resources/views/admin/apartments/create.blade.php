@@ -29,7 +29,7 @@
         @endif
 
         {{-- corpo --}}
-        <form action="{{ route('admin.apartments.store') }}" method="POST">
+        <form action="{{ route('admin.apartments.store') }}" method="POST" enctype="multipart/form-data">
             @csrf
 
             <h6>i campi con l'* sono obbligatori</h6>
@@ -141,6 +141,19 @@
                     {{ $message }}
                 </div>
             @enderror
+
+            {{-- Cover Image --}}
+            <div class="my-3">
+                <label for="cover_image_path" class="form-label">Cover Image</label>
+                <input type="file" name="cover_image_path" id="cover_image_path"
+                    class="form-control @error('cover_image_path') is-invalid @enderror"
+                    value="{{ old('cover_image_path') }}">
+                @error('cover_image_path')
+                    <div class="invalid-feedback">
+                        {{ $message }}
+                    </div>
+                @enderror
+            </div>
 
             {{-- gestione campo is_hidden --}}
             <div class=" form-check @error('is_hidden') is-invalid @enderror p-0">

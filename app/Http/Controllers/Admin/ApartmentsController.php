@@ -73,6 +73,12 @@ class ApartmentsController extends Controller
         // inserisco i dati ricevuti nel data
         $apartment->fill($data);
 
+        // store dell'immagine nella cartella uploads
+        if (Arr::exists($data, "cover_image_path")){
+            $apartment->cover_image_path = Storage::put("uploads/apartments/cover_image", $data['cover_image_path']);            
+        }
+
+
         // user_id viene valorizzato in base a chi è collegato
         $apartment->user_id = $user->id;
 

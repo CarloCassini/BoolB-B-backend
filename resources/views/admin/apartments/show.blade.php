@@ -30,7 +30,7 @@
 
         <div class="row g-3">
             <div class="col-12 col-lg-4">
-                <img src="@if ($apartment->cover_image_path) {{ $apartment->cover_image_path }}@else{{ 'https://via.placeholder.com/2000x1500.png/333333?tex' }} @endif"
+                <img src="@if ($apartment->cover_image_path) {{ asset('storage/' . $apartment->cover_image_path) }}@else{{ 'https://via.placeholder.com/2000x1500.png/333333?tex' }} @endif"
                     class="img-fluid" alt="cover">
             </div>
             <div class="col-12 col-lg-8 text-center text-lg-start d-flex flex-column justify-content-between">

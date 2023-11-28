@@ -33,7 +33,7 @@ class StoreApartmentRequest extends FormRequest
             'address' => ['required', 'string'],
             'services' => ['nullable', 'exists:services,id'],
             'is_hidden' => ['boolean'],
-            // 'cover_image_path',
+            'cover_image_path' => ['nullable', 'image'],
             // 'latitude_int',
             // 'longitude_int',
             // 'user_id',
@@ -70,6 +70,8 @@ class StoreApartmentRequest extends FormRequest
             'services.exists' => 'servizio non disponibile',
 
             'is_hidden' => 'non può essere diverso da visibile o nascosto',
+
+            'cover_image_path.image' => 'La cover image deve essere un\'immagine'
         ];
     }
 }
