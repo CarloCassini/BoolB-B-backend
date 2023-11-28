@@ -30,6 +30,6 @@ class TomtomController extends Controller
 
     public function findsuggest($address)
     {
-        dd($address);
+        return response()->json();
     }
 }

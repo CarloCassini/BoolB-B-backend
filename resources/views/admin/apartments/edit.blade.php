@@ -244,16 +244,16 @@
         const testbutton = document.getElementById("test");
 
         testbutton.addEventListener("click", () => {
-            let apiUri =
-                'https://api.tomtom.com/search/2/geocode/firenze.json?key=t7a52T1QnfuvZp7X85QvVlLccZeC5a9P';
             // let apiUri =
-            //     'http://127.0.0.1:8000/api/tomtom/1';
+            //     'https://api.tomtom.com/search/2/geocode/firenze.json?key=t7a52T1QnfuvZp7X85QvVlLccZeC5a9P';
+            let apiUri =
+                'http://127.0.0.1:8000/api/apartments';
 
 
             console.log("call search");
             console.log(apiUri);
             axios.get(apiUri).then((response) => {
-                console.log(response.data.results.data);
+                console.log(response);
             });
         });
     </script>
