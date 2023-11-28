@@ -247,7 +247,7 @@
             // let apiUri =
             //     'https://api.tomtom.com/search/2/geocode/firenze.json?key=t7a52T1QnfuvZp7X85QvVlLccZeC5a9P';
             let apiUri =
-                'http://127.0.0.1:8000/api/apartments';
+                'http://127.0.0.1:8000/api/tomtom/1';
 
 
             console.log("call search");
