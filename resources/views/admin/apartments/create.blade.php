@@ -29,7 +29,7 @@
         @endif
 
         {{-- corpo --}}
-        <form action="{{ route('admin.apartments.store') }}" method="POST">
+        <form action="{{ route('admin.apartments.store') }}" method="POST" enctype="multipart/form-data">
             @csrf
 
             <h6>i campi con l'* sono obbligatori</h6>
@@ -142,6 +142,19 @@
                 </div>
             @enderror
 
+            {{-- Cover Image --}}
+            <div class="my-3">
+                <label for="cover_image_path" class="form-label">Cover Image</label>
+                <input type="file" name="cover_image_path" id="cover_image_path"
+                    class="form-control @error('cover_image_path') is-invalid @enderror"
+                    value="{{ old('cover_image_path') }}">
+                @error('cover_image_path')
+                    <div class="invalid-feedback">
+                        {{ $message }}
+                    </div>
+                @enderror
+            </div>
+
             {{-- gestione campo is_hidden --}}
             <div class=" form-check @error('is_hidden') is-invalid @enderror p-0">
                 <p>does your apartment should be:</p>
@@ -153,7 +166,6 @@
                     <input type="radio" id="html" name="is_hidden" value="1"
                         @if (old('is_hidden') == '1') checked @endif>
                     <label for="html">hidden</label>
-
                 </div>
             </div>
             @error('is_hidden')
@@ -163,9 +175,6 @@
             @enderror
 
             {{-- todo : gestione delle coordinate di latitudine e longitudine  --}}
-
-
-            {{-- todo : gestione della cover image ::: è un campo nullable --}}
 
             <button type="submit" class="btn btn-primary my-3">Salva</button>
         </form>

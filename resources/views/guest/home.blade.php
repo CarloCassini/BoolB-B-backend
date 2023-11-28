@@ -47,8 +47,12 @@
 
                             {{-- * image --}}
                             <td>
-                                <img src="@if ($apartment->cover_image_path) {{ $apartment->cover_image_path }}@else{{ 'https://via.placeholder.com/200x150.png/333333?tex' }} @endif"
-                                    class="img-fluid" alt="cover">
+                                <img class="img-fluid" alt="cover" {{-- controllo sul src delle immagini (3 possibilità) --}}
+                                    src="@if (!$apartment->cover_image_path) https://via.placeholder.com/2000x1500.png/333333?text=Placeholder
+                                @elseif(Str::startsWith($apartment->cover_image_path, ['http://', 'https://']))
+                                   {{ $apartment->cover_image_path }}
+                                @else
+                                   {{ asset('/storage/' . $apartment->cover_image_path) }} @endif">
                             </td>
 
                             {{-- * title --}}
