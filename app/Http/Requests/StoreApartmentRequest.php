@@ -31,7 +31,7 @@ class StoreApartmentRequest extends FormRequest
             'bathrooms' => ['required', 'integer', 'min:0', 'max:255'],
             'm2' => ['required', 'integer', 'min:1'],
             'address' => ['required', 'string'],
-            'services' => ['nullable', 'exists:services,id'],
+            'services' => ['required', 'exists:services,id'],
             'is_hidden' => ['boolean'],
             // 'cover_image_path',
             // 'latitude_int',
@@ -68,6 +68,7 @@ class StoreApartmentRequest extends FormRequest
             'address.required' => 'title è obbligatiorio',
             'address.string' => 'title deve essere un testo',
             'services.exists' => 'servizio non disponibile',
+            'services.required' => 'not avable',
 
             'is_hidden' => 'non può essere diverso da visibile o nascosto',
         ];
