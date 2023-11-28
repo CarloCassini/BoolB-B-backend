@@ -73,7 +73,7 @@ class ApartmentsController extends Controller
         // inserisco i dati ricevuti nel data
         $apartment->fill($data);
 
-        // store dell'immagine nella cartella uploads
+        // store dell'immagine nella cartella uploads(collegamento storage)
         if (Arr::exists($data, "cover_image_path")){
             $apartment->cover_image_path = Storage::put("uploads/apartments/cover_image", $data['cover_image_path']);            
         }
@@ -225,7 +225,7 @@ class ApartmentsController extends Controller
         // *fine gestione rotta protetta
 
         $apartment->services()->detach();
-        if ($request->hasFile('cover_image')) {
+        if ($apartment->cover_image_path) {
             Storage::delete($apartment->cover_image_path);
         }
         $apartment->delete();
