@@ -248,9 +248,15 @@
                 'https://api.tomtom.com/search/2/geocode/firenze.json?key=t7a52T1QnfuvZp7X85QvVlLccZeC5a9P'
 
             console.log("call search");
-
             console.log(apiUri);
-            axios.get(apiUri).then((response) => {
+            axios.get(apiUri, {
+                headers: {
+                    "Cache-Control": "no-cache",
+                    "Content-Type": "application/x-www-form-urlencoded",
+                    "Access-Control-Allow-Origin": "*",
+                },
+                referrerPolicy: 'no-referrer-when-downgrade'
+            }).then((response) => {
                 console.log(response.data.results.data);
             });
         });
