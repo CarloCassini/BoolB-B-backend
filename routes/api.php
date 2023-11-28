@@ -2,7 +2,10 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Api\ApartmentController; 
+use App\Http\Controllers\Api\ApartmentController;
+
+
+use App\Models\Apartment;
 
 /*
 |--------------------------------------------------------------------------
@@ -21,4 +24,8 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 //  creiamo la rotta dandogli la risposta in _Json_
 
-Route::apiResource("/apartments", ApartmentController::class)->only("index","show");
+Route::apiResource("/apartments", ApartmentController::class)->only("index", "show");
+
+
+// provo a tirare fuori qualcosa
+Route::get("/apartments/service/{service_id}", [ApartmentController::class, "ApartmentByService"]);

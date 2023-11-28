@@ -17,11 +17,37 @@ class ApartmentController extends Controller
     public function index()
     {
 
-        $apartments = Apartment::with('services',)
-            ->select("id","user_id","title","rooms","beds","bathrooms","m2","address","description","cover_image_path")
+        $apartments = Apartment::with('services', )
+            ->select("id", "user_id", "title", "rooms", "beds", "bathrooms", "m2", "address", "description", "cover_image_path")
             ->where('is_hidden', '=', 0)
             ->paginate(10);
-            
+
+        foreach ($apartments as $apartment) {
+            if (!empty($apartment->description)) {
+                $apartment->description = substr($apartment->description, 0, 50);
+            }
+        }
+
+
+        return response()->json([
+            'status' => 'success',
+            'message' => 'ok',
+            'results' => $apartments,
+            // 'description' => substr($apartments->description, 0, 50)
+        ], 200);
+
+    }
+
+    public function ApartmentByService($service_id)
+    {
+
+        $apartments = Apartment::with('services', )
+            ->select("apartments.id", "user_id", "title", "rooms", "beds", "bathrooms", "m2", "address", "description", "cover_image_path")
+            ->join('apartment_service', 'apartments.id', '=', 'apartment_service.apartment_id')
+            ->where('is_hidden', '=', 0)
+            ->where('apartment_service.service_id', '=', $service_id)
+            ->paginate(10);
+
         foreach ($apartments as $apartment) {
             if (!empty($apartment->description)) {
                 $apartment->description = substr($apartment->description, 0, 50);
@@ -57,10 +83,10 @@ class ApartmentController extends Controller
      */
     public function show($id)
     {
-        $apartment = Apartment::with('services',)
-        ->select("id","user_id","title","rooms","beds","bathrooms","m2","address","description","cover_image_path")
-        ->where('id', $id)
-        ->first();
+        $apartment = Apartment::with('services', )
+            ->select("id", "user_id", "title", "rooms", "beds", "bathrooms", "m2", "address", "description", "cover_image_path")
+            ->where('id', $id)
+            ->first();
 
         if ($apartment) {
             return response()->json([
@@ -85,7 +111,7 @@ class ApartmentController extends Controller
      */
     public function update(Request $request, $id)
     {
-        
+
     }
 
     /**

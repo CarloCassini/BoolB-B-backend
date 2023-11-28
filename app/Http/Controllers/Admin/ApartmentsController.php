@@ -184,7 +184,6 @@ class ApartmentsController extends Controller
         $data_position = json_decode($response->getBody(), true);
 
         // distribuisco il valore di lat e lon ai campi del db
-        dd($data_position['results']);
         $apartment->latitude = $data_position['results'][0]['position']['lat'];
         $apartment->longitude = $data_position['results'][0]['position']['lon'];
         // * ++++ fine gestione latitudine e longitudine
