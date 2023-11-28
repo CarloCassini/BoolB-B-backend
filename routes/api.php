@@ -32,4 +32,4 @@ Route::apiResource("/apartments", ApartmentController::class)->only("index", "sh
 Route::get("/apartments/service/{service_id}", [ApartmentController::class, "ApartmentByService"]);
 
 //ricerco api per il tomtom con guzzle
-Route::get('/tomtom', [TomtomController::class, "findsuggest"]);
+Route::get('/tomtom/{address}', [TomtomController::class, "findsuggest"]);

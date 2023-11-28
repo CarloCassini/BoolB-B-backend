@@ -54,16 +54,6 @@
                 @enderror
             </div>
 
-            {{-- prove di tomtom --}}
-            {{-- todox --}}
-            <div class="my-5 debug btn" id="test">ciccio</div>
-
-            <div class="w-50 debug mb-5">
-                <select class="form-select" aria-label="Default select example" id="select-tomtom">
-                    <option selected>Open this select menu</option>
-                </select>
-            </div>
-
             {{-- description --}}
             <div class="col-12 mb-4">
                 <label for="description" class="form-label">description</label>
@@ -127,7 +117,7 @@
             </div>
 
             {{-- address --}}
-            <div>
+            {{-- <div>
                 <label for="address" class="form-label">address*</label>
                 <input type="text" name="address" id="address"
                     class="form-control @error('address') is-invalid @enderror"
@@ -137,6 +127,28 @@
                         {{ $message }}
                     </div>
                 @enderror
+            </div> --}}
+            {{-- prove di tomtom --}}
+            {{-- todox --}}
+            <div class="row debug my-3">
+                <label for="address" class="form-label">address*</label>
+                <div class="col-6">
+                    <input type="text" name="address" id="address"
+                        class="form-control @error('address') is-invalid @enderror"
+                        value="{{ old('address') ?? $apartment->address }}">
+                    @error('address')
+                        <div class="invalid-feedback">
+                            {{ $message }}
+                        </div>
+                    @enderror
+                </div>
+                <div class="col-6">
+                    <div class="w-100 align-items-end mt-auto">
+                        <select class="form-select" aria-label="Default select example" id="select-tomtom">
+                            <option selected>Open this select menu</option>
+                        </select>
+                    </div>
+                </div>
             </div>
 
             {{-- Services  --}}
@@ -245,27 +257,34 @@
 
 @section('scripts')
     <script>
-        const testbutton = document.getElementById("test");
+        const testbutton = document.getElementById("address");
         const select = document.getElementById("select-tomtom");
 
-        testbutton.addEventListener("click", () => {
-            // let apiUri =
-            //     'https://api.tomtom.com/search/2/geocode/firenze.json?key=t7a52T1QnfuvZp7X85QvVlLccZeC5a9P';
-            let apiUri =
-                'http://127.0.0.1:8000/api/tomtom';
+        testbutton.addEventListener("input", () => {
+            select.innerHTML = '';
+        });
+
+        select.addEventListener("click", () => {
 
             // todox
             console.log("call search");
+            let addressToSearch = testbutton.value;
+            console.log('addressToSearch: ' + addressToSearch);
+
+            let apiUri =
+                'http://127.0.0.1:8000/api/tomtom/' + addressToSearch;
+
             console.log(apiUri);
             axios.get(apiUri).then((response) => {
                 select.innerHTML = '';
                 for (let i = 0; i < response.data.results.length; i++) {
-                    const element = response.data.results[i].position;
-                    console.log(element);
+                    const element = response.data.results[i];
+                    console.log(response.data.results[i]);
 
                     var nuovaOpzione = document.createElement('option');
                     nuovaOpzione.value = element.lat;
-                    nuovaOpzione.text = 'lat: ' + element.lat + ' - lon: ' + element.lon;
+                    // nuovaOpzione.text = 'lat: ' + element.lat + ' - lon: ' + element.lon;
+                    nuovaOpzione.text = element.address.freeformAddress;
                     select.add(nuovaOpzione);
                 }
             });
