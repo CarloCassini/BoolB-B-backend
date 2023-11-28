@@ -37,10 +37,14 @@
 
 
 
+        {{-- prove di tomtom --}}
+        <div class="my-5 debug btn" id="test">ciccio</div>
+
         {{-- corpo --}}
         <form action="{{ route('admin.apartments.update', $apartment) }}" method="POST">
             @csrf
             @method('PUT')
+
 
             {{-- title --}}
             <h6>i campi con l'* sono obbligatori</h6>
@@ -185,6 +189,7 @@
             {{-- todo : gestione delle coordinate di latitudine e longitudine  --}}
             {{-- todo : gestione della cover image ::: è un campo nullable --}}
 
+
             <button type="submit" class="btn btn-primary my-3">Salva</button>
         </form>
     </div>
@@ -232,4 +237,22 @@
             </div>
         </div>
     </div>
+@endsection
+
+@section('scripts')
+    <script>
+        const testbutton = document.getElementById("test");
+
+        testbutton.addEventListener("click", () => {
+            let apiUri =
+                'https://api.tomtom.com/search/2/geocode/firenze.json?key=t7a52T1QnfuvZp7X85QvVlLccZeC5a9P'
+
+            console.log("call search");
+
+            console.log(apiUri);
+            axios.get(apiUri).then((response) => {
+                console.log(response.data.results.data);
+            });
+        });
+    </script>
 @endsection
