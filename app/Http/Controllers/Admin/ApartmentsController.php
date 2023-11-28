@@ -78,7 +78,6 @@ class ApartmentsController extends Controller
             $apartment->cover_image_path = Storage::put("uploads/apartments/cover_image", $data['cover_image_path']);            
         }
 
-
         // user_id viene valorizzato in base a chi è collegato
         $apartment->user_id = $user->id;
 
@@ -178,6 +177,16 @@ class ApartmentsController extends Controller
         // *fine gestione rotta protetta
 
         $data = $request->validated();
+
+        // store dell'immagine nella cartella uploads(collegamento storage)
+        if (Arr::exists($data, "cover_image_path")){
+            if($apartment->cover_image_path){
+                Storage::delete($apartment->cover_image_path); 
+            }
+            $apartment->cover_image_path = Storage::put("uploads/apartments/cover_image", $data['cover_image_path']);
+        }
+        
+
         // todo xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
         // * ++++ gestione latitudine e longitudine
         // *forzo il fatto di non usare la verifica ssl

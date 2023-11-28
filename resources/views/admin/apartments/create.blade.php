@@ -166,7 +166,6 @@
                     <input type="radio" id="html" name="is_hidden" value="1"
                         @if (old('is_hidden') == '1') checked @endif>
                     <label for="html">hidden</label>
-
                 </div>
             </div>
             @error('is_hidden')
