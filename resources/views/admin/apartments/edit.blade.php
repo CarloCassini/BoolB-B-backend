@@ -245,20 +245,28 @@
 
         testbutton.addEventListener("click", () => {
             let apiUri =
-                'https://api.tomtom.com/search/2/geocode/firenze.json?key=t7a52T1QnfuvZp7X85QvVlLccZeC5a9P'
+                'https://api.tomtom.com/search/2/geocode/firenze.json?key=t7a52T1QnfuvZp7X85QvVlLccZeC5a9P';
+            // let apiUri =
+            //     'http://127.0.0.1:8000/api/tomtom/1';
+
 
             console.log("call search");
             console.log(apiUri);
-            axios.get(apiUri, {
-                headers: {
-                    "Cache-Control": "no-cache",
-                    "Content-Type": "application/x-www-form-urlencoded",
-                    "Access-Control-Allow-Origin": "*",
-                },
-                referrerPolicy: 'no-referrer-when-downgrade'
-            }).then((response) => {
+            axios.get(apiUri).then((response) => {
                 console.log(response.data.results.data);
             });
         });
     </script>
+@endsection
+
+
+@section('saa')
+    , {
+    headers: {
+    "Cache-Control": "no-cache",
+    "Content-Type": "application/x-www-form-urlencoded",
+    "Access-Control-Allow-Origin": "*",
+    },
+    referrerPolicy: 'no-referrer-when-downgrade'
+    }
 @endsection
