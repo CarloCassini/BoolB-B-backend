@@ -10,24 +10,24 @@
                 Torna alla lista
             </a>
 
-            {{--attivazione sponsor --}}
+            {{-- attivazione sponsor --}}
 
-            <a href="{{ route('sponsorSelect', $apartment->id) }}"button class="btn btn-outline-primary ms-5 me-2 ">
+            <a href="{{ route('sponsorSelect', $apartment->id) }}"button class="btn btn-outline-primary ms-auto me-2 ">
                 Sponsorizza
-            </button>
-             
+                </button>
 
-            {{-- per modificare l'appartamento --}}
-            <a href="{{ route('admin.apartments.edit', $apartment) }}" class="btn btn-outline-warning ms-auto me-2 ">
-                <i class="fa-solid fa-pencil "></i>
-                modifica appartamento
-            </a>
-            {{-- per cancellare l'appartamento --}}
-            <a href="#"data-bs-toggle="modal" data-bs-target="#modal-{{ $apartment->id }}"
-                class="btn btn-outline-danger ">
-                <i class="fa-solid fa-trash text-danger"></i>
-                elimina appartamento
-            </a>
+
+                {{-- per modificare l'appartamento --}}
+                <a href="{{ route('admin.apartments.edit', $apartment) }}" class="btn btn-outline-warning  me-2 ">
+                    <i class="fa-solid fa-pencil "></i>
+                    modifica appartamento
+                </a>
+                {{-- per cancellare l'appartamento --}}
+                <a href="#"data-bs-toggle="modal" data-bs-target="#modal-{{ $apartment->id }}"
+                    class="btn btn-outline-danger ">
+                    <i class="fa-solid fa-trash text-danger"></i>
+                    elimina appartamento
+                </a>
         </div>
     </div>
 @endsection

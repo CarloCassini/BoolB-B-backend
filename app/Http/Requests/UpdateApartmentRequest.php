@@ -34,7 +34,7 @@ class UpdateApartmentRequest extends FormRequest
             'address' => ['required', 'string'],
             'services' => ['required', 'exists:services,id'],
             'is_hidden' => ['boolean'],
-            'cover_image_path' =>['nullable', 'image'],
+            'cover_image_path' => ['nullable', 'image'],
             // 'latitude_int',
             // 'longitude_int',
             // 'user_id',
@@ -66,8 +66,8 @@ class UpdateApartmentRequest extends FormRequest
             'm2.required' => 'bathrooms è obbligatorio',
             'm2.min' => 'bathrooms deve essere minimo = 1',
 
-            'address.required' => 'title è obbligatiorio',
-            'address.string' => 'title deve essere un testo',
+            'address.required' => 'address is required, select one suggestion',
+            'address.string' => 'address must be selected from suggestions',
 
             'services.exists' => 'servizio non disponibile',
             'services.required' => 'not avable',

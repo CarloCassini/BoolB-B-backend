@@ -117,41 +117,31 @@
                 @enderror
             </div>
 
-            {{-- address --}}
-            {{-- <div>
-                <label for="address" class="form-label">address*</label>
-                <input type="text" name="address" id="address"
-                    class="form-control @error('address') is-invalid @enderror"
-                    value="{{ old('address') ?? $apartment->address }}">
-                @error('address')
-                    <div class="invalid-feedback">
-                        {{ $message }}
-                    </div>
-                @enderror
-            </div> --}}
-            {{-- prove di tomtom --}}
-            {{-- todox --}}
-            <span class="d-none"
-                id="start-address-full">{{ $apartment->latitude . '|' . $apartment->longitude . '|' . $apartment->address }}</span>
-            <span class="d-none" id="start-address-human">{{ $apartment->address }}</span>
-            <div class="row debug my-3">
+            <div class="row my-3">
+                {{-- * mi porto dietro i valori dell'appartamento per usarli negli script --}}
+                <div class="div d-none">
+                    <span
+                        id="start-address-full">{{ $apartment->latitude . '|' . $apartment->longitude . '|' . $apartment->address }}</span>
+                    <span id="start-address-human">{{ $apartment->address }}</span>
+                </div>
                 <div class="col-6">
                     <label for="address-txt" class="form-label">address*</label>
                     <input type="text" name="address-txt" id="address"
                         class="form-control @error('address') is-invalid @enderror"
-                        value="{{ old('address') ?? $apartment->address }}">
-                    @error('address')
-                        <div class="invalid-feedback">
-                            {{ $message }}
-                        </div>
-                    @enderror
+                        value="{{ old('address-txt') ?? $apartment->address }}">
                 </div>
                 <div class="col-6">
-                    <label for="address" class="form-label">select from suggestions*</label>
+                    <label for="address-select" class="form-label">select from suggestions*</label>
                     <div class="w-100 align-items-end mt-auto">
-                        <select class="form-select" aria-label="Default select example" name="address" id="select-tomtom">
+                        <select class="form-control form-select @error('address') is-invalid @enderror"
+                            aria-label="Default select example" name="address-select" id="select-tomtom">
                             {{-- si riempirà con select ad hoc --}}
                         </select>
+                        @error('address')
+                            <div class="invalid-feedback">
+                                {{ $message }}
+                            </div>
+                        @enderror
                     </div>
                 </div>
             </div>
@@ -317,7 +307,6 @@
                 // Annulla l'evento di invio del modulo
                 event.preventDefault();
                 callTomtom();
-
             }
         });
         // ++++++++++++++++++++
@@ -351,11 +340,6 @@
         };
 
         select.addEventListener("click", () => {
-
-            // todox
-
-
-
             if (test == 0) {
                 callTomtom();
             };
