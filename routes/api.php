@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\API\ServicesController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\ApartmentController;
@@ -27,6 +28,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route::apiResource("/apartments", ApartmentController::class)->only("index", "show");
 
+Route::apiResource("/services", ServicesController::class)->only("index");
 
 // provo a tirare fuori qualcosa
 Route::get("/apartments/service/{service_id}", [ApartmentController::class, "ApartmentByService"]);
