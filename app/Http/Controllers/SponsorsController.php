@@ -6,6 +6,7 @@ use App\Models\Apartment;
 use App\Models\Sponsor;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Controllers\Controller;
 
 class SponsorsController extends Controller
 {
@@ -24,6 +25,18 @@ class SponsorsController extends Controller
 
 
         return view('admin.sponsors.index', compact('userSponsors', 'userApartments', 'sponsors', 'user_id', 'apartments'));
+    }
+
+
+    // 
+
+    public function selectSponsor($apartment_id)
+    {
+
+        $sponsors = Sponsor::all();
+       
+        return view('admin.sponsors.select', compact('sponsors'));
+
     }
 
     /**

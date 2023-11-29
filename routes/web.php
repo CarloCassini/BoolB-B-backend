@@ -7,6 +7,7 @@ use App\Http\Controllers\Admin\PageController as AdminPageController;
 use App\Http\Controllers\Guest\PageController as GuestPageController;
 use App\Http\Controllers\Admin\ApartmentsController;
 
+
 use App\Http\Controllers\Admin\MessageController;
 
 
@@ -39,6 +40,10 @@ Route::middleware(['auth', 'verified'])
     // utenti sponsorizzati
     Route::resource('/sponsors', SponsorsController::class);
   });
+
+  // gestione sponsorizzazioni
+
+  Route::get('/sponsor/{apartment_id}', [SponsorsController::class, 'selectSponsor'])->name('sponsorSelect');
 
 
     //messaggi utente

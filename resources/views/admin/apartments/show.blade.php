@@ -10,24 +10,12 @@
                 Torna alla lista
             </a>
 
-            {{-- visualizzazione sponsor --}}
+            {{--attivazione sponsor --}}
 
-            <div class="sponsor d-flex">
-                @if ($apartment->sponsors()->where('id', true))
-                    <div>
-                        <h5 class="sponsor-title d-flex align-items-center m-2 gap-2">
-                            <i class="fa-regular fa-star fs-1 "></i>
-                            Sponsorizzato
-                        </h5>
-                        {{-- <p class="m-0">Scadenza:
-                            {{ $apartment_sponsor->end_date->format('H:i') }} del
-                            {{ $apartment_sponsor->end_date->format('d/m/y') }}
-                        </p> --}}
-                    </div>
-                @else
-                    <h5 class="m-0">Sponsorizzazione NON ATTIVA</h5>
-                @endif
-            </div>
+            <a href="{{ route('sponsorSelect', $apartment->id) }}"button class="btn btn-outline-primary ms-5 me-2 ">
+                Sponsorizza
+            </button>
+             
 
             {{-- per modificare l'appartamento --}}
             <a href="{{ route('admin.apartments.edit', $apartment) }}" class="btn btn-outline-warning ms-auto me-2 ">
