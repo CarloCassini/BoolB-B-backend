@@ -10,6 +10,13 @@
                 Torna alla lista
             </a>
 
+            {{--attivazione sponsor --}}
+
+            <a href="{{ route('sponsorSelect', $apartment->id) }}"button class="btn btn-outline-primary ms-5 me-2 ">
+                Sponsorizza
+            </button>
+             
+
             {{-- per modificare l'appartamento --}}
             <a href="{{ route('admin.apartments.edit', $apartment) }}" class="btn btn-outline-warning ms-auto me-2 ">
                 <i class="fa-solid fa-pencil "></i>
