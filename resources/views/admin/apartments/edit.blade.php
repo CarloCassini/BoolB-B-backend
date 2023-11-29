@@ -130,6 +130,9 @@
             </div> --}}
             {{-- prove di tomtom --}}
             {{-- todox --}}
+            <span class="d-none"
+                id="start-address-full">{{ $apartment->latitude . '|' . $apartment->longitude . '|' . $apartment->address }}</span>
+            <span class="d-none" id="start-address-human">{{ $apartment->address }}</span>
             <div class="row debug my-3">
                 <div class="col-6">
                     <label for="address-txt" class="form-label">address*</label>
@@ -146,7 +149,7 @@
                     <label for="address" class="form-label">select from suggestions*</label>
                     <div class="w-100 align-items-end mt-auto">
                         <select class="form-select" aria-label="Default select example" name="address" id="select-tomtom">
-                            <option selected>Open this select menu</option>
+                            {{-- si riempirà con select ad hoc --}}
                         </select>
                     </div>
                 </div>
@@ -276,6 +279,21 @@
         let umeroOpzioni = 0;
         let test = 0;
 
+        // gesione prima valorizzazione select++++++
+        const startAddressFull = document.getElementById("start-address-full").innerHTML;
+        console.log(startAddressFull);
+        const startAddressHuman = document.getElementById("start-address-human").innerHTML;
+        var nuovaOpzioneStart = document.createElement('option');
+
+        // inserisco i valori del campo selezionato in una formattazione particolare che verrà poi gestita dal controller
+        nuovaOpzioneStart.value = startAddressFull;
+
+        nuovaOpzioneStart.text = startAddressHuman;
+        nuovaOpzioneStart.id = 'opzione-start';
+
+        select.append(nuovaOpzioneStart);
+        // +++++++++++++++++++++++++++++++++
+
         testbutton.addEventListener("click", () => {
             select.innerHTML = '';
             test = 0;
@@ -313,7 +331,7 @@
                         nuovaOpzione.text = element.address.freeformAddress
                         nuovaOpzione.id = 'opzione-' + i;
 
-                        nuovaOpzione.addEventListener("click", () => {});
+
                         select.append(nuovaOpzione);
 
                     }
