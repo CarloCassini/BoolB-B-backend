@@ -36,7 +36,8 @@
         @endif
 
         {{-- corpo --}}
-        <form action="{{ route('admin.apartments.update', $apartment) }}" method="POST" enctype="multipart/form-data">
+        <form action="{{ route('admin.apartments.update', $apartment) }}" method="POST" enctype="multipart/form-data"
+            id="form">
             @csrf
             @method('PUT')
 
@@ -279,7 +280,50 @@
         let umeroOpzioni = 0;
         let test = 0;
 
-        // gesione prima valorizzazione select++++++
+        function callTomtom() {
+            let addressToSearch = testbutton.value;
+            let apiUri =
+                'http://127.0.0.1:8000/api/tomtom/' + addressToSearch;
+
+            axios.get(apiUri).then((response) => {
+                select.innerHTML = '';
+                for (let i = 0; i < response.data.results.length; i++) {
+                    const element = response.data.results[i];
+
+                    var nuovaOpzione = document.createElement('option');
+
+                    // inserisco i valori del campo selezionato in una formattazione particolare che verrà poi gestita dal controller
+                    nuovaOpzione.value = element.position.lat + '|' + element.position.lon + '|' +
+                        element
+                        .address
+                        .freeformAddress;
+
+                    nuovaOpzione.text = element.address.freeformAddress
+                    nuovaOpzione.id = 'opzione-' + i;
+
+
+                    select.append(nuovaOpzione);
+
+                }
+                numeroOpzioni = response.data.results.length;
+                test = 1;
+            });
+        }
+        // ++++++++++++++++++++
+        // Aggiungi un gestore di eventi per l'evento "keydown" sulla finestra del documento
+        window.addEventListener("keydown", function(event) {
+            // Verifica se il tasto premuto è il tasto "Invio"
+            if (event.key === "Enter") {
+                // Annulla l'evento di invio del modulo
+                event.preventDefault();
+                callTomtom();
+
+            }
+        });
+        // ++++++++++++++++++++
+
+        // ++++++++++++++++++++
+        // gesione prima valorizzazione select
         const startAddressFull = document.getElementById("start-address-full").innerHTML;
         console.log(startAddressFull);
         const startAddressHuman = document.getElementById("start-address-human").innerHTML;
@@ -292,7 +336,7 @@
         nuovaOpzioneStart.id = 'opzione-start';
 
         select.append(nuovaOpzioneStart);
-        // +++++++++++++++++++++++++++++++++
+        // ++++++++++++++++++++
 
         testbutton.addEventListener("click", () => {
             select.innerHTML = '';
@@ -309,36 +353,13 @@
         select.addEventListener("click", () => {
 
             // todox
-            let addressToSearch = testbutton.value;
-            let apiUri =
-                'http://127.0.0.1:8000/api/tomtom/' + addressToSearch;
+
 
 
             if (test == 0) {
-                axios.get(apiUri).then((response) => {
-                    select.innerHTML = '';
-                    for (let i = 0; i < response.data.results.length; i++) {
-                        const element = response.data.results[i];
+                callTomtom();
+            };
 
-                        var nuovaOpzione = document.createElement('option');
-
-                        // inserisco i valori del campo selezionato in una formattazione particolare che verrà poi gestita dal controller
-                        nuovaOpzione.value = element.position.lat + '|' + element.position.lon + '|' +
-                            element
-                            .address
-                            .freeformAddress;
-
-                        nuovaOpzione.text = element.address.freeformAddress
-                        nuovaOpzione.id = 'opzione-' + i;
-
-
-                        select.append(nuovaOpzione);
-
-                    }
-                    numeroOpzioni = response.data.results.length;
-                    test = 1;
-                });
-            }
         });
     </script>
 @endsection

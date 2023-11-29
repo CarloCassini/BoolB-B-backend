@@ -29,7 +29,7 @@
         @endif
 
         {{-- corpo --}}
-        <form action="{{ route('admin.apartments.store') }}" method="POST" enctype="multipart/form-data">
+        <form action="{{ route('admin.apartments.store') }}" method="POST" enctype="multipart/form-data" id="form">
             @csrf
 
             <h6>i campi con l'* sono obbligatori</h6>
