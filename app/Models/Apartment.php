@@ -14,7 +14,7 @@ class Apartment extends Model
     "beds",
     "bathrooms",
     "m2",
-    "address",
+    // "address",
     "description",
     'is_hidden',
     // 'cover_image_path',

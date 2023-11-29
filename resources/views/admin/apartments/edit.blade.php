@@ -276,7 +276,7 @@
         let umeroOpzioni = 0;
         let test = 0;
 
-        testbutton.addEventListener("input", () => {
+        testbutton.addEventListener("click", () => {
             select.innerHTML = '';
             test = 0;
         });
