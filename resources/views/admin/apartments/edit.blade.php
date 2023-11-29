@@ -131,9 +131,9 @@
             {{-- prove di tomtom --}}
             {{-- todox --}}
             <div class="row debug my-3">
-                <label for="address" class="form-label">address*</label>
                 <div class="col-6">
-                    <input type="text" name="address" id="address"
+                    <label for="address-txt" class="form-label">address*</label>
+                    <input type="text" name="address-txt" id="address"
                         class="form-control @error('address') is-invalid @enderror"
                         value="{{ old('address') ?? $apartment->address }}">
                     @error('address')
@@ -143,8 +143,9 @@
                     @enderror
                 </div>
                 <div class="col-6">
+                    <label for="address" class="form-label">select from suggestions*</label>
                     <div class="w-100 align-items-end mt-auto">
-                        <select class="form-select" aria-label="Default select example" id="select-tomtom">
+                        <select class="form-select" aria-label="Default select example" name="address" id="select-tomtom">
                             <option selected>Open this select menu</option>
                         </select>
                     </div>
@@ -272,35 +273,54 @@
     <script>
         const testbutton = document.getElementById("address");
         const select = document.getElementById("select-tomtom");
+        let umeroOpzioni = 0;
+        let test = 0;
 
-        testbutton.addEventListener("input", () => {
+        testbutton.addEventListener("click", () => {
             select.innerHTML = '';
+            test = 0;
         });
+
+        if (test == 0) {
+            select.addEventListener("change", () => {
+                var selectedOption = select.options[select.selectedIndex];
+                testbutton.value = selectedOption.text;
+            });
+        };
 
         select.addEventListener("click", () => {
 
             // todox
-            console.log("call search");
             let addressToSearch = testbutton.value;
-            console.log('addressToSearch: ' + addressToSearch);
-
             let apiUri =
                 'http://127.0.0.1:8000/api/tomtom/' + addressToSearch;
 
-            console.log(apiUri);
-            axios.get(apiUri).then((response) => {
-                select.innerHTML = '';
-                for (let i = 0; i < response.data.results.length; i++) {
-                    const element = response.data.results[i];
-                    console.log(response.data.results[i]);
 
-                    var nuovaOpzione = document.createElement('option');
-                    nuovaOpzione.value = element.lat;
-                    // nuovaOpzione.text = 'lat: ' + element.lat + ' - lon: ' + element.lon;
-                    nuovaOpzione.text = element.address.freeformAddress;
-                    select.add(nuovaOpzione);
-                }
-            });
+            if (test == 0) {
+                axios.get(apiUri).then((response) => {
+                    select.innerHTML = '';
+                    for (let i = 0; i < response.data.results.length; i++) {
+                        const element = response.data.results[i];
+
+                        var nuovaOpzione = document.createElement('option');
+
+                        // inserisco i valori del campo selezionato in una formattazione particolare che verrà poi gestita dal controller
+                        nuovaOpzione.value = element.position.lat + '|' + element.position.lon + '|' +
+                            element
+                            .address
+                            .freeformAddress;
+
+                        nuovaOpzione.text = element.address.freeformAddress
+                        nuovaOpzione.id = 'opzione-' + i;
+
+                        nuovaOpzione.addEventListener("click", () => {});
+                        select.append(nuovaOpzione);
+
+                    }
+                    numeroOpzioni = response.data.results.length;
+                    test = 1;
+                });
+            }
         });
     </script>
 @endsection
