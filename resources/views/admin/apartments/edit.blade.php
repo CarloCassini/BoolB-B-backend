@@ -134,7 +134,7 @@
                     <label for="address-select" class="form-label">select from suggestions*</label>
                     <div class="w-100 align-items-end mt-auto">
                         <select class="form-control form-select @error('address') is-invalid @enderror"
-                            aria-label="Default select example" name="address-select" id="select-tomtom">
+                            aria-label="Default select example" name="address" id="select-tomtom">
                             {{-- si riempirà con select ad hoc --}}
                         </select>
                         @error('address')
