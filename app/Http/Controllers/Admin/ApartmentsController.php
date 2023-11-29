@@ -74,8 +74,8 @@ class ApartmentsController extends Controller
         $apartment->fill($data);
 
         // store dell'immagine nella cartella uploads(collegamento storage)
-        if (Arr::exists($data, "cover_image_path")){
-            $apartment->cover_image_path = Storage::put("uploads/apartments/cover_image", $data['cover_image_path']);            
+        if (Arr::exists($data, "cover_image_path")) {
+            $apartment->cover_image_path = Storage::put("uploads/apartments/cover_image", $data['cover_image_path']);
         }
 
         // user_id viene valorizzato in base a chi è collegato
@@ -179,31 +179,29 @@ class ApartmentsController extends Controller
         $data = $request->validated();
 
         // store dell'immagine nella cartella uploads(collegamento storage)
-        if (Arr::exists($data, "cover_image_path")){
-            if($apartment->cover_image_path){
-                Storage::delete($apartment->cover_image_path); 
+        if (Arr::exists($data, "cover_image_path")) {
+            if ($apartment->cover_image_path) {
+                Storage::delete($apartment->cover_image_path);
             }
             $apartment->cover_image_path = Storage::put("uploads/apartments/cover_image", $data['cover_image_path']);
         }
-        
 
         // todo xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
-        // * ++++ gestione latitudine e longitudine
-        // *forzo il fatto di non usare la verifica ssl
-        $client = new Client([
-            'verify' => false, // Ignora la verifica SSL
-        ]);
-        // inserisco l'indirizzo fornito nella chiamata api tomtom
-        $response = $client->get('https://api.tomtom.com/search/2/geocode/' . $data['address'] . '.json?key=t7a52T1QnfuvZp7X85QvVlLccZeC5a9P');
+        // * ++++ gestione latitudine e longitudine e indirizzo
+        // *l'indirizzo è inteso come lat|lon|indirizzo
+        $indirizzo = $data['address'];
+        $separatore = '|';
 
-        $data_position = json_decode($response->getBody(), true);
-
-        // distribuisco il valore di lat e lon ai campi del db
-        $apartment->latitude = $data_position['results'][0]['position']['lat'];
-        $apartment->longitude = $data_position['results'][0]['position']['lon'];
-        // * ++++ fine gestione latitudine e longitudine
+        $indirizzo_esploso = explode($separatore, $indirizzo);
+        // * quindi l'indirizzo esploso è sempre con 
+        // *[0]=lat
+        // *[1]=lon
+        // *[2]=indirizzo umano
+        // * il che mi permette di ridistribuire le informazioni agli elementi prima del salvataggio
+        $apartment->latitude = $indirizzo_esploso[0];
+        $apartment->longitude = $indirizzo_esploso[1];
+        $apartment->address = $indirizzo_esploso[2];
         // todo xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
-        // $apartment->fill($data);
         $apartment->update($data);
 
 
