@@ -44,8 +44,8 @@ class ApartmentController extends Controller
         $apartments = Apartment::with('services', )
             ->select("apartments.id", "user_id", "title", "rooms", "beds", "bathrooms", "m2", "address", "description", "cover_image_path")
             ->join('apartment_service', 'apartments.id', '=', 'apartment_service.apartment_id')
-            ->where('is_hidden', '=', 0)
-            ->where('apartment_service.service_id', '=', $service_id)
+            ->where('is_hidden', '=', 0 && 'apartment_service.service_id', '=', $service_id)
+            // ->where('apartment_service.service_id', '=', $service_id)
             ->paginate(10);
 
         foreach ($apartments as $apartment) {
