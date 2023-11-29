@@ -58,65 +58,90 @@
                 @enderror
             </div>
 
-            {{-- rooms --}}
-            <div>
-                <label for="rooms" class="form-label">rooms*</label>
-                <input type="number" name="rooms" id="rooms"
-                    class="form-control @error('rooms') is-invalid @enderror" value="{{ old('rooms') }}">
-                @error('rooms')
-                    <div class="invalid-feedback">
-                        {{ $message }}
+            <div class="row">
+                {{-- rooms --}}
+                <div class="col-3">
+                    <div>
+                        <label for="rooms" class="form-label">rooms*</label>
+                        <input type="number" name="rooms" id="rooms"
+                            class="form-control @error('rooms') is-invalid @enderror" value="{{ old('rooms') }}">
+                        @error('rooms')
+                            <div class="invalid-feedback">
+                                {{ $message }}
+                            </div>
+                        @enderror
                     </div>
-                @enderror
-            </div>
-
-            {{-- beds --}}
-            <div>
-                <label for="beds" class="form-label">beds*</label>
-                <input type="number" name="beds" id="beds" class="form-control @error('beds') is-invalid @enderror"
-                    value="{{ old('beds') }}">
-                @error('beds')
-                    <div class="invalid-feedback">
-                        {{ $message }}
+                </div>
+                {{-- beds --}}
+                <div class="col-3">
+                    <div>
+                        <label for="beds" class="form-label">beds*</label>
+                        <input type="number" name="beds" id="beds"
+                            class="form-control @error('beds') is-invalid @enderror" value="{{ old('beds') }}">
+                        @error('beds')
+                            <div class="invalid-feedback">
+                                {{ $message }}
+                            </div>
+                        @enderror
                     </div>
-                @enderror
-            </div>
-
-            {{-- bathrooms --}}
-            <div>
-                <label for="bathrooms" class="form-label">bathrooms*</label>
-                <input type="number" name="bathrooms" id="bathrooms"
-                    class="form-control @error('bathrooms') is-invalid @enderror" value="{{ old('bathrooms') }}">
-                @error('bathrooms')
-                    <div class="invalid-feedback">
-                        {{ $message }}
+                </div>
+                {{-- bathrooms --}}
+                <div class="col-3">
+                    <div>
+                        <label for="bathrooms" class="form-label">bathrooms*</label>
+                        <input type="number" name="bathrooms" id="bathrooms"
+                            class="form-control @error('bathrooms') is-invalid @enderror" value="{{ old('bathrooms') }}">
+                        @error('bathrooms')
+                            <div class="invalid-feedback">
+                                {{ $message }}
+                            </div>
+                        @enderror
                     </div>
-                @enderror
-            </div>
-
-            {{-- m2 --}}
-            <div>
-                <label for="m2" class="form-label">m2*</label>
-                <input type="number" name="m2" id="m2" class="form-control @error('m2') is-invalid @enderror"
-                    value="{{ old('m2') }}">
-                @error('m2')
-                    <div class="invalid-feedback">
-                        {{ $message }}
+                </div>
+                {{-- m2 --}}
+                <div class="col-3">
+                    <div>
+                        <label for="m2" class="form-label">m2*</label>
+                        <input type="number" name="m2" id="m2"
+                            class="form-control @error('m2') is-invalid @enderror" value="{{ old('m2') }}">
+                        @error('m2')
+                            <div class="invalid-feedback">
+                                {{ $message }}
+                            </div>
+                        @enderror
                     </div>
-                @enderror
+                </div>
             </div>
 
             {{-- address --}}
-            <div>
-                <label for="address" class="form-label">address*</label>
-                <input type="text" name="address" id="address"
-                    class="form-control @error('address') is-invalid @enderror" value="{{ old('address') }}">
-                @error('address')
-                    <div class="invalid-feedback">
-                        {{ $message }}
+            <div class="row my-3">
+                <div class="col-6">
+                    <label for="address-txt" class="form-label">address*</label>
+                    <input type="text" name="address-txt" id="address"
+                        class="form-control @error('address-txt') is-invalid @enderror" value="{{ old('address-txt') }}">
+                    @error('address-txt')
+                        <div class="invalid-feedback">
+                            {{ $message }}
+                        </div>
+                    @enderror
+                </div>
+                <div class="col-6">
+                    <label for="address-select" class="form-label">select from suggestions*</label>
+                    <div class="w-100 align-items-end mt-auto">
+                        <select class="form-control form-select @error('address') is-invalid @enderror"
+                            aria-label="Default select example" name="address" id="select-tomtom">
+                            {{-- si riempirà con select ad hoc --}}
+                        </select>
+                        @error('address')
+                            <div class="invalid-feedback">
+                                {{ $message }}
+                            </div>
+                        @enderror
+
                     </div>
-                @enderror
+                </div>
             </div>
+
 
             {{-- Services  --}}
             <label class="form-label my-3">services</label>
@@ -179,4 +204,74 @@
             <button type="submit" class="btn btn-primary my-3">Salva</button>
         </form>
     </div>
+@endsection
+
+@section('scripts')
+    <script>
+        const testbutton = document.getElementById("address");
+        const select = document.getElementById("select-tomtom");
+        let umeroOpzioni = 0;
+        let test = 0;
+
+        function callTomtom() {
+            let addressToSearch = testbutton.value;
+            let apiUri =
+                'http://127.0.0.1:8000/api/tomtom/' + addressToSearch;
+
+            axios.get(apiUri).then((response) => {
+                select.innerHTML = '';
+                for (let i = 0; i < response.data.results.length; i++) {
+                    const element = response.data.results[i];
+
+                    var nuovaOpzione = document.createElement('option');
+
+                    // inserisco i valori del campo selezionato in una formattazione particolare che verrà poi gestita dal controller
+                    nuovaOpzione.value = element.position.lat + '|' + element.position.lon + '|' +
+                        element
+                        .address
+                        .freeformAddress;
+
+                    nuovaOpzione.text = element.address.freeformAddress
+                    nuovaOpzione.id = 'opzione-' + i;
+
+
+                    select.append(nuovaOpzione);
+
+                }
+                numeroOpzioni = response.data.results.length;
+                test = 1;
+            });
+        }
+        // ++++++++++++++++++++
+        // Aggiungi un gestore di eventi per l'evento "keydown" sulla finestra del documento
+        window.addEventListener("keydown", function(event) {
+            // Verifica se il tasto premuto è il tasto "Invio"
+            if (event.key === "Enter") {
+                // Annulla l'evento di invio del modulo
+                event.preventDefault();
+                callTomtom();
+            }
+        });
+        // ++++++++++++++++++++
+
+
+        testbutton.addEventListener("click", () => {
+            select.innerHTML = '';
+            test = 0;
+        });
+
+        if (test == 0) {
+            select.addEventListener("change", () => {
+                var selectedOption = select.options[select.selectedIndex];
+                testbutton.value = selectedOption.text;
+            });
+        };
+
+        select.addEventListener("click", () => {
+            if (test == 0) {
+                callTomtom();
+            };
+
+        });
+    </script>
 @endsection
