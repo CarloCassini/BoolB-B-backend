@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\ApartmentController;
+use App\Http\Controllers\Api\TomtomController;
 
 
 use App\Models\Apartment;
@@ -29,3 +30,6 @@ Route::apiResource("/apartments", ApartmentController::class)->only("index", "sh
 
 // provo a tirare fuori qualcosa
 Route::get("/apartments/service/{service_id}", [ApartmentController::class, "ApartmentByService"]);
+
+//ricerco api per il tomtom con guzzle
+Route::get('/tomtom/{address}', [TomtomController::class, "findsuggest"]);
