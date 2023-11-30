@@ -30,16 +30,20 @@
 
         {{-- corpo --}}
         <form action="{{ route('admin.apartments.store') }}" method="POST" enctype="multipart/form-data" id="form"
-            class="needs-validation">
+            class="needs-validation" novalidate>
             @csrf
 
-            <h6>i campi con l'* sono obbligatori</h6>
+            <h6>fields with * are required</h6>
 
             {{-- title --}}
             <div>
                 <label for="title" class="form-label">title</label>
                 <input type="text" name="title" id="title"
                     class="form-control @error('title') is-invalid @enderror" value="{{ old('title') }}" required>
+                {{-- errore lato client --}}
+                <div class="invalid-feedback">
+                    title can't be null.
+                </div>
                 @error('title')
                     <div class="invalid-feedback">
                         {{ $message }}
@@ -65,7 +69,11 @@
                     <div>
                         <label for="rooms" class="form-label">rooms*</label>
                         <input type="number" name="rooms" id="rooms"
-                            class="form-control @error('rooms') is-invalid @enderror" value="{{ old('rooms') }}" required>
+                            class="form-control @error('rooms') is-invalid @enderror" value="{{ old('rooms') }}"
+                            min="1" required>
+                        <div class="invalid-feedback">
+                            must be a number higher than zero.
+                        </div>
                         @error('rooms')
                             <div class="invalid-feedback">
                                 {{ $message }}
@@ -78,7 +86,11 @@
                     <div>
                         <label for="beds" class="form-label">beds*</label>
                         <input type="number" name="beds" id="beds"
-                            class="form-control @error('beds') is-invalid @enderror" value="{{ old('beds') }}" required>
+                            class="form-control @error('beds') is-invalid @enderror" value="{{ old('beds') }}"
+                            min="0" required>
+                        <div class="invalid-feedback">
+                            must be a number higher or equal zero.
+                        </div>
                         @error('beds')
                             <div class="invalid-feedback">
                                 {{ $message }}
@@ -92,7 +104,10 @@
                         <label for="bathrooms" class="form-label">bathrooms*</label>
                         <input type="number" name="bathrooms" id="bathrooms"
                             class="form-control @error('bathrooms') is-invalid @enderror" value="{{ old('bathrooms') }}"
-                            required>
+                            min="0" required>
+                        <div class="invalid-feedback">
+                            must be a number higher or equal zero.
+                        </div>
                         @error('bathrooms')
                             <div class="invalid-feedback">
                                 {{ $message }}
@@ -105,7 +120,11 @@
                     <div>
                         <label for="m2" class="form-label">m2*</label>
                         <input type="number" name="m2" id="m2"
-                            class="form-control @error('m2') is-invalid @enderror" value="{{ old('m2') }}" required>
+                            class="form-control @error('m2') is-invalid @enderror" value="{{ old('m2') }}"
+                            min="1" required>
+                        <div class="invalid-feedback">
+                            must be a number higher than zero.
+                        </div>
                         @error('m2')
                             <div class="invalid-feedback">
                                 {{ $message }}
@@ -134,6 +153,9 @@
                             aria-label="Default select example" name="address" id="select-tomtom" required>
                             {{-- si riempirà con select ad hoc --}}
                         </select>
+                        <div class="invalid-feedback">
+                            need to choose a suggestion
+                        </div>
                         @error('address')
                             <div class="invalid-feedback">
                                 {{ $message }}
@@ -146,15 +168,25 @@
 
 
             {{-- Services  --}}
-            <label class="form-label my-3">services</label>
 
-            <div class="form-check @error('services') is-invalid @enderror p-0">
+            <label class="form-label my-1 @error('services') is-invalid @enderror" id="services-label">services</label>
+            @error('services')
+                <div class="invalid-feedback">
+                    {{ $message }}
+                </div>
+            @else
+                <div class="invalid-feedback">
+                    choose at least one service
+                </div>
+            @enderror
+
+            <div class="form-check p-0" id="ciccio">
                 <div class="d-flex  flex-wrap">
                     @foreach ($services as $service)
                         <div class="col-3 mt-1">
 
                             <input type="checkbox" id="service-{{ $service->id }}" value="{{ $service->id }}"
-                                name="services[]" class="form-check-control me-2"
+                                name="services[]" class="form-check-control me-2 check-services"
                                 @if (in_array($service->id, old('services', $apartment_service ?? []))) checked @endif>
                             <label for="service-{{ $service->id }}">
                                 <i class="{{ $service->symbol }}"></i> - {{ $service->label }}
@@ -163,11 +195,6 @@
                     @endforeach
                 </div>
             </div>
-            @error('services')
-                <div class="invalid-feedback">
-                    {{ $message }}
-                </div>
-            @enderror
 
             {{-- Cover Image --}}
             <div class="my-3">
@@ -284,16 +311,32 @@
             'use strict';
             // Fetch all the forms we want to apply custom Bootstrap validation styles to
             const forms = document.querySelectorAll('.needs-validation');
-            console.log(forms);
 
             // Loop over them and prevent submission
             Array.from(forms).forEach(form => {
                 form.addEventListener('submit', event => {
                     // Exclude validation for fields with the class 'no-validation'
+                    // verifico che almeno un servizio sia stato selezionato
+                    const servicesLabel = form.querySelector(
+                        '#services-label');
+                    const fieldsCheck = form.querySelectorAll('.check-services');
+                    let flagServices = false;
+                    Array.from(fieldsCheck).forEach(field => {
+                        console.log(field);
+                        if (field.checked) {
+                            flagServices = true;
+                        }
+                    });
+                    console.log('flagServices: ' + flagServices);
+                    if (!flagServices) {
+                        servicesLabel.classList.add("is-invalid");
+                        event.preventDefault();
+                        event.stopPropagation();
+                    }
+
+
                     const fieldsToValidate = form.querySelectorAll('.form-control:not(.no-validation)');
-                    console.log(fieldsToValidate);
                     Array.from(fieldsToValidate).forEach(field => {
-                        console.log(field.checkValidity());
                         if (!field.checkValidity()) {
                             event.preventDefault();
                             event.stopPropagation();
@@ -302,6 +345,9 @@
 
                     form.classList.add('was-validated');
 
+                    // todo
+                    // event.preventDefault();
+                    // event.stopPropagation();
                 }, false);
             });
         })();

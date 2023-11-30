@@ -37,12 +37,12 @@
 
         {{-- corpo --}}
         <form action="{{ route('admin.apartments.update', $apartment) }}" method="POST" enctype="multipart/form-data"
-            id="form">
+            id="form" class="needs-validation">
             @csrf
             @method('PUT')
 
             {{-- title --}}
-            <h6>i campi con l'* sono obbligatori</h6>
+            <h6>fields with * are required</h6>
             <div>
                 <label for="title" class="form-label">Title*</label>
                 <input type="text" name="title" id="title"
@@ -275,6 +275,7 @@
 @endsection
 
 @section('scripts')
+    {{-- per gestione dell'indirizzo --}}
     <script>
         const testbutton = document.getElementById("address");
         const select = document.getElementById("select-tomtom");
@@ -356,6 +357,34 @@
             };
 
         });
+    </script>
+    {{-- scripts per la validazione lato client --}}
+    <script>
+        (() => {
+            'use strict';
+            // Fetch all the forms we want to apply custom Bootstrap validation styles to
+            const forms = document.querySelectorAll('.needs-validation');
+            console.log(forms);
+
+            // Loop over them and prevent submission
+            Array.from(forms).forEach(form => {
+                form.addEventListener('submit', event => {
+                    // Exclude validation for fields with the class 'no-validation'
+                    const fieldsToValidate = form.querySelectorAll('.form-control:not(.no-validation)');
+                    console.log(fieldsToValidate);
+                    Array.from(fieldsToValidate).forEach(field => {
+                        console.log(field.checkValidity());
+                        if (!field.checkValidity()) {
+                            event.preventDefault();
+                            event.stopPropagation();
+                        }
+                    });
+
+                    form.classList.add('was-validated');
+
+                }, false);
+            });
+        })();
     </script>
 @endsection
 
