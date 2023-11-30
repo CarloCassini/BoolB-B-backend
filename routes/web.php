@@ -45,6 +45,9 @@ Route::middleware(['auth', 'verified'])
 
   Route::get('/sponsor/{apartment_id}', [SponsorsController::class, 'selectSponsor'])->name('sponsorSelect');
 
+//  crezione sponsorizzazioni 
+
+Route::post('/sponsor/sponsorship', [SponsorsController::class, 'sponsorship'])->name('sponsorship');
 
     //messaggi utente
     Route::post('/invia-messaggio', [MessageController::class, 'inviaMessaggio'])->name('invia.messaggio');

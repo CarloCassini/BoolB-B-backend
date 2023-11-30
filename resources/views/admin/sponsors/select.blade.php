@@ -15,11 +15,11 @@
             </div>
 
             <div class="container mt-2">
-                <p> CICCIO SPONSORIZZA
+                <p> CICCIO SPONSORIZZA {{$apartment_id}}
                 </p>
             </div>
             <div class="container">
-                <form 
+                <form action="{{ route ('sponsorship')}}" method="POST"
                     class="col-12 col-lg-6 mx-auto">
                     @csrf
                     <div class="card mb-3" style="box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);">
@@ -39,18 +39,12 @@
                                     </div>
                                 @endforeach
                             </div>
-                            <div class="form-group mt-4">
-                                <label>Scegli un appartamento:</label>
-                                <select class="form-control mt-2" required>
-                                    <option value="">Scegli un appartamento</option>
-                                </select>
-                            </div>
+                            <input type="text" name="apartment_id" value="{{$apartment_id}}" class="d-none">
                             <div id="dropin-wrapper" class="mt-3">
                                 <div id="checkout-message"></div>
                                 <div id="dropin-container"></div>
                                 <button id="submit-button" class="btn btn-primary btn-block">Paga</button>
                             </div>
-                            
                         </div>
                     </div>
                 </form>
