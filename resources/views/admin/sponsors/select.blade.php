@@ -15,7 +15,7 @@
             </div>
 
             <div class="container mt-2">
-                <p> CICCIO SPONSORIZZA {{$apartment_id}}
+                <p> CICCIO SPONSORIZZA 
                 </p>
             </div>
             <div class="container">

@@ -50,17 +50,8 @@ class SponsorsController extends Controller
             'end_date' => $endDate,
         
         ]);
-         
-
-        $ciccio=$data['sponsor_id'];
-        $ciciolino=$data['apartment_id'];
-        
-        dump($ciccio);
-        dd($ciciolino);
-
-        // $sponsors = Sponsor::all();
        
-        // return view('', compact(''));
+        return view('', compact(''));
 
     }
 
