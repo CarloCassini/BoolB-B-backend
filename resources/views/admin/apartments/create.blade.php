@@ -29,16 +29,21 @@
         @endif
 
         {{-- corpo --}}
-        <form action="{{ route('admin.apartments.store') }}" method="POST" enctype="multipart/form-data" id="form">
+        <form action="{{ route('admin.apartments.store') }}" method="POST" enctype="multipart/form-data" id="form"
+            class="needs-validation" novalidate>
             @csrf
 
-            <h6>i campi con l'* sono obbligatori</h6>
+            <h6>fields with * are required</h6>
 
             {{-- title --}}
             <div>
                 <label for="title" class="form-label">title</label>
                 <input type="text" name="title" id="title"
-                    class="form-control @error('title') is-invalid @enderror" value="{{ old('title') }}">
+                    class="form-control @error('title') is-invalid @enderror" value="{{ old('title') }}" required>
+                {{-- errore lato client --}}
+                <div class="invalid-feedback">
+                    title can't be null.
+                </div>
                 @error('title')
                     <div class="invalid-feedback">
                         {{ $message }}
@@ -49,8 +54,8 @@
             {{-- description --}}
             <div class="col-12 mb-4">
                 <label for="description" class="form-label">description</label>
-                <textarea name="description" id="description" class="form-control @error('description') is-invalid @enderror"
-                    rows="5">{{ old('description') }}</textarea>
+                <textarea name="description" id="description"
+                    class="form-control no-validation @error('description') is-invalid @enderror" rows="5">{{ old('description') }}</textarea>
                 @error('description')
                     <div class="invalid-feedback">
                         {{ $message }}
@@ -64,7 +69,11 @@
                     <div>
                         <label for="rooms" class="form-label">rooms*</label>
                         <input type="number" name="rooms" id="rooms"
-                            class="form-control @error('rooms') is-invalid @enderror" value="{{ old('rooms') }}">
+                            class="form-control @error('rooms') is-invalid @enderror" value="{{ old('rooms') }}"
+                            min="1" required>
+                        <div class="invalid-feedback">
+                            must be a number higher than zero.
+                        </div>
                         @error('rooms')
                             <div class="invalid-feedback">
                                 {{ $message }}
@@ -77,7 +86,11 @@
                     <div>
                         <label for="beds" class="form-label">beds*</label>
                         <input type="number" name="beds" id="beds"
-                            class="form-control @error('beds') is-invalid @enderror" value="{{ old('beds') }}">
+                            class="form-control @error('beds') is-invalid @enderror" value="{{ old('beds') }}"
+                            min="0" required>
+                        <div class="invalid-feedback">
+                            must be a number higher or equal zero.
+                        </div>
                         @error('beds')
                             <div class="invalid-feedback">
                                 {{ $message }}
@@ -90,7 +103,11 @@
                     <div>
                         <label for="bathrooms" class="form-label">bathrooms*</label>
                         <input type="number" name="bathrooms" id="bathrooms"
-                            class="form-control @error('bathrooms') is-invalid @enderror" value="{{ old('bathrooms') }}">
+                            class="form-control @error('bathrooms') is-invalid @enderror" value="{{ old('bathrooms') }}"
+                            min="0" required>
+                        <div class="invalid-feedback">
+                            must be a number higher or equal zero.
+                        </div>
                         @error('bathrooms')
                             <div class="invalid-feedback">
                                 {{ $message }}
@@ -103,7 +120,11 @@
                     <div>
                         <label for="m2" class="form-label">m2*</label>
                         <input type="number" name="m2" id="m2"
-                            class="form-control @error('m2') is-invalid @enderror" value="{{ old('m2') }}">
+                            class="form-control @error('m2') is-invalid @enderror" value="{{ old('m2') }}"
+                            min="1" required>
+                        <div class="invalid-feedback">
+                            must be a number higher than zero.
+                        </div>
                         @error('m2')
                             <div class="invalid-feedback">
                                 {{ $message }}
@@ -129,9 +150,12 @@
                     <label for="address-select" class="form-label">select from suggestions*</label>
                     <div class="w-100 align-items-end mt-auto">
                         <select class="form-control form-select @error('address') is-invalid @enderror"
-                            aria-label="Default select example" name="address" id="select-tomtom">
+                            aria-label="Default select example" name="address" id="select-tomtom" required>
                             {{-- si riempirà con select ad hoc --}}
                         </select>
+                        <div class="invalid-feedback">
+                            need to choose a suggestion
+                        </div>
                         @error('address')
                             <div class="invalid-feedback">
                                 {{ $message }}
@@ -144,15 +168,25 @@
 
 
             {{-- Services  --}}
-            <label class="form-label my-3">services</label>
 
-            <div class="form-check @error('services') is-invalid @enderror p-0">
+            <label class="form-label my-1 @error('services') is-invalid @enderror" id="services-label">services</label>
+            @error('services')
+                <div class="invalid-feedback">
+                    {{ $message }}
+                </div>
+            @else
+                <div class="invalid-feedback">
+                    choose at least one service
+                </div>
+            @enderror
+
+            <div class="form-check p-0" id="ciccio">
                 <div class="d-flex  flex-wrap">
                     @foreach ($services as $service)
                         <div class="col-3 mt-1">
 
                             <input type="checkbox" id="service-{{ $service->id }}" value="{{ $service->id }}"
-                                name="services[]" class="form-check-control me-2"
+                                name="services[]" class="form-check-control me-2 check-services"
                                 @if (in_array($service->id, old('services', $apartment_service ?? []))) checked @endif>
                             <label for="service-{{ $service->id }}">
                                 <i class="{{ $service->symbol }}"></i> - {{ $service->label }}
@@ -161,17 +195,12 @@
                     @endforeach
                 </div>
             </div>
-            @error('services')
-                <div class="invalid-feedback">
-                    {{ $message }}
-                </div>
-            @enderror
 
             {{-- Cover Image --}}
             <div class="my-3">
                 <label for="cover_image_path" class="form-label">Cover Image</label>
                 <input type="file" name="cover_image_path" id="cover_image_path"
-                    class="form-control @error('cover_image_path') is-invalid @enderror"
+                    class="form-control no-validation @error('cover_image_path') is-invalid @enderror"
                     value="{{ old('cover_image_path') }}">
                 @error('cover_image_path')
                     <div class="invalid-feedback">
@@ -207,6 +236,7 @@
 @endsection
 
 @section('scripts')
+    {{-- per gestione dell'indirizzo --}}
     <script>
         const testbutton = document.getElementById("address");
         const select = document.getElementById("select-tomtom");
@@ -216,7 +246,7 @@
         function callTomtom() {
             let addressToSearch = testbutton.value;
             let apiUri =
-                'http://127.0.0.1:8000/api/tomtom/' + addressToSearch;
+                'http://localhost:8000/api/tomtom/' + addressToSearch;
 
             axios.get(apiUri).then((response) => {
                 select.innerHTML = '';
@@ -273,5 +303,54 @@
             };
 
         });
+    </script>
+
+    {{-- scripts per la validazione lato client --}}
+    <script>
+        (() => {
+            'use strict';
+            // Fetch all the forms we want to apply custom Bootstrap validation styles to
+            const forms = document.querySelectorAll('.needs-validation');
+
+            // Loop over them and prevent submission
+            Array.from(forms).forEach(form => {
+                form.addEventListener('submit', event => {
+
+                    // Exclude validation for fields with the class 'no-validation'
+                    const fieldsCheck = form.querySelectorAll('.check-services');
+
+                    // verifico che almeno un servizio sia stato selezionato
+                    const servicesLabel = form.querySelector('#services-label');
+                    let flagServices = false;
+                    Array.from(fieldsCheck).forEach(field => {
+                        console.log(field);
+                        if (field.checked) {
+                            flagServices = true;
+                        }
+                    });
+                    console.log('flagServices: ' + flagServices);
+                    if (!flagServices) {
+                        servicesLabel.classList.add("is-invalid");
+                        event.preventDefault();
+                        event.stopPropagation();
+                    }
+                    // stop contorllo servizi
+
+                    const fieldsToValidate = form.querySelectorAll('.form-control:not(.no-validation)');
+                    Array.from(fieldsToValidate).forEach(field => {
+                        if (!field.checkValidity()) {
+                            event.preventDefault();
+                            event.stopPropagation();
+                        }
+                    });
+
+                    form.classList.add('was-validated');
+
+                    // tod delete
+                    // event.preventDefault();
+                    // event.stopPropagation();
+                }, false);
+            });
+        })();
     </script>
 @endsection

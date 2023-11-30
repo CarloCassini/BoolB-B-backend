@@ -16,7 +16,6 @@
                 Sponsorizza
                 </button>
 
-
                 {{-- per modificare l'appartamento --}}
                 <a href="{{ route('admin.apartments.edit', $apartment) }}" class="btn btn-outline-warning  me-2 ">
                     <i class="fa-solid fa-pencil "></i>
