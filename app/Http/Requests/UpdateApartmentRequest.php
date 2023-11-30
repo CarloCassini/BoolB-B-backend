@@ -69,8 +69,8 @@ class UpdateApartmentRequest extends FormRequest
             'address.required' => 'address is required, select one suggestion',
             'address.string' => 'address must be selected from suggestions',
 
-            'services.exists' => 'servizio non disponibile',
-            'services.required' => 'not avable',
+            'services.exists' => 'service unavable',
+            'services.required' => 'choose at least one service',
 
             'is_hidden' => 'non può essere diverso da visibile o nascosto',
 

@@ -72,8 +72,8 @@ class StoreApartmentRequest extends FormRequest
             'address-txt.required' => 'type an address to search',
 
 
-            'services.exists' => 'servizio non disponibile',
-            'services.required' => 'not avable',
+            'services.exists' => 'service unavable',
+            'services.required' => 'choose at least one service',
 
             'is_hidden' => 'non può essere diverso da visibile o nascosto',
 
