@@ -284,7 +284,7 @@
         function callTomtom() {
             let addressToSearch = testbutton.value;
             let apiUri =
-                'http://127.0.0.1:8000/api/tomtom/' + addressToSearch;
+                'http://localhost:8000/api/tomtom/' + addressToSearch;
 
             axios.get(apiUri).then((response) => {
                 select.innerHTML = '';
