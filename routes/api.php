@@ -23,15 +23,16 @@ use App\Models\Apartment;
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
-
 //  creiamo la rotta dandogli la risposta in _Json_
 
+// * APARTMENT API --------------------------------------------------------------------------
 Route::apiResource("/apartments", ApartmentController::class)->only("index", "show");
+Route::get("/apartments/service/{service_id}", [ApartmentController::class, "ApartmentByService"]);
+Route::post("/apartments-by-filters", [ApartmentController::class, "ApartmentsByFilters"]);
 
+// * SERVICE API ----------------------------------------------------------------------------
 Route::apiResource("/services", ServicesController::class)->only("index");
 
-// provo a tirare fuori qualcosa
-Route::get("/apartments/service/{service_id}", [ApartmentController::class, "ApartmentByService"]);
-
+// *TOMTOM API ------------------------------------------------------------------------------
 //ricerco api per il tomtom con guzzle
 Route::get('/tomtom/{address}', [TomtomController::class, "findsuggest"]);
