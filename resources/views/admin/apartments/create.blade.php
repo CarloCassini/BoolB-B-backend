@@ -315,11 +315,12 @@
             // Loop over them and prevent submission
             Array.from(forms).forEach(form => {
                 form.addEventListener('submit', event => {
+
                     // Exclude validation for fields with the class 'no-validation'
-                    // verifico che almeno un servizio sia stato selezionato
-                    const servicesLabel = form.querySelector(
-                        '#services-label');
                     const fieldsCheck = form.querySelectorAll('.check-services');
+
+                    // verifico che almeno un servizio sia stato selezionato
+                    const servicesLabel = form.querySelector('#services-label');
                     let flagServices = false;
                     Array.from(fieldsCheck).forEach(field => {
                         console.log(field);
@@ -333,7 +334,7 @@
                         event.preventDefault();
                         event.stopPropagation();
                     }
-
+                    // stop contorllo servizi
 
                     const fieldsToValidate = form.querySelectorAll('.form-control:not(.no-validation)');
                     Array.from(fieldsToValidate).forEach(field => {
@@ -345,7 +346,7 @@
 
                     form.classList.add('was-validated');
 
-                    // todo
+                    // tod delete
                     // event.preventDefault();
                     // event.stopPropagation();
                 }, false);
