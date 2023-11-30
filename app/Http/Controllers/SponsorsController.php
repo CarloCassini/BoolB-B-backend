@@ -51,7 +51,7 @@ class SponsorsController extends Controller
         
         ]);
        
-        return view('', compact(''));
+        return redirect()->route('admin.apartments.show', $apartment);
 
     }
 
@@ -84,6 +84,7 @@ class SponsorsController extends Controller
     {
         //
     }
+    
 
     /**
      * Display the specified resource.
