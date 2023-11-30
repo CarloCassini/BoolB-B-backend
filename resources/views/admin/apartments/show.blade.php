@@ -41,6 +41,9 @@
                     {{ $apartment->cover_image_path }}
                  @else
                     {{ asset('/storage/' . $apartment->cover_image_path) }} @endif">
+                <div class="debug">
+                    {{ asset('/storage/' . $apartment->cover_image_path) }}
+                </div>
             </div>
             <div class="col-12 col-lg-8 text-center text-lg-start d-flex flex-column justify-content-between">
                 <h1>{{ $apartment->title }}</h1>
