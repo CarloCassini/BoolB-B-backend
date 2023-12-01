@@ -22,8 +22,8 @@ class ApartmentsSeeder extends Seeder
     public function run(Faker $faker)
     {
 
-        // creo 10 appartamenti distribuiti casualmente tra gli utenti registrati
-        for ($i = 0; $i < 10; $i++) {
+        // creo 100 appartamenti distribuiti casualmente tra gli utenti registrati
+        for ($i = 0; $i < 100; $i++) {
             $apartment = new Apartment();
             $apartment->title = $faker->sentence(3);
             $apartment->rooms = $faker->numberBetween(1, 255);
