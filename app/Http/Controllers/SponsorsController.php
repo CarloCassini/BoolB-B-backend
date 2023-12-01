@@ -94,7 +94,9 @@ class SponsorsController extends Controller
     //  */
     public function show(Sponsor $sponsor)
     {
-        return view('admin.sponsors.show', compact('sponsor'));
+        $apartmentSponsor = Sponsor::all() ->where();
+
+        return view('admin.sponsors.show', compact('sponsor', 'sponsorship'));
     }
 
     /**

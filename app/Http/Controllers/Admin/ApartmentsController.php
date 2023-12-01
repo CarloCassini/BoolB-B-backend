@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 
 use App\Http\Requests\StoreApartmentRequest;
 use App\Http\Requests\UpdateApartmentRequest;
+use App\Models\Sponsor;
 use App\Models\Visualization;
 use Carbon\Carbon;
 
@@ -124,6 +125,10 @@ class ApartmentsController extends Controller
         }
         // *fine gestione rotta protetta
 
+
+        $sponsors = Sponsor::all()->join('apartment_sponsor','sponsor.id','=','apartment_sponsor.sponsor_id');
+
+        dd($sponsors);
         $visualization = new Visualization;
         $visualization->apartment_id = $apartment->id;
         $visualization->ip = $request->ip();
