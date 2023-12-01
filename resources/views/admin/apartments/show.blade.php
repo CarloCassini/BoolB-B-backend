@@ -43,17 +43,24 @@
                     {{ asset('/storage/' . $apartment->cover_image_path) }} @endif">
                 <div class="sponsor mt-4">
                     @if ($sponsor)
-                        <h1>sponsorizzato:</h1>
-                        <div>
-                            inizio: {{ $sponsor->start_date }}
+                    <div class="card text-bg-primary mb-4" style="max-width: 12rem;">
+                        <div class="card-header">Sponsorizzato</div>
+                        <div class="card-body">
+                          <p class="card-text"> inizio sponsor: {{ $sponsor->start_date }}</p>
+                          <p class="card-text"> fine sponsor: {{ $sponsor->end_date }}</p>
                         </div>
-                        <div>
-                            fine: {{ $sponsor->end_date }}
-                        </div>
+                      </div>
+                       
                     @else
-                        <h5 class="m-0">Sponsorizzazione NON ATTIVA</h5>
+                    <div class="card text-bg-danger mb-3" style="max-width: 14rem;">
+                        <div class="card-header">Non sponsorizato</div>
+                        <div class="card-body">
+                          
+                          <p class="card-text">Nessuna sponsorizzazione su questo appartamento</p>
+                        </div>
+                        
+                        
                     @endif
-
                 </div>
             </div>
             <div class="col-12 col-lg-8 text-center text-lg-start d-flex flex-column justify-content-between">
