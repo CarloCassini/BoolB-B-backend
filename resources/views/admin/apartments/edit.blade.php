@@ -142,6 +142,16 @@
                 </div>
             </div>
 
+            {{-- todo xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx --}}
+            <div class="debug container my-5">
+                <form>
+                    <label for="search">Cerca:</label>
+                    <input type="text" id="search" onchange="showSuggestions(this.value)">
+                </form>
+
+                <div id="suggerimenti"></div>
+            </div>
+            {{-- todo xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx --}}
             {{-- address --}}
             <div class="row my-3">
                 {{-- * mi porto dietro i valori dell'appartamento per usarli negli script --}}
@@ -154,7 +164,8 @@
                     <label for="address-txt" class="form-label">address*</label>
                     <input type="text" name="address-txt" id="address"
                         class="form-control @error('address') is-invalid @enderror"
-                        value="{{ old('address-txt') ?? $apartment->address }}">
+                        value="{{ old('address-txt') ?? $apartment->address }}"
+                        oninput="showSuggestions(this.value)>
                 </div>
                 <div class="col-6">
                     <label for="address-select" class="form-label">select from suggestions*</label>
@@ -351,7 +362,6 @@
         // ++++++++++++++++++++
         // gesione prima valorizzazione select
         const startAddressFull = document.getElementById("start-address-full").innerHTML;
-        console.log(startAddressFull);
         const startAddressHuman = document.getElementById("start-address-human").innerHTML;
         var nuovaOpzioneStart = document.createElement('option');
 
@@ -363,10 +373,6 @@
 
         select.append(nuovaOpzioneStart);
         // ++++++++++++++++++++
-
-        typeAddress.addEventListener("click", () => {
-            clearSearch()
-        });
 
         if (test == 0) {
             select.addEventListener("change", () => {
@@ -383,6 +389,85 @@
             };
         });
     </script>
+
+    {{-- test --}}
+    <script>
+        const lollo = document.getElementById("search");
+        lollo.addEventListener("input", () => {
+            if (lollo.value.length >= searchLengthStart) {
+                showSuggestions(lollo.value);
+            } else {
+                clearSearch();
+            };
+        });
+
+        function showSuggestions(keyword) {
+
+
+
+            let addressToSearch = typeAddress.value;
+            let apiUri =
+                'http://localhost:8000/api/tomtom/' + keyword;
+
+            axios.get(apiUri).then((response) => {
+                select.innerHTML = '';
+                let suggerimenti = [];
+                for (let i = 0; i < response.data.results.length && i < 5; i++) {
+                    const element = response.data.results[i];
+
+                    // inserisco i valori del campo selezionato in una formattazione particolare che verrà poi gestita dal controller
+                    const suggerimento = element.position.lat + '|' + element.position.lon + '|' +
+                        element
+                        .address
+                        .freeformAddress;
+
+                    suggerimenti.push(suggerimento);
+
+                    // Simulazione di un elenco di suggerimenti (puoi ottenere questi dati da un server)
+
+                    const suggerimentiContainer = document.getElementById('suggerimenti');
+                    suggerimentiContainer.innerHTML = ''; // Pulisci la lista dei suggerimenti
+
+                    if (keyword.length === 0) {
+                        suggerimentiContainer.style.display =
+                            'none'; // Nascondi la lista se la barra di ricerca è vuota
+                        return;
+                    }
+
+                    const filteredSuggestions = suggerimenti.filter(suggerimento =>
+                        suggerimento.toLowerCase().includes(keyword.toLowerCase())
+                    );
+                    console.log(filteredSuggestions);
+
+
+                    if (filteredSuggestions.length === 0) {
+                        suggerimentiContainer.style.display = 'none';
+                        return;
+                    }
+
+                    // Aggiungi i suggerimenti filtrati alla lista
+                    const suggerimentiList = document.createElement('ul');
+                    filteredSuggestions.forEach(suggerimento => {
+                        const suggerimentoItem = document.createElement('li');
+                        suggerimentoItem.textContent = suggerimento;
+                        suggerimentoItem.addEventListener('click', () => {
+                            document.getElementById('search').value = suggerimento;
+                            suggerimentiContainer.style.display = 'none';
+                        });
+                        suggerimentiList.appendChild(suggerimentoItem);
+                    });
+
+                    suggerimentiContainer.appendChild(suggerimentiList);
+                    suggerimentiContainer.style.display = 'block';
+
+                }
+            });
+
+
+
+        }
+    </script>
+
     {{-- scripts per la validazione lato client --}}
     <script>
         (() => {
@@ -400,9 +485,7 @@
                     // verifico che almeno un servizio sia stato selezionato
                     const servicesLabel = form.querySelector('#services-label');
                     let flagServices = false;
-                    console.log(fieldsCheck);
                     Array.from(fieldsCheck).forEach(field => {
-                        console.log(field);
                         if (field.checked) {
                             flagServices = true;
                         }

@@ -293,11 +293,6 @@
         });
         // ++++++++++++++++++++
 
-
-        typeAddress.addEventListener("click", () => {
-            clearSearch();
-        });
-
         if (test == 0) {
             select.addEventListener("change", () => {
                 var selectedOption = select.options[select.selectedIndex];
@@ -332,12 +327,10 @@
                     const servicesLabel = form.querySelector('#services-label');
                     let flagServices = false;
                     Array.from(fieldsCheck).forEach(field => {
-                        console.log(field);
                         if (field.checked) {
                             flagServices = true;
                         }
                     });
-                    console.log('flagServices: ' + flagServices);
                     if (!flagServices) {
                         servicesLabel.classList.add("is-invalid");
                         event.preventDefault();
