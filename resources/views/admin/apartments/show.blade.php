@@ -9,7 +9,8 @@
                 <i class="fa-solid fa-arrow-left me-1"></i>
                 Torna alla lista
             </a>
-
+         
+            
             {{-- attivazione sponsor --}}
 
             <a href="{{ route('sponsorSelect', $apartment->id) }}"button class="btn btn-outline-primary ms-auto me-2 ">
@@ -40,6 +41,22 @@
                     {{ $apartment->cover_image_path }}
                  @else
                     {{ asset('/storage/' . $apartment->cover_image_path) }} @endif">
+                    <div class="sponsor d-flex mt-4">
+                        @if ($apartment->sponsors()->where('name', true)->count() > 0)
+                            <div>
+                                <h5 class="sponsor-title d-flex align-items-center m-0 gap-2">
+                                    <i class="fa-regular fa-star fs-3"></i>
+                                    Sponsorizzato
+                                </h5>
+                                <p class="m-0">Scadenza:
+                                    {{ $apartmentSponsor->end_date->format('H:i') }} del
+                                    {{ $apartmentSponsor->end_date->format('d/m/y') }}
+                                </p>
+                            </div>
+                        @else
+                            <h5 class="m-0">Sponsorizzazione NON ATTIVA</h5>
+                        @endif
+                    </div>
             </div>
             <div class="col-12 col-lg-8 text-center text-lg-start d-flex flex-column justify-content-between">
                 <h1>{{ $apartment->title }}</h1>
