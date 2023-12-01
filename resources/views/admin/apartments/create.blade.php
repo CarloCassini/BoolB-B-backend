@@ -238,13 +238,15 @@
 @section('scripts')
     {{-- per gestione dell'indirizzo --}}
     <script>
-        const testbutton = document.getElementById("address");
+        const typeAddress = document.getElementById("address");
         const select = document.getElementById("select-tomtom");
         let umeroOpzioni = 0;
         let test = 0;
+        const searchLengthStart = 4;
 
+        // chiamata a tomtom
         function callTomtom() {
-            let addressToSearch = testbutton.value;
+            let addressToSearch = typeAddress.value;
             let apiUri =
                 'http://localhost:8000/api/tomtom/' + addressToSearch;
 
@@ -272,6 +274,13 @@
                 test = 1;
             });
         }
+
+        function clearSearch() {
+            select.innerHTML = '';
+            test = 0;
+        };
+
+
         // ++++++++++++++++++++
         // Aggiungi un gestore di eventi per l'evento "keydown" sulla finestra del documento
         window.addEventListener("keydown", function(event) {
@@ -285,23 +294,23 @@
         // ++++++++++++++++++++
 
 
-        testbutton.addEventListener("click", () => {
-            select.innerHTML = '';
-            test = 0;
+        typeAddress.addEventListener("click", () => {
+            clearSearch();
         });
 
         if (test == 0) {
             select.addEventListener("change", () => {
                 var selectedOption = select.options[select.selectedIndex];
-                testbutton.value = selectedOption.text;
+                typeAddress.value = selectedOption.text;
             });
         };
 
-        select.addEventListener("click", () => {
-            if (test == 0) {
+        typeAddress.addEventListener("input", () => {
+            if (typeAddress.value.length >= searchLengthStart) {
                 callTomtom();
+            } else {
+                clearSearch();
             };
-
         });
     </script>
 
