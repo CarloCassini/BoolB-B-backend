@@ -9,6 +9,9 @@ use Illuminate\Database\Seeder;
 // uso Faker
 use Faker\Generator as Faker;
 
+// chiamo la tabella dei servizi
+use App\Models\Service;
+
 // importo gli user
 use App\Models\User;
 
@@ -22,8 +25,12 @@ class ApartmentsSeeder extends Seeder
     public function run(Faker $faker)
     {
 
+
+        $services = Service::all()->pluck('id');
         // creo 100 appartamenti distribuiti casualmente tra gli utenti registrati
         for ($i = 0; $i < 100; $i++) {
+
+
             $apartment = new Apartment();
             $apartment->title = $faker->sentence(3);
             $apartment->rooms = $faker->numberBetween(1, 255);
@@ -43,14 +50,15 @@ class ApartmentsSeeder extends Seeder
             }
 
             // ho ancora dei dubbi sulla gestione longitudine latitudine
-            $apartment->latitude = $faker->latitude($min = -90, $max = 90);
-            $apartment->longitude = $faker->longitude($min = -180, $max = 180);
-
+            $apartment->latitude = $faker->latitude($min = 40, $max = 42);
+            $apartment->longitude = $faker->longitude($min = 12, $max = 14);
 
             // al momento uso solo l'utente 1
             $apartment->user_id = 1;
 
             $apartment->save();
+            // collego un servizio
+            $apartment->services()->attach($faker->randomElements($services));
         }
     }
 }
