@@ -27,8 +27,8 @@ class ApartmentsSeeder extends Seeder
 
 
         $services = Service::all()->pluck('id');
-        // creo 10 appartamenti distribuiti casualmente tra gli utenti registrati
-        for ($i = 0; $i < 10; $i++) {
+        // creo 100 appartamenti distribuiti casualmente tra gli utenti registrati
+        for ($i = 0; $i < 100; $i++) {
 
 
             $apartment = new Apartment();
