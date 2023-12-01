@@ -33,7 +33,7 @@ class ServicesSeeder extends Seeder
             ],
             [
                 'label' => "Portineria",
-                'symbol' => "fa-solid fa-door-open",
+                'symbol' => "fa-solid fa-bell-cocierge",
             ],
             [
                 'label' => "Sauna",

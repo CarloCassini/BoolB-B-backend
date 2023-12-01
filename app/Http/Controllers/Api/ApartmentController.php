@@ -156,7 +156,11 @@ class ApartmentController extends Controller
         if (!empty($filters['beds'])) {
             $apartments_query->where("beds", '>=' ,$filters['beds']);
         }
-
+        foreach ($apartments_query as $apartment) {
+            if (!empty($apartment->description)) {
+                $apartment->description = substr($apartment->description, 0, 50);
+            }
+        }
         $apartments = $apartments_query->paginate(10);
 
         return response()->json($apartments); 
