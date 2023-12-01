@@ -101,10 +101,14 @@ class ApartmentsController extends Controller
 
         $apartment->save();
 
+        $sponsor = Sponsor::join('apartment_sponsor', 'apartment_sponsor.sponsor_id', '=', 'sponsors.id')
+            ->where('apartment_sponsor.apartment_id', '=', $apartment->id)
+            ->first();
+
         if (Arr::exists($data, "services"))
             $apartment->services()->attach($data["services"]);
 
-        return view('admin.apartments.show', compact('apartment'));
+        return view('admin.apartments.show', compact('apartment', 'sponsor'));
 
     }
 
@@ -126,9 +130,11 @@ class ApartmentsController extends Controller
         // *fine gestione rotta protetta
 
 
-        $sponsors = Sponsor::all()->join('apartment_sponsor','sponsor.id','=','apartment_sponsor.sponsor_id');
+        $sponsor = Sponsor::join('apartment_sponsor', 'apartment_sponsor.sponsor_id', '=', 'sponsors.id')
+            ->where('apartment_sponsor.apartment_id', '=', $apartment->id)
+            ->first();
 
-        dd($sponsors);
+
         $visualization = new Visualization;
         $visualization->apartment_id = $apartment->id;
         $visualization->ip = $request->ip();
@@ -140,7 +146,7 @@ class ApartmentsController extends Controller
         $visualization->save();
 
 
-        return view('admin.apartments.show', compact('apartment', 'services'));
+        return view('admin.apartments.show', compact('apartment', 'services', 'sponsor'));
     }
 
     /**
@@ -218,7 +224,11 @@ class ApartmentsController extends Controller
             $apartment->services()->detach();
         }
 
-        return redirect()->route('admin.apartments.show', $apartment);
+        $sponsor = Sponsor::join('apartment_sponsor', 'apartment_sponsor.sponsor_id', '=', 'sponsors.id')
+            ->where('apartment_sponsor.apartment_id', '=', $apartment->id)
+            ->first();
+
+        return redirect()->route('admin.apartments.show', compact('apartment', 'sponsor'));
     }
 
     /**
