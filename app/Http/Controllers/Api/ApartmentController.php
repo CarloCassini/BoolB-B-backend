@@ -150,6 +150,12 @@ class ApartmentController extends Controller
                 $query->whereIn('services.id', $filters['activeServices']);
             });
         }
+        if (!empty($filters['rooms'])) {
+            $apartments_query->where("rooms", '>=' ,$filters['rooms']);
+        }
+        if (!empty($filters['beds'])) {
+            $apartments_query->where("beds", '>=' ,$filters['beds']);
+        }
 
         $apartments = $apartments_query->paginate(10);
 
