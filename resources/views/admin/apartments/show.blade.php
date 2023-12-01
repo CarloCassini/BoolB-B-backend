@@ -50,15 +50,13 @@
                           <p class="card-text"> fine sponsor: {{ $sponsor->end_date }}</p>
                         </div>
                       </div>
-                       
                     @else
-                    <div class="card text-bg-danger mb-3" style="max-width: 14rem;">
-                        <div class="card-header">Non sponsorizato</div>
+                    <div class="card text-bg-danger mb-4" style="max-width: 12rem;">
+                        <div class="card-header">Non Sponsorizzato</div>
                         <div class="card-body">
-                          
-                          <p class="card-text">Nessuna sponsorizzazione su questo appartamento</p>
+                          <p class="card-text">Sponsorizzazione NON ATTIVA </p>
                         </div>
-                        
+                      </div>
                         
                     @endif
                 </div>
