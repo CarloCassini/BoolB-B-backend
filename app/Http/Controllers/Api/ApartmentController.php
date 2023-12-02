@@ -20,7 +20,7 @@ class ApartmentController extends Controller
         $apartments = Apartment::with('services', )
             ->select("id", "user_id", "title", "rooms", "beds", "bathrooms", "m2", "address", "description", "cover_image_path")
             ->where('is_hidden', '=', 0)
-            ->paginate(10);
+            ->paginate(8);
 
         foreach ($apartments as $apartment) {
             if (!empty($apartment->description)) {
@@ -161,7 +161,7 @@ class ApartmentController extends Controller
                 $apartment->description = substr($apartment->description, 0, 50);
             }
         }
-        $apartments = $apartments_query->paginate(10);
+        $apartments = $apartments_query->paginate(9);
 
         return response()->json($apartments); 
     
