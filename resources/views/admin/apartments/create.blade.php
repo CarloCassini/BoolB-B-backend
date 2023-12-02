@@ -154,37 +154,6 @@
                 <input type="text" class=" d-none form-control" value="" name='address' id="address">
             </div>
             {{-- todo xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx --}}
-            {{-- address --}}
-            {{-- <div class="row my-3">
-                <div class="col-6">
-                    <label for="address-txt" class="form-label">address*</label>
-                    <input type="text" name="address-txt" id="address"
-                        class="form-control @error('address-txt') is-invalid @enderror" value="{{ old('address-txt') }}">
-                    @error('address-txt')
-                        <div class="invalid-feedback">
-                            {{ $message }}
-                        </div>
-                    @enderror
-                </div>
-                <div class="col-6">
-                    <label for="address-select" class="form-label">select from suggestions*</label>
-                    <div class="w-100 align-items-end mt-auto">
-                        <select class="form-control form-select @error('address') is-invalid @enderror"
-                            aria-label="Default select example" name="address" id="select-tomtom" required>
-                        </select>
-                        <div class="invalid-feedback">
-                            need to choose a suggestion
-                        </div>
-                        @error('address')
-                            <div class="invalid-feedback">
-                                {{ $message }}
-                            </div>
-                        @enderror
-
-                    </div>
-                </div>
-            </div> --}}
-
 
             {{-- Services  --}}
 
@@ -272,7 +241,6 @@
         });
         // ++++++++++++++++++++
 
-
         typeAddress.addEventListener("input", () => {
             if (typeAddress.value.length >= searchLengthStart) {
                 showSuggestions(typeAddress.value);
@@ -301,9 +269,6 @@
                         sugg_human: suggerimento_human
                     });
 
-
-                    // Simulazione di un elenco di suggerimenti (puoi ottenere questi dati da un server)
-
                     const suggerimentiContainer = document.getElementById('suggerimenti');
                     suggerimentiContainer.innerHTML = ''; // Pulisci la lista dei suggerimenti
 
@@ -312,7 +277,6 @@
                             'none'; // Nascondi la lista se la barra di ricerca è vuota
                         return;
                     }
-
                     // +++++++++++++ verifico che una almeno una parola sia presente nell'indirizzo
 
                     function autocompleteMatch(valore) {
@@ -322,32 +286,18 @@
                             if (indirizzo.match(reg)) return indirizzo
                         })
                     }
-
-                    function almenoUnoPresente(array, stringa) {
-                        return array.every(function(valore) {
-                            return stringa.includes(valore);
-                        });
-                    }
                     // xxx
                     let indirizzoEsploso = keyword.toLowerCase().split(' ');
                     let filteredSuggestions = [];
                     suggerimenti.forEach(suggerimento => {
                         let valorePresente = autocompleteMatch(suggerimento.sugg_human
                             .toLowerCase());
-                        // let valorePresente = almenoUnoPresente(indirizzoEsploso, suggerimento
-                        //     .toLowerCase());
-
 
                         if (valorePresente) {
                             filteredSuggestions.push(suggerimento);
-                        } else {
-                            console.log('ritenta');
                         }
-
                     });
-                    console.log('filteredSuggestions: ' + filteredSuggestions[0].sugg_all);
                     // ++++++++++++++++++++++++++++++++++++
-
 
                     if (filteredSuggestions.length === 0) {
                         suggerimentiContainer.style.display = 'none';
@@ -362,7 +312,6 @@
                         suggerimentoItem.addEventListener('click', () => {
                             document.getElementById('address-txt').value = suggerimento.sugg_human;
                             document.getElementById('address').value = suggerimento.sugg_all;
-                            document.getElementById('address').text = suggerimento.sugg_human;
                             suggerimentiContainer.style.display = 'none';
                         });
                         suggerimentiList.appendChild(suggerimentoItem);

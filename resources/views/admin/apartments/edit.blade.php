@@ -155,8 +155,7 @@
                 <div class="col-12 ">
                     <label for="address-txt" class="form-label">address*</label>
                     <input type="text" class="form-control @error('address') is-invalid @enderror"
-                        value="{{ old('address-txt') ?? $apartment->address }}" required id="address-txt"
-                        onchange="showSuggestions(this.value)">
+                        value="{{ old('address-txt') ?? $apartment->address }}" required id="address-txt">
                     <div id="suggerimenti"></div>
                     <div class="invalid-feedback">
                         need to choose a suggestion
@@ -170,29 +169,6 @@
                 <input type="text" class="d-none form-control" value="" name='address' id="address">
             </div>
             {{-- todo xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx --}}
-            {{-- <div class="col-6">
-                    <label for="address-txt" class="form-label">address*</label>
-                    <input type="text" name="address-txt" id="address"
-                        class="form-control @error('address') is-invalid @enderror"
-                        value="{{ old('address-txt') ?? $apartment->address }}">
-                </div> --}}
-            {{-- <div class="col-6 d-none">
-                <label for="address-select" class="form-label">select from suggestions*</label>
-                <div class="w-100 align-items-end mt-auto">
-                    <select class="form-control form-select @error('address') is-invalid @enderror"
-                        aria-label="Default select example" name="address" id="select-tomtom" required>
-                    </select>
-                    <div class="invalid-feedback">
-                        need to choose a suggestion
-                    </div>
-                    @error('address')
-                        <div class="invalid-feedback">
-                            {{ $message }}
-                        </div>
-                    @enderror
-                </div>
-            </div> --}}
-
 
             {{-- Services  --}}
             <label class="form-label my-1  @error('services') is-invalid @enderror" id="services-label">services</label>
@@ -368,9 +344,6 @@
                         sugg_human: suggerimento_human
                     });
 
-
-                    // Simulazione di un elenco di suggerimenti (puoi ottenere questi dati da un server)
-
                     const suggerimentiContainer = document.getElementById('suggerimenti');
                     suggerimentiContainer.innerHTML = ''; // Pulisci la lista dei suggerimenti
 
@@ -381,7 +354,6 @@
                     }
 
                     // +++++++++++++ verifico che una almeno una parola sia presente nell'indirizzo
-
                     function autocompleteMatch(valore) {
                         if (valore == '') return []
                         const reg = new RegExp(valore);
@@ -389,21 +361,12 @@
                             if (indirizzo.match(reg)) return indirizzo
                         })
                     }
-
-                    function almenoUnoPresente(array, stringa) {
-                        return array.every(function(valore) {
-                            return stringa.includes(valore);
-                        });
-                    }
                     // xxx
                     let indirizzoEsploso = keyword.toLowerCase().split(' ');
                     let filteredSuggestions = [];
                     suggerimenti.forEach(suggerimento => {
                         let valorePresente = autocompleteMatch(suggerimento.sugg_human
                             .toLowerCase());
-                        // let valorePresente = almenoUnoPresente(indirizzoEsploso, suggerimento
-                        //     .toLowerCase());
-
 
                         if (valorePresente) {
                             filteredSuggestions.push(suggerimento);
@@ -412,7 +375,6 @@
                         }
 
                     });
-                    console.log('filteredSuggestions: ' + filteredSuggestions[0].sugg_all);
                     // ++++++++++++++++++++++++++++++++++++
 
 
