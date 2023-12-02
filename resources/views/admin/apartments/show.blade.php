@@ -10,6 +10,7 @@
                 Torna alla lista
             </a>
 
+
             {{-- attivazione sponsor --}}
 
             <a href="{{ route('sponsorSelect', $apartment->id) }}"button class="btn btn-outline-primary ms-auto me-2 ">
@@ -40,6 +41,25 @@
                     {{ $apartment->cover_image_path }}
                  @else
                     {{ asset('/storage/' . $apartment->cover_image_path) }} @endif">
+                <div class="sponsor mt-4">
+                    @if ($sponsor)
+                    <div class="card text-bg-primary mb-4" style="max-width: 12rem;">
+                        <div class="card-header">Sponsorizzato</div>
+                        <div class="card-body">
+                          <p class="card-text"> inizio sponsor: {{ $sponsor->start_date }}</p>
+                          <p class="card-text"> fine sponsor: {{ $sponsor->end_date }}</p>
+                        </div>
+                      </div>
+                    @else
+                    <div class="card text-bg-danger mb-4" style="max-width: 12rem;">
+                        <div class="card-header">Non Sponsorizzato</div>
+                        <div class="card-body">
+                          <p class="card-text">Sponsorizzazione NON ATTIVA </p>
+                        </div>
+                      </div>
+                        
+                    @endif
+                </div>
             </div>
             <div class="col-12 col-lg-8 text-center text-lg-start d-flex flex-column justify-content-between">
                 <h1>{{ $apartment->title }}</h1>
