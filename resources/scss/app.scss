@@ -25,11 +25,14 @@
 
 // test
 #suggerimenti {
+    color: #333333;
     position: absolute;
     display: none;
     border: 1px solid #ccc;
-    max-height: 150px;
+    max-width: 50%;
+    max-height: 200px;
     overflow-y: auto;
+    background-color: #999999;
 }
 
 #suggerimenti ul {
@@ -44,5 +47,5 @@
 }
 
 #suggerimenti li:hover {
-    background-color: #f0f0f0;
+    background-color: #777777;
 }

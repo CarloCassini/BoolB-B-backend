@@ -40,6 +40,7 @@ class TomtomController extends Controller
         ]);
         // inserisco l'indirizzo fornito nella chiamata api tomtom
         $response = $client->get('https://api.tomtom.com/search/2/search/' . $address . '.json?relatedPois=off&key=t7a52T1QnfuvZp7X85QvVlLccZeC5a9P');
+        // https://api.tomtom.com/search/2/geocode/via guidi 15 padova.json?key=t7a52T1QnfuvZp7X85QvVlLccZeC5a9P
         // https://api.tomtom.com/search/2/search/padova.json?relatedPois=off&key=t7a52T1QnfuvZp7X85QvVlLccZeC5a9P
 
         $data_position = json_decode($response->getBody(), true);

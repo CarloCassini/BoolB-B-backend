@@ -142,16 +142,7 @@
                 </div>
             </div>
 
-            {{-- todo xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx --}}
-            <div class="debug container my-5">
-                <form>
-                    <label for="search">Cerca:</label>
-                    <input type="text" id="search" onchange="showSuggestions(this.value)">
-                </form>
 
-                <div id="suggerimenti"></div>
-            </div>
-            {{-- todo xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx --}}
             {{-- address --}}
             <div class="row my-3">
                 {{-- * mi porto dietro i valori dell'appartamento per usarli negli script --}}
@@ -160,31 +151,48 @@
                         id="start-address-full">{{ $apartment->latitude . '|' . $apartment->longitude . '|' . $apartment->address }}</span>
                     <span id="start-address-human">{{ $apartment->address }}</span>
                 </div>
-                <div class="col-6">
+                {{-- todo xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx --}}
+                <div class="col-12 ">
+                    <label for="address-txt" class="form-label">address*</label>
+                    <input type="text" class="form-control @error('address') is-invalid @enderror"
+                        value="{{ old('address-txt') ?? $apartment->address }}" required id="address-txt"
+                        onchange="showSuggestions(this.value)">
+                    <div id="suggerimenti"></div>
+                    <div class="invalid-feedback">
+                        need to choose a suggestion
+                    </div>
+                    @error('address')
+                        <div class="invalid-feedback">
+                            {{ $message }}
+                        </div>
+                    @enderror
+                </div>
+                <input type="text" class="d-none form-control" value="" name='address' id="address">
+            </div>
+            {{-- todo xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx --}}
+            {{-- <div class="col-6">
                     <label for="address-txt" class="form-label">address*</label>
                     <input type="text" name="address-txt" id="address"
                         class="form-control @error('address') is-invalid @enderror"
-                        value="{{ old('address-txt') ?? $apartment->address }}"
-                        oninput="showSuggestions(this.value)>
-                </div>
-                <div class="col-6">
-                    <label for="address-select" class="form-label">select from suggestions*</label>
-                    <div class="w-100 align-items-end mt-auto">
-                        <select class="form-control form-select @error('address') is-invalid @enderror"
-                            aria-label="Default select example" name="address" id="select-tomtom" required>
-                            {{-- si riempirà con select ad hoc --}}
-                        </select>
-                        <div class="invalid-feedback">
-                            need to choose a suggestion
-                        </div>
-                        @error('address')
-                            <div class="invalid-feedback">
-                                {{ $message }}
-                            </div>
-                        @enderror
+                        value="{{ old('address-txt') ?? $apartment->address }}">
+                </div> --}}
+            {{-- <div class="col-6 d-none">
+                <label for="address-select" class="form-label">select from suggestions*</label>
+                <div class="w-100 align-items-end mt-auto">
+                    <select class="form-control form-select @error('address') is-invalid @enderror"
+                        aria-label="Default select example" name="address" id="select-tomtom" required>
+                    </select>
+                    <div class="invalid-feedback">
+                        need to choose a suggestion
                     </div>
+                    @error('address')
+                        <div class="invalid-feedback">
+                            {{ $message }}
+                        </div>
+                    @enderror
                 </div>
-            </div>
+            </div> --}}
+
 
             {{-- Services  --}}
             <label class="form-label my-1  @error('services') is-invalid @enderror" id="services-label">services</label>
@@ -306,46 +314,8 @@
 @section('scripts')
     {{-- per gestione dell'indirizzo --}}
     <script>
-        const typeAddress = document.getElementById("address");
-        const select = document.getElementById("select-tomtom");
-        let umeroOpzioni = 0;
-        let test = 0;
+        const typeAddress = document.getElementById("address-txt");
         const searchLengthStart = 4;
-
-        function callTomtom() {
-            let addressToSearch = typeAddress.value;
-            let apiUri =
-                'http://localhost:8000/api/tomtom/' + addressToSearch;
-
-            axios.get(apiUri).then((response) => {
-                select.innerHTML = '';
-                for (let i = 0; i < response.data.results.length; i++) {
-                    const element = response.data.results[i];
-
-                    var nuovaOpzione = document.createElement('option');
-
-                    // inserisco i valori del campo selezionato in una formattazione particolare che verrà poi gestita dal controller
-                    nuovaOpzione.value = element.position.lat + '|' + element.position.lon + '|' +
-                        element
-                        .address
-                        .freeformAddress;
-
-                    nuovaOpzione.text = element.address.freeformAddress
-                    nuovaOpzione.id = 'opzione-' + i;
-
-
-                    select.append(nuovaOpzione);
-
-                }
-                numeroOpzioni = response.data.results.length;
-                test = 1;
-            });
-        }
-
-        function clearSearch() {
-            select.innerHTML = '';
-            test = 0;
-        };
 
         // ++++++++++++++++++++
         // Aggiungi un gestore di eventi per l'evento "keydown" sulla finestra del documento
@@ -354,74 +324,50 @@
             if (event.key === "Enter") {
                 // Annulla l'evento di invio del modulo
                 event.preventDefault();
-                callTomtom();
+                showSuggestions(typeAddress.value);
             }
         });
         // ++++++++++++++++++++
 
         // ++++++++++++++++++++
-        // gesione prima valorizzazione select
-        const startAddressFull = document.getElementById("start-address-full").innerHTML;
-        const startAddressHuman = document.getElementById("start-address-human").innerHTML;
-        var nuovaOpzioneStart = document.createElement('option');
+        // gesione prima valorizzazione campo suggest_all
+        const startAddress_Full = document.getElementById("start-address-full").innerHTML;
+        const startAddress_Human = document.getElementById("start-address-human").innerHTML;
+        const start_value = document.getElementById("address");
 
         // inserisco i valori del campo selezionato in una formattazione particolare che verrà poi gestita dal controller
-        nuovaOpzioneStart.value = startAddressFull;
-
-        nuovaOpzioneStart.text = startAddressHuman;
-        nuovaOpzioneStart.id = 'opzione-start';
-
-        select.append(nuovaOpzioneStart);
+        start_value.value = startAddress_Full;
         // ++++++++++++++++++++
 
-        if (test == 0) {
-            select.addEventListener("change", () => {
-                var selectedOption = select.options[select.selectedIndex];
-                typeAddress.value = selectedOption.text;
-            });
-        };
 
         typeAddress.addEventListener("input", () => {
             if (typeAddress.value.length >= searchLengthStart) {
-                callTomtom();
-            } else {
-                clearSearch();
-            };
-        });
-    </script>
-
-    {{-- test --}}
-    <script>
-        const lollo = document.getElementById("search");
-        lollo.addEventListener("input", () => {
-            if (lollo.value.length >= searchLengthStart) {
-                showSuggestions(lollo.value);
-            } else {
-                clearSearch();
-            };
+                showSuggestions(typeAddress.value);
+            }
         });
 
         function showSuggestions(keyword) {
-
-
-
             let addressToSearch = typeAddress.value;
             let apiUri =
                 'http://localhost:8000/api/tomtom/' + keyword;
 
             axios.get(apiUri).then((response) => {
-                select.innerHTML = '';
                 let suggerimenti = [];
-                for (let i = 0; i < response.data.results.length && i < 5; i++) {
+                for (let i = 0; i < response.data.results.length; i++) {
                     const element = response.data.results[i];
 
                     // inserisco i valori del campo selezionato in una formattazione particolare che verrà poi gestita dal controller
-                    const suggerimento = element.position.lat + '|' + element.position.lon + '|' +
+                    const suggerimento_all = element.position.lat + '|' + element.position.lon + '|' +
                         element
                         .address
                         .freeformAddress;
+                    const suggerimento_human = element.address.freeformAddress;
 
-                    suggerimenti.push(suggerimento);
+                    suggerimenti.push({
+                        sugg_all: suggerimento_all,
+                        sugg_human: suggerimento_human
+                    });
+
 
                     // Simulazione di un elenco di suggerimenti (puoi ottenere questi dati da un server)
 
@@ -434,10 +380,40 @@
                         return;
                     }
 
-                    const filteredSuggestions = suggerimenti.filter(suggerimento =>
-                        suggerimento.toLowerCase().includes(keyword.toLowerCase())
-                    );
-                    console.log(filteredSuggestions);
+                    // +++++++++++++ verifico che una almeno una parola sia presente nell'indirizzo
+
+                    function autocompleteMatch(valore) {
+                        if (valore == '') return []
+                        const reg = new RegExp(valore);
+                        return indirizzoEsploso.filter(indirizzo => {
+                            if (indirizzo.match(reg)) return indirizzo
+                        })
+                    }
+
+                    function almenoUnoPresente(array, stringa) {
+                        return array.every(function(valore) {
+                            return stringa.includes(valore);
+                        });
+                    }
+                    // xxx
+                    let indirizzoEsploso = keyword.toLowerCase().split(' ');
+                    let filteredSuggestions = [];
+                    suggerimenti.forEach(suggerimento => {
+                        let valorePresente = autocompleteMatch(suggerimento.sugg_human
+                            .toLowerCase());
+                        // let valorePresente = almenoUnoPresente(indirizzoEsploso, suggerimento
+                        //     .toLowerCase());
+
+
+                        if (valorePresente) {
+                            filteredSuggestions.push(suggerimento);
+                        } else {
+                            console.log('ritenta');
+                        }
+
+                    });
+                    console.log('filteredSuggestions: ' + filteredSuggestions[0].sugg_all);
+                    // ++++++++++++++++++++++++++++++++++++
 
 
                     if (filteredSuggestions.length === 0) {
@@ -449,9 +425,10 @@
                     const suggerimentiList = document.createElement('ul');
                     filteredSuggestions.forEach(suggerimento => {
                         const suggerimentoItem = document.createElement('li');
-                        suggerimentoItem.textContent = suggerimento;
+                        suggerimentoItem.textContent = suggerimento.sugg_human;
                         suggerimentoItem.addEventListener('click', () => {
-                            document.getElementById('search').value = suggerimento;
+                            document.getElementById('address-txt').value = suggerimento.sugg_human;
+                            document.getElementById('address').value = suggerimento.sugg_all;
                             suggerimentiContainer.style.display = 'none';
                         });
                         suggerimentiList.appendChild(suggerimentoItem);
@@ -462,9 +439,6 @@
 
                 }
             });
-
-
-
         }
     </script>
 
@@ -506,24 +480,8 @@
                     });
 
                     form.classList.add('was-validated');
-
-                    // tod delete
-                    // event.preventDefault();
-                    // event.stopPropagation();
                 }, false);
             });
         })();
     </script>
-@endsection
-
-
-@section('saa')
-    , {
-    headers: {
-    "Cache-Control": "no-cache",
-    "Content-Type": "application/x-www-form-urlencoded",
-    "Access-Control-Allow-Origin": "*",
-    },
-    referrerPolicy: 'no-referrer-when-downgrade'
-    }
 @endsection
