@@ -29,6 +29,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::apiResource("/apartments", ApartmentController::class)->only("index", "show");
 Route::get("/apartments/service/{service_id}", [ApartmentController::class, "ApartmentByService"]);
 Route::post("/apartments-by-filters", [ApartmentController::class, "ApartmentsByFilters"]);
+Route::get("/apartments/home", [ApartmentController::class, "ApartmentHome"]);
 
 // * SERVICE API ----------------------------------------------------------------------------
 Route::apiResource("/services", ServicesController::class)->only("index");
