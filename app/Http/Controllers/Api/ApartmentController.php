@@ -10,7 +10,7 @@ use Illuminate\Http\Request;
 class ApartmentController extends Controller
 {
     // per la ricerca dalla homepage
-    public function ApartmentHome()
+    public function home()
     {
         $apartments = Apartment::with('services', )
             ->select("id", "user_id", "title", "rooms", "beds", "bathrooms", "m2", "address", "description", "cover_image_path")
