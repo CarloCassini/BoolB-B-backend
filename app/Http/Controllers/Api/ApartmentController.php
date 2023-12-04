@@ -9,6 +9,31 @@ use Illuminate\Http\Request;
 
 class ApartmentController extends Controller
 {
+    // per la ricerca dalla homepage
+    public function sponsored()
+    {
+        $apartments = Apartment::with('services', )
+            ->join('apartment_sponsor', 'apartment_sponsor.apartment_id', '=', 'apartments.id')
+            ->select("apartments.id", "user_id", "title", "rooms", "beds", "bathrooms", "m2", "address", "description", "cover_image_path")
+            ->where('is_hidden', '=', 0)
+            ->paginate(8);
+
+
+        foreach ($apartments as $apartment) {
+            if (!empty($apartment->description)) {
+                $apartment->description = substr($apartment->description, 0, 50);
+            }
+        }
+
+        return response()->json([
+            'status' => 'success',
+            'message' => 'ok',
+            'results' => $apartments,
+            // 'description' => substr($apartments->description, 0, 50)
+        ], 200);
+
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -16,11 +41,11 @@ class ApartmentController extends Controller
      */
     public function index()
     {
-
         $apartments = Apartment::with('services', )
             ->select("id", "user_id", "title", "rooms", "beds", "bathrooms", "m2", "address", "description", "cover_image_path")
             ->where('is_hidden', '=', 0)
             ->paginate(8);
+
 
         foreach ($apartments as $apartment) {
             if (!empty($apartment->description)) {
@@ -102,10 +127,10 @@ class ApartmentController extends Controller
 
     // ! FILTERED ----------------------------------------------------------------
     /* 
-    *   Apartment by Service
-    *
-    *
-    */
+     *   Apartment by Service
+     *
+     *
+     */
     public function ApartmentByService($service_id)
     {
 
@@ -132,10 +157,10 @@ class ApartmentController extends Controller
 
     }
     /* 
-    *   Apartment by filter
-    *
-    *
-    */
+     *   Apartment by filter
+     *
+     *
+     */
     public function apartmentsByFilters(Request $request)
     {
         // filtri ricevuti
@@ -145,16 +170,16 @@ class ApartmentController extends Controller
             ->select("id", "user_id", "title", "rooms", "beds", "bathrooms", "m2", "address", "description", "cover_image_path")
             ->where('is_hidden', '=', 0);
 
-        if (!empty($filters['activeServices'])){
+        if (!empty($filters['activeServices'])) {
             $apartments_query->whereHas('services', function ($query) use ($filters) {
                 $query->whereIn('services.id', $filters['activeServices']);
             });
         }
         if (!empty($filters['rooms'])) {
-            $apartments_query->where("rooms", '>=' ,$filters['rooms']);
+            $apartments_query->where("rooms", '>=', $filters['rooms']);
         }
         if (!empty($filters['beds'])) {
-            $apartments_query->where("beds", '>=' ,$filters['beds']);
+            $apartments_query->where("beds", '>=', $filters['beds']);
         }
         foreach ($apartments_query as $apartment) {
             if (!empty($apartment->description)) {
@@ -163,7 +188,7 @@ class ApartmentController extends Controller
         }
         $apartments = $apartments_query->paginate(9);
 
-        return response()->json($apartments); 
-    
+        return response()->json($apartments);
+
     }
 }
