@@ -130,9 +130,11 @@ class ApartmentsController extends Controller
         }
         // *fine gestione rotta protetta
 
-
+        $oggi = now();
         $sponsor = Sponsor::join('apartment_sponsor', 'apartment_sponsor.sponsor_id', '=', 'sponsors.id')
             ->where('apartment_sponsor.apartment_id', '=', $apartment->id)
+            ->where('apartment_sponsor.start_date', '<', $oggi)
+            ->where('apartment_sponsor.end_date', '>', $oggi)
             ->first();
 
 
