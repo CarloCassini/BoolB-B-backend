@@ -32,6 +32,10 @@ class MessageController extends Controller
         return redirect()->back()->with('success', 'Messaggio inviato con successo!');
     }
 
+    // lista messaggi utente registrato con appartamenti
+
+  
+
     /**
      * Display a listing of the resource.
      *
