@@ -31,6 +31,7 @@ use App\Models\Service;
 
 class ApartmentsController extends Controller
 {
+
     /**
      * Display a listing of the resource.
      *
