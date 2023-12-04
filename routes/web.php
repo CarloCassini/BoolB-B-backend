@@ -56,3 +56,5 @@ require __DIR__ . '/auth.php';
 
 // lista messaggi in dashboard admin
 
+Route::get('/messages', [MessageController::class, 'index'])->name('admin.messages');
+
