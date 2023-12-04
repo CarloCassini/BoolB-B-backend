@@ -19,6 +19,8 @@
                     {{ __('You are logged in!') }}
                     <div class="my-3">
                         <a class="btn btn-primary" href="{{ route('admin.apartments.index') }}">My Apartments</a>
+                        <a class=" btn btn-success mx-3"
+                        href="{{route('admin.messages')}}">My Messages</a>
                     </div>
                 </div>
             </div>

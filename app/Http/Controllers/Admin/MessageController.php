@@ -4,7 +4,10 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 
+use Illuminate\Support\Facades\Auth;
+
 use App\Models\Message;
+use App\Models\Apartment;
 use Illuminate\Http\Request;
 
 class MessageController extends Controller
@@ -32,14 +35,30 @@ class MessageController extends Controller
         return redirect()->back()->with('success', 'Messaggio inviato con successo!');
     }
 
+    // lista messaggi utente registrato con appartamenti
+
+  
+
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+    //  * @return \Illuminate\Http\Response
      */
     public function index()
     {
-        //
+        $user_id = Auth::user()->id;
+        $messages = [];
+        // $apartments = Apartment::all()->where('user_id', $user_id);
+
+        $messagesList = Message::join('apartments', 'messages.apartment_id', '=', 'apartments.id')
+        ->where('apartments.user_id', '=', $user_id)
+        ->orderBy('messages.created_at', 'desc')->get();
+
+            foreach ($messagesList as $message) {
+                    array_push($messages, $message);
+                }
+                // dd($messages);
+        return view('admin.messages.index', compact('messages'));
     }
 
     /**
