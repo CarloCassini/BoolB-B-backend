@@ -26,10 +26,11 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 //  creiamo la rotta dandogli la risposta in _Json_
 
 // * APARTMENT API --------------------------------------------------------------------------
-Route::apiResource("/apartments", ApartmentController::class)->only("index", "show");
+// Route::apiResource("/apartments", ApartmentController::class)->only("index", "show");
+Route::apiResource("/apartments", ApartmentController::class);
 Route::get("/apartments/service/{service_id}", [ApartmentController::class, "ApartmentByService"]);
 Route::post("/apartments-by-filters", [ApartmentController::class, "ApartmentsByFilters"]);
-Route::get("/apartments/home", [ApartmentController::class, "home"]);
+Route::get("/sponsored", [ApartmentController::class, "sponsored"]);
 
 // * SERVICE API ----------------------------------------------------------------------------
 Route::apiResource("/services", ServicesController::class)->only("index");

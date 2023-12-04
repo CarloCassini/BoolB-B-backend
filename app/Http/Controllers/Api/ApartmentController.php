@@ -10,19 +10,20 @@ use Illuminate\Http\Request;
 class ApartmentController extends Controller
 {
     // per la ricerca dalla homepage
-    public function home()
+    public function sponsored()
     {
         $apartments = Apartment::with('services', )
-            ->select("id", "user_id", "title", "rooms", "beds", "bathrooms", "m2", "address", "description", "cover_image_path")
+            ->join('apartment_sponsor', 'apartment_sponsor.apartment_id', '=', 'apartments.id')
+            ->select("apartments.id", "user_id", "title", "rooms", "beds", "bathrooms", "m2", "address", "description", "cover_image_path")
             ->where('is_hidden', '=', 0)
             ->paginate(8);
+
 
         foreach ($apartments as $apartment) {
             if (!empty($apartment->description)) {
                 $apartment->description = substr($apartment->description, 0, 50);
             }
         }
-
 
         return response()->json([
             'status' => 'success',
@@ -40,11 +41,11 @@ class ApartmentController extends Controller
      */
     public function index()
     {
-
         $apartments = Apartment::with('services', )
             ->select("id", "user_id", "title", "rooms", "beds", "bathrooms", "m2", "address", "description", "cover_image_path")
             ->where('is_hidden', '=', 0)
             ->paginate(8);
+
 
         foreach ($apartments as $apartment) {
             if (!empty($apartment->description)) {
