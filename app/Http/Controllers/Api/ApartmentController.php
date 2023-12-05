@@ -84,7 +84,7 @@ class ApartmentController extends Controller
     public function show($id)
     {
         $apartment = Apartment::with('services', )
-            ->select("id", "user_id", "title", "rooms", "beds", "bathrooms", "m2", "address", "description", "cover_image_path")
+            ->select("id", "user_id", "title", "rooms", "beds", "bathrooms", "m2", "address", "description", "cover_image_path", "latitude", "longitude")
             ->where('id', $id)
             ->first();
 
