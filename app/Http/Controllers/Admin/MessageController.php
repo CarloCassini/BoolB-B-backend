@@ -49,7 +49,7 @@ class MessageController extends Controller
         $user_id = Auth::user()->id;
         $messages = [];
 
-        $messagesList = Message::join('apartments', 'messages.apartment_id', '=', 'apartments.id')
+        $messagesList = Apartment::join('messages', 'messages.apartment_id', '=', 'apartments.id')
             ->where('apartments.user_id', '=', $user_id)
             ->orderBy('messages.created_at', 'desc')->get();
 
@@ -122,6 +122,22 @@ class MessageController extends Controller
      */
     public function destroy(Message $message)
     {
-        //
+        // * gestione rotte protette
+        $user = Auth::user();
+        $apartment = Apartment::join('messages', 'messages.apartment_id', '=', 'apartments.id')
+            ->where('apartments.id', '=', $message->apartment_id)
+            ->first();
+
+        if ($user->id != $apartment->user_id) {
+            return redirect()->back()->with([
+                'not_allowed_message' => 'sorry, u can\'t touch this'
+            ]);
+        }
+        // *fine gestione rotta protetta
+
+        $message->delete();
+
+        return redirect()->back();
+        // return redirect()->route('admin.apartments.index');
     }
 }

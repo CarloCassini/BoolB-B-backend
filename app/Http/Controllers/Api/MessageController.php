@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Api\MessageController;
 use App\Models\Message;
 
 class MessageController extends Controller
@@ -44,7 +43,7 @@ class MessageController extends Controller
         $message->save();
 
         // return redirect()->back()->with('success', 'Messaggio inviato con successo!');
-    
+
     }
 
     /**
@@ -55,7 +54,7 @@ class MessageController extends Controller
      */
     public function show($id)
     {
-        
+
     }
 
     /**
@@ -80,5 +79,5 @@ class MessageController extends Controller
     {
         //
     }
-    
+
 }

@@ -42,4 +42,4 @@ Route::get('/tomtom/{address}', [TomtomController::class, "findsuggest"]);
 
 // MESSAGE API -------------------------------------------------------------------------------
 
-Route::apiResource("/message", MessageController::class); 
+Route::apiResource("/message", MessageController::class);

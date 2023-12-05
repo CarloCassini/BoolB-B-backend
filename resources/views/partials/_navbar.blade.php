@@ -14,7 +14,7 @@
                 </li> --}}
                 <li class="nav-item">
                     <a class="nav-link {{ Route::currentRouteName() == 'guest.home' ? 'active' : '' }}"
-                        href="http://localhost:5173/" aria-current="page">Home frontoffice<span
+                        href="http://localhost:5174/" aria-current="page">Home frontoffice<span
                             class="visually-hidden">(current)</span></a>
                 </li>
                 @guest
@@ -29,6 +29,9 @@
                 @else
                     <li class="nav-item">
                         <a class="nav-link" href="{{ route('admin.apartments.index') }}"> My Apartments</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class=" nav-link" href="{{ route('admin.messages.index') }}">My Messages</a>
                     </li>
                     <li class="nav-item dropdown">
                         <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button"
