@@ -49,3 +49,42 @@
 #suggerimenti li:hover {
     background-color: #777777;
 }
+
+.dashboard-space {
+    // background-color: fuchsia;
+    max-height: 80vh;
+}
+
+.dashboard-pagination {
+    background-color: rgba(255, 255, 255, 0.2);
+}
+
+/* WebKit (Chrome, Safari) */
+::-webkit-scrollbar {
+    width: 4px; /* Larghezza della barra di scorrimento orizzontale e verticale */
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: #888; /* Colore della maniglia della barra di scorrimento */
+    border-radius: 3px; /* Raggio degli angoli della maniglia della barra di scorrimento */
+}
+
+/* Firefox */
+::-moz-scrollbar {
+    width: 4px;
+}
+
+::-moz-scrollbar-thumb {
+    background-color: #888;
+    border-radius: 3px;
+}
+
+/* Edge (basato su Windows) */
+::-ms-scrollbar {
+    width: 4px;
+}
+
+::-ms-scrollbar-thumb {
+    background-color: #888;
+    border-radius: 3px;
+}

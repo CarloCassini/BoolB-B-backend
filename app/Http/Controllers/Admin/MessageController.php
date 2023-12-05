@@ -37,7 +37,7 @@ class MessageController extends Controller
 
     // lista messaggi utente registrato con appartamenti
 
-  
+
 
     /**
      * Display a listing of the resource.
@@ -48,16 +48,14 @@ class MessageController extends Controller
     {
         $user_id = Auth::user()->id;
         $messages = [];
-        // $apartments = Apartment::all()->where('user_id', $user_id);
 
         $messagesList = Message::join('apartments', 'messages.apartment_id', '=', 'apartments.id')
-        ->where('apartments.user_id', '=', $user_id)
-        ->orderBy('messages.created_at', 'desc')->get();
+            ->where('apartments.user_id', '=', $user_id)
+            ->orderBy('messages.created_at', 'desc')->get();
 
-            foreach ($messagesList as $message) {
-                    array_push($messages, $message);
-                }
-                // dd($messages);
+        foreach ($messagesList as $message) {
+            array_push($messages, $message);
+        }
         return view('admin.messages.index', compact('messages'));
     }
 

@@ -41,20 +41,20 @@ Route::middleware(['auth', 'verified'])
     Route::resource('/sponsors', SponsorsController::class);
   });
 
-  // gestione sponsorizzazioni
 
-  Route::get('/sponsor/{apartment_id}', [SponsorsController::class, 'selectSponsor'])->name('sponsorSelect');
+// gestione sponsorizzazioni
+
+Route::get('/sponsor/{apartment_id}', [SponsorsController::class, 'selectSponsor'])->name('sponsorSelect');
 
 //  crezione sponsorizzazioni 
 
 Route::post('/sponsor/sponsorship', [SponsorsController::class, 'sponsorship'])->name('sponsorship');
 
-    //messaggi utente
-    Route::post('/invia-messaggio', [MessageController::class, 'inviaMessaggio'])->name('invia.messaggio');
+//messaggi utente
+Route::post('/invia-messaggio', [MessageController::class, 'inviaMessaggio'])->name('invia.messaggio');
 
 require __DIR__ . '/auth.php';
 
 // lista messaggi in dashboard admin
 
-Route::get('/messages', [MessageController::class, 'index'])->name('admin.messages');
-
+Route::get('/messages', [MessageController::class, 'index']);

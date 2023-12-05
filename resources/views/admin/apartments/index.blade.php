@@ -41,10 +41,10 @@
                             <td>
                                 <img class="img-fluid" alt="cover" {{-- controllo sul src delle immagini (3 possibilità) --}}
                                     src="@if (!$apartment->cover_image_path) https://via.placeholder.com/2000x1500.png/333333?text=Placeholder
-                                @elseif(Str::startsWith($apartment->cover_image_path, ['http://', 'https://']))
-                                   {{ $apartment->cover_image_path }}
-                                @else
-                                   {{ asset('/storage/' . $apartment->cover_image_path) }} @endif">
+                                                        @elseif(Str::startsWith($apartment->cover_image_path, ['http://', 'https://']))
+                                                           {{ $apartment->cover_image_path }}
+                                                        @else
+                                                           {{ asset('/storage/' . $apartment->cover_image_path) }} @endif">
                             </td>
 
                             {{-- * title --}}
@@ -68,13 +68,9 @@
                             {{-- * is_hidden --}}
                             <td>
                                 @if ($apartment->is_hidden == '0')
-                                    <div class="strong">
-                                        visible
-                                    </div>
+                                    <i class="fa-solid fa-square-check text-success"></i>
                                 @else
-                                    <div class="strong">
-                                        hidden
-                                    </div>
+                                    <i class="fa-solid fa-square-xmark text-danger"></i>
                                 @endif
                             </td>
 
@@ -83,12 +79,20 @@
 
                             <td class="h-100">
                                 <div class="h-100 d-flex align-items-center justify-content-between">
-                                    <a href="{{ route('admin.apartments.show', $apartment) }}"><i
-                                            class="fa-solid fa-eye text-"></i></a>
-                                    <a href="{{ route('admin.apartments.edit', $apartment) }}"><i
+
+                                    <a href="{{ route('admin.apartments.show', $apartment) }}" class="mx-1"><i
+                                            class="fa-solid fa-eye text-primary"></i></a>
+                                    <a href="{{ route('admin.apartments.edit', $apartment) }}" class="mx-1"><i
                                             class="fa-solid fa-pencil text-warning"></i></a>
-                                    <a href="#"data-bs-toggle="modal" data-bs-target="#modal-{{ $apartment->id }}"><i
-                                            class="fa-solid fa-trash text-danger"></i></a>
+                                    <a href="#" class="mx-1 debug"><i
+                                            class="fa-solid fa-chart-simple text-info"></i></a>
+
+                                    {{-- todo xxxxxxxxxxxxxxxxxxxxxxxx --}}
+                                    <a href="{{ route('sponsorSelect', $apartment->id) }}" class="mx-1"><i
+                                            class="fa-solid fa-money-check-dollar text-success"></i></a>
+
+                                    <a href="#"data-bs-toggle="modal" data-bs-target="#modal-{{ $apartment->id }}"
+                                        class="mx-1"><i class="fa-solid fa-trash text-danger"></i></a>
                                 </div>
                             </td>
                         </tr>
@@ -100,53 +104,53 @@
         @else
             <h1> No Apartments Found :( </h1>
         @endif
-    @endsection
+    </div>
+@endsection
 
-    @section('modals')
-        {{-- * modals --}}
+@section('modals')
+    {{-- * modals --}}
 
-        @foreach ($apartments as $apartment)
-            <div class="modal fade" tabindex="-1" id="modal-{{ $apartment->id }}">
-                <div class="modal-dialog ">
-                    <div class="modal-content">
-                        <div class="modal-header red-strip">
-                            <h5 class="modal-title">DELETE FROM DATABASE</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-                        <div class="modal-body ">
-                            <strong class="text-danger text-align-center">W A R N I N G</strong> <br>
-                            <hr>
+    @foreach ($apartments as $apartment)
+        <div class="modal fade" tabindex="-1" id="modal-{{ $apartment->id }}">
+            <div class="modal-dialog ">
+                <div class="modal-content">
+                    <div class="modal-header red-strip">
+                        <h5 class="modal-title">DELETE FROM DATABASE</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body ">
+                        <strong class="text-danger text-align-center">W A R N I N G</strong> <br>
+                        <hr>
 
-                            <p> Are you shure you want to delete permanently:
-                                <br>
-                                <strong>
-                                    ' {{ $apartment->title }} '
-                                </strong>
-                                <br>
-                                <strong>
-                                    ID :
-                                </strong>
-                                {{ $apartment->id }}
-                                <br>
-                                from the database?
-                            </p>
-                            <p class="text-danger">THIS ACTION IS IRREVERIBLE</p>
+                        <p> Are you shure you want to delete permanently:
+                            <br>
+                            <strong>
+                                ' {{ $apartment->title }} '
+                            </strong>
+                            <br>
+                            <strong>
+                                ID :
+                            </strong>
+                            {{ $apartment->id }}
+                            <br>
+                            from the database?
+                        </p>
+                        <p class="text-danger">THIS ACTION IS IRREVERIBLE</p>
 
-                            <hr>
+                        <hr>
 
-                            <form action="{{ route('admin.apartments.destroy', $apartment) }}" method="post">
-                                @csrf
-                                @method('DELETE')
-                                <button type="button" class="btn btn-outline-secondary"
-                                    data-bs-dismiss="modal">Close</button>
-                                <button type="send" class="btn btn-outline-danger"><strong>DELETE</strong></button>
-                            </form>
-                        </div>
-                        <div class="modal-footer red-strip"">
-                        </div>
+                        <form action="{{ route('admin.apartments.destroy', $apartment) }}" method="post">
+                            @csrf
+                            @method('DELETE')
+                            <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Close</button>
+                            <button type="send" class="btn btn-outline-danger"><strong>DELETE</strong></button>
+                        </form>
+                    </div>
+                    <div class="modal-footer red-strip"">
                     </div>
                 </div>
             </div>
-    </div>
+        </div>
+        </div>
     @endforeach
 @endsection
