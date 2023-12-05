@@ -39,6 +39,9 @@ Route::middleware(['auth', 'verified'])
 
     // utenti sponsorizzati
     Route::resource('/sponsors', SponsorsController::class);
+
+    // per i messaggi
+    Route::resource('/messages', MessageController::class);
   });
 
 
@@ -56,5 +59,3 @@ Route::post('/invia-messaggio', [MessageController::class, 'inviaMessaggio'])->n
 require __DIR__ . '/auth.php';
 
 // lista messaggi in dashboard admin
-
-Route::get('/messages', [MessageController::class, 'index']);
