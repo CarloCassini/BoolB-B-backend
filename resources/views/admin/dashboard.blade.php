@@ -14,9 +14,17 @@
 
                     {{ __('You are logged in!') }}
                     <div class="my-3">
-                        <a class="btn btn-primary me-3" href="{{ route('admin.apartments.index') }}">My Apartments</a>
-
-                        <a class=" btn btn-primary me-3" href="{{ route('admin.messages.index') }}">My Messages</a>
+                        {{-- bottoni --}}
+                        <div class="d-flex my-3">
+                            <div>
+                                <a class="btn btn-primary me-3" href="{{ route('admin.apartments.index') }}">My
+                                    Apartments</a>
+                            </div>
+                            <div>
+                                <a href="{{ route('admin.apartments.create') }}" class="btn btn-success me-3">Add
+                                    new Apartment</a>
+                            </div>
+                        </div>
 
                         <div class="border my-1 debug">per arrivare qui ho usato la index in
                             http/controllers/admin/pagecontroller</div>
@@ -146,10 +154,13 @@
                 <div class="col-3  ">
                     <div>
                         <div class="container dashboard-head overflow-hidden">
-                            <div class="d-inline-block text-gradient">
-                                <h1>My messages</h1>
+                            <div class="d-block text-gradient">
+                                <div class=" dashboard-head d-flex justify-content-between align-items-center">
+                                    <h4>My messages</h4>
+                                    <a class=" btn btn-primary me-3" href="{{ route('admin.messages.index') }}">show</a>
+                                </div>
                             </div>
-                            <hr class="m-0">
+                            <hr class="m-0 mt-auto">
                         </div>
                         <div class="overflow-scroll overflow-x-hidden dashboard-space m-0 ">
 
@@ -247,8 +258,8 @@
     {{-- modals di messages --}}
     <section>
         @forelse ($messages as $message)
-            <div class="modal fade" id="exampleModal{{ $message->id }}" tabindex="-1" aria-labelledby="exampleModalLabel"
-                aria-hidden="true">
+            <div class="modal fade" id="exampleModal{{ $message->id }}" tabindex="-1"
+                aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
                     <div class="modal-content message-card-noMessage p-3">
                         <div class="d-flex justify-content-between">
