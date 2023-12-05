@@ -5,6 +5,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\ApartmentController;
 use App\Http\Controllers\Api\TomtomController;
+use App\Http\Controllers\Api\MessageController;
 
 
 use App\Models\Apartment;
@@ -38,3 +39,7 @@ Route::apiResource("/services", ServicesController::class)->only("index");
 // *TOMTOM API ------------------------------------------------------------------------------
 //ricerco api per il tomtom con guzzle
 Route::get('/tomtom/{address}', [TomtomController::class, "findsuggest"]);
+
+// MESSAGE API -------------------------------------------------------------------------------
+
+Route::apiResource("/message", MessageController::class); 
