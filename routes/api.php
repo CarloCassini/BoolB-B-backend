@@ -5,6 +5,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\ApartmentController;
 use App\Http\Controllers\Api\TomtomController;
+use App\Http\Controllers\Api\SponsorController;
 use App\Http\Controllers\Api\MessageController;
 
 
@@ -43,3 +44,9 @@ Route::get('/tomtom/{address}', [TomtomController::class, "findsuggest"]);
 // MESSAGE API -------------------------------------------------------------------------------
 
 Route::apiResource("/message", MessageController::class);
+
+// payment api -------------------------------------------------------------------------------
+// https://www.youtube.com/watch?v=1-Ge9IqbwNY
+// minuto 41:00
+Route::get('/sponsors/generate', [SponsorController::class, "generate"]);
+Route::post('/sponsors/makePayment', [SponsorController::class, "makePayment"]);

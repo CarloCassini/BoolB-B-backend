@@ -2,6 +2,12 @@
 
 @section('content')
     <div class="container">
+        {{-- todo xxxxxxxxxxxxxxxxxxxxx --}}
+        {{-- <div class="debug">
+            <a href="{{ route('api/sponsors/generate', 'ciao') }}" class="btn btn-success me-3">Add
+                new Apartment</a>
+        </div> --}}
+        {{-- todo xxxxxxxxxxxxxxxxxxxxx --}}
         <div class="row justify-content-center">
             <div class="card">
                 <div class="card-header">{{ __('User Dashboard') }}</div>
@@ -43,7 +49,6 @@
             </div>
             <div class="row row-cols-2 m-0 ">
                 {{-- appartamenti --}}
-
                 <div class="col-9 ">
                     <div>
                         <div class="container dashboard-head overflow-hidden">
