@@ -24,6 +24,7 @@
         crossorigin="anonymous" referrerpolicy="no-referrer" />
 
     @yield('links')
+    @yield('head-scripts')
 </head>
 
 <body>

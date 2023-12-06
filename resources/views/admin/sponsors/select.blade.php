@@ -1,5 +1,9 @@
 @extends('layouts.app')
 
+@section('head-scripts')
+    <script src="https://js.braintreegateway.com/web/dropin/1.40.2/js/dropin.min.js"></script>
+@endsection
+
 @section('content')
     {{-- {{$sponsors}}
    <br>
@@ -52,8 +56,15 @@
         </div>
     </div>
     <div class="debug container">
-
+        <div id="dropin-container"></div>
         <div class="debug">https://www.youtube.com/watch?v=kJ4X4Y1IWzA</div>
         <div class="debug">https://www.youtube.com/watch?v=1-Ge9IqbwNY</div>
     </div>
+@endsection
+
+@section('scripts')
+    <script type="text/javascript">
+        console.log('ciccio');
+        // call 'braintree.dropin.create' code here
+    </script>
 @endsection
