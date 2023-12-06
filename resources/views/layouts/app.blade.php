@@ -48,6 +48,17 @@
                 </div>
             </div>
         @endif
+        @if (\Session::has('payment-error'))
+            <div class="debug text-center container py-5">
+                <h3>
+                    {!! \Session::get('payment-error') !!}
+                </h3>
+
+                <img class="me-auto" src="https://www.christart.com/images/clipart/654/prov-030-06.png" alt=""
+                    style="height: 300px; ">
+
+            </div>
+        @endif
 
         <main class="">
             @yield('navigation-buttons')

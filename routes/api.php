@@ -49,4 +49,4 @@ Route::apiResource("/message", MessageController::class);
 // https://www.youtube.com/watch?v=1-Ge9IqbwNY
 // minuto 41:00
 Route::get('/sponsors/generate', [SponsorController::class, "generate"]);
-Route::post('/sponsors/makePayment', [SponsorController::class, "makePayment"]);
+Route::post('/sponsors/makePayment', [SponsorController::class, "makePayment"])->name('api.sponsors.makePayment');
