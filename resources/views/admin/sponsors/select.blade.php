@@ -5,10 +5,6 @@
 @endsection
 
 @section('content')
-    {{-- {{$sponsors}}
-   <br>
-   {{$apartment_id}} --}}
-
     <div class="card mt-0 box-shadow">
         <div class="card-body d-flex flex-column gap-3 py-3">
 
@@ -23,7 +19,7 @@
                     </p>
                 </div>
                 <div class="container">
-                    <form action="{{ route('sponsorship') }}" method="POST" class="col-12 col-lg-6 mx-auto">
+                    <form action="{{ route('sponsorship') }}" method="POST" class="col-12 col-lg-6 mx-auto" id="payment-form">
                         @csrf
                         <div class="card mb-3" style="box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);">
                             <div class="card-body">
@@ -43,20 +39,27 @@
                                     @endforeach
                                 </div>
                                 <input type="text" name="apartment_id" value="{{ $apartment_id }}" class="d-none">
-                                <div id="dropin-wrapper" class="mt-3">
+                                {{-- <div class="debug" id="dropin-wrapper" class="mt-3">
                                     <div id="checkout-message"></div>
                                     <div id="dropin-container"></div>
                                     <button id="submit-button" class="btn btn-primary btn-block">Paga</button>
-                                </div>
+                                </div> --}}
                             </div>
+                        </div>
+                        {{-- <button id="submit-button" class="btn btn-primary btn-block">Paga</button> --}}
+                        <div class="debug" id="dropin-wrapper" class="mt-3">
+                            <div id="checkout-message"></div>
+                            <div id="dropin-container"></div>
+                            <input type="hidden" id="nonce" name="payment_method_nonce" />
+                            <button id="submit-button" class="btn btn-primary btn-block">Paga</button>
                         </div>
                     </form>
                 </div>
             </div>
         </div>
     </div>
+
     <div class="debug container">
-        <div id="dropin-container"></div>
         <div class="debug">https://www.youtube.com/watch?v=kJ4X4Y1IWzA</div>
         <div class="debug">https://www.youtube.com/watch?v=1-Ge9IqbwNY</div>
     </div>
@@ -64,7 +67,51 @@
 
 @section('scripts')
     <script type="text/javascript">
-        console.log('ciccio');
-        // call 'braintree.dropin.create' code here
+        // let button = document.querySelector('#submit-button');
+        // braintree.dropin.create({
+        //     authorization: 'sandbox_fw47smcq_t2zvx4dq3yfyv9z3',
+        //     selector: '#dropin-container'
+        // }, function(err, instance) {
+        //     button.addEventListener('click', function() {
+        //         instance.requestPaymentMethod().then((payload) => {
+        //             // Step four: when the user is ready to complete their
+        //             //   transaction, use the dropinInstance to get a payment
+        //             //   method nonce for the user's selected payment method, then add
+        //             //   it a the hidden field before submitting the complete form to
+        //             //   a server-side integration
+        //             console.log('PAYLOAD: ' + payload);
+        //             event.preventDefault();
+        //             document.getElementById('nonce').value = payload.nonce;
+        //             // form.submit();
+        //         }).catch((error) => {
+        //             throw error;
+        //         });
+        //     });
+        // });
+
+        const form = document.getElementById('payment-form');
+
+        braintree.dropin.create({
+            authorization: 'sandbox_fw47smcq_t2zvx4dq3yfyv9z3',
+            selector: '#dropin-container'
+        }).then((dropinInstance) => {
+            form.addEventListener('submit', (event) => {
+                event.preventDefault();
+
+                dropinInstance.requestPaymentMethod().then((payload) => {
+                    // Step four: when the user is ready to complete their
+                    //   transaction, use the dropinInstance to get a payment
+                    //   method nonce for the user's selected payment method, then add
+                    //   it a the hidden field before submitting the complete form to
+                    //   a server-side integration
+                    document.getElementById('nonce').value = payload.nonce;
+                    form.submit();
+                }).catch((error) => {
+                    throw error;
+                });
+            });
+        }).catch((error) => {
+            // handle errors
+        });
     </script>
 @endsection

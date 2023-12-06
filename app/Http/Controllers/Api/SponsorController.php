@@ -5,15 +5,25 @@ namespace App\Http\Controllers\api;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
-class SponsorController extends Controller
-{
-    public function generate(Request $request)
-    {
-        return 'generate';
+use Braintree\Gateway;
+
+class SponsorController extends Controller {
+    public function generate(Request $request) {
+        $gateway = new Gateway([
+            'environment' => 'sandbox',
+            'merchantId' => 't2zvx4dq3yfyv9z3',
+            'publicKey' => 'wz8nmzd5x4tv82w8',
+            'privateKey' => 'a248f8086c7f1ae66b34ee610471568f'
+        ]);
+
+
+        $clientToken = $gateway->clientToken()->generate();
+
+
+        return $clientToken;
         //
     }
-    public function makePayment(Request $request)
-    {
+    public function makePayment(Request $request) {
         return 'make Payment';
         //
     }
@@ -23,8 +33,7 @@ class SponsorController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
-    {
+    public function index() {
         //
     }
 
@@ -34,8 +43,7 @@ class SponsorController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
-    {
+    public function store(Request $request) {
         //
     }
 
@@ -45,8 +53,7 @@ class SponsorController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
-    {
+    public function show($id) {
         //
     }
 
@@ -57,8 +64,7 @@ class SponsorController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
-    {
+    public function update(Request $request, $id) {
         //
     }
 
@@ -68,8 +74,7 @@ class SponsorController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
-    {
+    public function destroy($id) {
         //
     }
 }
