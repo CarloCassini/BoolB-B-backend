@@ -159,27 +159,6 @@
                     @endif
                 </p>
             </div>
-            {{-- <div class="col-12">
-                <hr>
-                <div class="row row-cols-1 row-cols-md-2">
-                   
-                    <div class="d-flex  flex-wrap">
-                        @foreach ($services as $service)
-                            <div class="col-4 mt-1">
-    
-                                <input type="checkbox" id="service-{{ $service->id }}" value="{{ $service->id }}"
-                                    name="services[]" class="form-check-control me-2"
-                                    @if (in_array($service->id, old('services', $apartment_service ?? []))) checked @endif>
-                                <label for="service-{{ $service->id }}">
-                                    <i class="{{ $service->symbol }}"></i> - {{ $service->label }}
-                                </label>
-                            </div>
-                        @endforeach
-                    </div>
-                </div>
-                </div>
-            </div>
-        </div> --}}
 
             <div class="">
                 <h4>Services</h4>
