@@ -2,11 +2,11 @@
 
 @section('navigation-buttons')
     <div class="container">
-        {{-- per tornare alla index --}}
+        {{-- per tornare alla dashboard --}}
         <div class=" my-5">
-            <a href="{{ route('admin.apartments.index') }}" class="btn btn-outline-secondary">
+            <a href="{{ route('admin.home') }}" class="btn btn-outline-secondary">
                 <i class="fa-solid fa-arrow-left me-1"></i>
-                Torna alla lista
+                Torna alla Dashboard
             </a>
         </div>
     </div>
