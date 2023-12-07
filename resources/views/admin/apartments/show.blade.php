@@ -3,7 +3,7 @@
 @section('navigation-buttons')
     <div class="container">
         {{-- per tornare alla index --}}
-        <div class=" my-5 d-flex">
+        <div class=" my-3 d-flex">
             {{-- per tornare alla dashboard --}}
             <a href="{{ route('admin.home') }}" class="btn btn-outline-secondary">
                 <i class="fa-solid fa-arrow-left me-1"></i>
