@@ -3,7 +3,6 @@
 @section('navigation-buttons')
     <div class="container">
         {{-- per tornare alla index --}}
-        <h1 class="my-3 text-center">Crea apartment</h1>
         <div class=" my-5">
             <a href="{{ route('admin.apartments.index') }}" class="btn btn-outline-secondary">
                 <i class="fa-solid fa-arrow-left me-1"></i>

@@ -2,7 +2,6 @@
 
 @section('navigation-buttons')
     <div class="container">
-        <h1 class="my-3 text-center">my apartments</h1>
         {{-- go to my appartments list --}}
         <div class="my-5">
             <a href="{{ route('admin.apartments.create') }}" class="btn btn-outline-success me-3 py-0">Add new Apartment</a>

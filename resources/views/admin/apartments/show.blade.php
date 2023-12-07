@@ -2,7 +2,6 @@
 
 @section('navigation-buttons')
     <div class="container">
-        <h1 class="my-3 text-center">dettaglio apartment</h1>
         {{-- per tornare alla index --}}
         <div class=" my-5 d-flex">
             <a href="{{ route('admin.apartments.index') }}" class="btn btn-outline-secondary">
