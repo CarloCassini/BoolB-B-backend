@@ -82,7 +82,7 @@
                                             <th scope="col">bathrooms</th>
                                             <th scope="col">m2</th>
                                             <th scope='col'>address</th>
-                                            <th scope='col'>is_hidden</th>
+                                            <th scope='col'><i class="fa-solid fa-eye"></i></th>
                                             <th scope='col'>Actions</th>
                                             {{-- todo is_hidden must be a btn (as published) --}}
                                         </tr>
@@ -137,7 +137,8 @@
                                                     <div class="h-100 d-flex align-items-center justify-content-between">
 
                                                         <a href="{{ route('admin.apartments.show', $apartment) }}"
-                                                            class="mx-1"><i class="fa-solid fa-eye text-primary"></i></a>
+                                                            class="mx-1"><i
+                                                                class="fa-solid fa-circle-info text-primary"></i></a>
                                                         <a href="{{ route('admin.apartments.edit', $apartment) }}"
                                                             class="mx-1"><i
                                                                 class="fa-solid fa-pencil text-warning"></i></a>
