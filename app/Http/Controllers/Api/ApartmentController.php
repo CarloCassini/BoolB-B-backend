@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Models\Apartment;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 
 
 class ApartmentController extends Controller
@@ -12,11 +13,15 @@ class ApartmentController extends Controller
     // per la ricerca dalla homepage
     public function sponsored()
     {
+        $now = now();
         $apartments = Apartment::with('services', )
             ->join('apartment_sponsor', 'apartment_sponsor.apartment_id', '=', 'apartments.id')
             ->select("apartments.id", "user_id", "title", "rooms", "beds", "bathrooms", "m2", "address", "description", "cover_image_path")
+            ->where('apartment_sponsor.start_date', '<', $now)
+            ->where('apartment_sponsor.end_date', '>', $now)
             ->where('is_hidden', '=', 0)
-            ->paginate(8);
+            ->orderByDesc('apartment_sponsor.start_date')
+            ->paginate(16);
 
 
         foreach ($apartments as $apartment) {
@@ -44,7 +49,7 @@ class ApartmentController extends Controller
         $apartments = Apartment::with('services', )
             ->select("id", "user_id", "title", "rooms", "beds", "bathrooms", "m2", "address", "description", "cover_image_path")
             ->where('is_hidden', '=', 0)
-            ->paginate(8);
+            ->paginate(16);
 
 
         foreach ($apartments as $apartment) {
@@ -63,24 +68,6 @@ class ApartmentController extends Controller
 
     }
 
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function show($id)
     {
         $apartment = Apartment::with('services', )
@@ -102,28 +89,6 @@ class ApartmentController extends Controller
         }
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
-    }
 
     // ! FILTERED ----------------------------------------------------------------
     /* 
@@ -165,10 +130,32 @@ class ApartmentController extends Controller
     {
         // filtri ricevuti
         $filters = $request->all();
+        
+        // Ottenere le coordinate e la distanza dalla richiesta
+        $lat = $filters['lat'];
+        $long = $filters['long'];
+        $distance = $filters['distance'];
+
+        // Calcolare i limiti della bounding box rettangolare
+        $latDelta = abs($distance / 111.32); // 1 grado di latitudine è circa 111.32 km
+        $longDelta = abs($distance / (111.32 * cos(deg2rad($lat))));
+
+        $minLat = $lat - $latDelta;
+        $maxLat = $lat + $latDelta;
+        $minLong = $long - $longDelta;
+        $maxLong = $long + $longDelta;
+
+        Log::info("minLat: $minLat, maxLat: $maxLat, minLong: $minLong, maxLong: $maxLong");
 
         $apartments_query = Apartment::with('services')
-            ->select("id", "user_id", "title", "rooms", "beds", "bathrooms", "m2", "address", "description", "cover_image_path")
-            ->where('is_hidden', '=', 0);
+            ->select("apartments.id", "user_id", "title", "rooms", "beds", "bathrooms", "m2", "address", "description", "cover_image_path")
+            ->join('apartment_sponsor', 'apartment_sponsor.apartment_id', '=', 'apartments.id')
+            ->where('is_hidden', '=', 0)
+            ->whereBetween('latitude', [$minLat, $maxLat])
+            ->whereBetween('longitude', [$minLong, $maxLong])
+            ->orderByDesc('apartment_sponsor.start_date');
+
+
 
         if (!empty($filters['activeServices'])) {
             $apartments_query->whereHas('services', function ($query) use ($filters) {
@@ -186,7 +173,8 @@ class ApartmentController extends Controller
                 $apartment->description = substr($apartment->description, 0, 50);
             }
         }
-        $apartments = $apartments_query->paginate(9);
+        // dd($apartments_query->toSql());
+        $apartments = $apartments_query->paginate(18);
 
         return response()->json($apartments);
 
