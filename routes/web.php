@@ -62,6 +62,6 @@ Route::post('/invia-messaggio', [MessageController::class, 'inviaMessaggio'])->n
 require __DIR__ . '/auth.php';
 
 // vista statistiche appartamento
-Route::get('/statistics/{apartment_id}', [ApartmentsController::class, 'visualizzaStatistiche'])->name('showStatistics');
+Route::get('/statistics/{apartment_id}', [ApartmentsController::class, 'showStatistics'])->name('show.statistics');
 
 // lista messaggi in dashboard admin
