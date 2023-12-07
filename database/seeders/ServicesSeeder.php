@@ -24,15 +24,15 @@ class ServicesSeeder extends Seeder
                 "symbol" => "fa-solid fa-wifi",
             ],
             [
-                'label' => "Posto Macchina",
+                'label' => "Parking slot",
                 'symbol' => "fa-solid fa-car",
             ],
             [
-                'label' => "Piscina",
+                'label' => "Pool",
                 'symbol' => "fa-solid fa-person-swimming",
             ],
             [
-                'label' => "Portineria",
+                'label' => "Concierge",
                 'symbol' => "fa-solid fa-bell-concierge",
             ],
             [
@@ -40,23 +40,23 @@ class ServicesSeeder extends Seeder
                 'symbol' => "fa-solid fa-bath",
             ],
             [
-                'label' => "Vista mare",
+                'label' => "Sea view",
                 'symbol' => "fa-solid fa-water",
             ],
             [
-                'label' => "Accessibilità mezzi pubblici",
+                'label' => "Accessibility of public transport",
                 'symbol' => "fa-solid fa-train",
             ],
             [
-                'label' => "Vicinanza al centro",
+                'label' => "Proximity to the center",
                 'symbol' => "fa-solid fa-location-crosshairs",
             ],
             [
-                'label' => "Palestra",
+                'label' => "Gym",
                 'symbol' => "fa-solid fa-dumbbell",
             ],
             [
-                'label' => "Servizio Colazione",
+                'label' => "Breakfast Service",
                 'symbol' => "fa-solid fa-mug-saucer",
             ],
         ];

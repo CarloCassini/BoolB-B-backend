@@ -20,17 +20,17 @@ class SponsorSeeder extends Seeder
           [
             "price" => 2.99,
             "time" => 24,
-            "name" => "Sponsorizzazione Standard", 
+            "name" => " Standard sponsorship", 
           ],
           [
             "price" => 5.99,
             "time" => 72,
-            "name" => "Sponsorizzazione Gold", 
+            "name" => " Gold sponsorship", 
           ],
           [
             "price" => 9.99,
             "time" => 144,
-            "name" => "Sponsorizzazione Premium", 
+            "name" => " Premium sponsorship", 
           ],     
         ];
 

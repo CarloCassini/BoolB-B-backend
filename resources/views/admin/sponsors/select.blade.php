@@ -11,11 +11,19 @@
             {{-- Header --}}
             <div class="container">
                 <div class="d-inline-block text-gradient">
-                    <h1>Sponsorizza Appartamenti</h1>
+                    <h1>Sponsor Apartments</h1>
                 </div>
 
                 <div class="container mt-2">
-                    <p> CICCIO SPONSORIZZA
+                    <p> Reach a large audience for your apartment with a tailor-made sponsorship! We offer
+                        a
+                        variety
+                        Of
+                        sponsorship options, both standard and customized, to best suit yours
+                        needs.
+                        Choose
+                        the ideal solution to promote your apartment and attract the maximum number of potential people
+                        clients!
                     </p>
                 </div>
                 <div class="container">
@@ -23,17 +31,17 @@
                         @csrf
                         <div class="card mb-3" style="box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);">
                             <div class="card-body">
-                                <h2 class="card-title">Aquista una sponsorizzazione</h2>
+                                <h2 class="card-title">Buy a sponsorship</h2>
                                 <div class="form-group">
-                                    <label for="sponsor_id">Scegli un pacchetto:</label><br>
+                                    <label for="sponsor_id">Choose a package:</label><br>
                                     @foreach ($sponsors as $sponsor)
                                         <div class="form-check mt-2">
                                             <input class="form-check-input" type="radio" name="sponsor_id"
                                                 id="sponsor_{{ $sponsor->id }}" value="{{ $sponsor->id }}" required>
                                             <label class="form-check-label" for="sponsor_{{ $sponsor->id }}">
-                                                {{ $sponsor->name }} (Prezzo: {{ $sponsor->price }}€, Durata:
+                                                {{ $sponsor->name }} (Price: {{ $sponsor->price }}€, Duration:
                                                 {{ $sponsor->time }}
-                                                ore)
+                                                hours)
                                             </label>
                                         </div>
                                     @endforeach
@@ -51,7 +59,7 @@
                             <div id="checkout-message"></div>
                             <div id="dropin-container"></div>
                             <input type="hidden" id="nonce" name="payment_method_nonce" />
-                            <button id="submit-button" class="btn btn-primary btn-block">Paga</button>
+                            <button id="submit-button" class="btn btn-primary btn-block">Pay</button>
                         </div>
                     </form>
                 </div>

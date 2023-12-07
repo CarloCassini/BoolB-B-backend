@@ -7,7 +7,7 @@
             {{-- per tornare alla dashboard --}}
             <a href="{{ route('admin.home') }}" class="btn btn-outline-secondary">
                 <i class="fa-solid fa-arrow-left me-1"></i>
-                Torna alla Dashboard
+                Return to Dashboard
             </a>
 
 
@@ -15,19 +15,19 @@
             {{-- attivazione sponsor --}}
 
             <a href="{{ route('sponsorSelect', $apartment->id) }}"button class="btn btn-outline-primary ms-auto me-2 ">
-                Sponsorizza
+                Sponsor
                 </button>
 
                 {{-- per modificare l'appartamento --}}
                 <a href="{{ route('admin.apartments.edit', $apartment) }}" class="btn btn-outline-warning  me-2 ">
                     <i class="fa-solid fa-pencil "></i>
-                    modifica appartamento
+                    apartment modification
                 </a>
                 {{-- per cancellare l'appartamento --}}
                 <a href="#"data-bs-toggle="modal" data-bs-target="#modal-{{ $apartment->id }}"
                     class="btn btn-outline-danger ">
                     <i class="fa-solid fa-trash text-danger"></i>
-                    elimina appartamento
+                    delete apartment
                 </a>
         </div>
     </div>
@@ -45,17 +45,17 @@
                 <div class="sponsor mt-4">
                     @if ($sponsor)
                         <div class="card text-bg-primary mb-4" style="max-width: 12rem;">
-                            <div class="card-header">Sponsorizzato</div>
+                            <div class="card-header">Sponsored</div>
                             <div class="card-body">
-                                <p class="card-text"> inizio sponsor: {{ $sponsor->start_date }}</p>
-                                <p class="card-text"> fine sponsor: {{ $sponsor->end_date }}</p>
+                                <p class="card-text"> start sponsor: {{ $sponsor->start_date }}</p>
+                                <p class="card-text"> end sponsor: {{ $sponsor->end_date }}</p>
                             </div>
                         </div>
                     @else
                         <div class="card text-bg-danger mb-4" style="max-width: 12rem;">
-                            <div class="card-header">Non Sponsorizzato</div>
+                            <div class="card-header">Not sponsored</div>
                             <div class="card-body">
-                                <p class="card-text">Sponsorizzazione NON ATTIVA </p>
+                                <p class="card-text">Sponsorship NOT ACTIVE </p>
                             </div>
                             <a href="{{ route('sponsorSelect', $apartment->id) }}" class="mx-1">
                                 <div class=" btn btn-success"> sponsorize
@@ -72,7 +72,7 @@
                     {{ $apartment->user_id }}
                 </h5>
                 <p>
-                    <strong>Camere : </strong>
+                    <strong>Rooms : </strong>
                     @if ($apartment->rooms)
                         {{ $apartment->rooms }}
                     @else
@@ -80,7 +80,7 @@
                     @endif
                 </p>
                 <p>
-                    <strong>Letti : </strong>
+                    <strong>Beds: </strong>
 
                     @if ($apartment->beds)
                         {{ $apartment->beds }}
@@ -89,7 +89,7 @@
                     @endif
                 </p>
                 <p>
-                    <strong>Bagni : </strong>
+                    <strong>Bathrooms:</strong>
 
                     @if ($apartment->bathrooms)
                         {{ $apartment->bathrooms }}
@@ -98,7 +98,7 @@
                     @endif
                 </p>
                 <p>
-                    <strong>Posti letto : </strong>
+                    <strong>Beds : </strong>
 
                     @if ($apartment->beds)
                         {{ $apartment->beds }}
@@ -107,7 +107,7 @@
                     @endif
                 </p>
                 <p>
-                    <strong>Metri Quadrati : </strong>
+                    <strong>Surface: </strong>
                     @if ($apartment->m2)
                         {{ $apartment->m2 }}
                     @else
@@ -115,7 +115,7 @@
                     @endif
                 </p>
                 <p>
-                    <strong>Indirizzo : </strong>
+                    <strong>Address : </strong>
                     @if ($apartment->address)
                         {{ $apartment->address }}
                     @else
@@ -123,7 +123,7 @@
                     @endif
                 </p>
                 <p>
-                    <strong>Descrizione : </strong>
+                    <strong>Description : </strong>
                     @if ($apartment->description)
                         {{ $apartment->description }}
                     @else
@@ -131,7 +131,7 @@
                     @endif
                 </p>
                 <p>
-                    <strong>Anteprima : </strong>
+                    <strong>Preview : </strong>
                     @if ($apartment->cover_img_path)
                         {{ $apartment->cover_img_path }}
                     @else
@@ -139,7 +139,7 @@
                     @endif
                 </p>
                 <p>
-                    <strong>Posizione : </strong>
+                    <strong>Position : </strong>
                     @if ($apartment->latitude_int)
                         {{ $apartment->latitude_int }}
                     @else
@@ -152,7 +152,7 @@
                     @endif
                 </p>
                 <p class="m-0">
-                    <strong>Disponibile : </strong>
+                    <strong>Avable : </strong>
                     @if ($apartment->is_hidden)
                         {{ $apartment->is_hidden }}
                     @else

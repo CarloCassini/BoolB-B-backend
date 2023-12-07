@@ -75,12 +75,12 @@
                                     <thead>
                                         <tr>
                                             <th scope="col">ID</th>
-                                            <th scope='col'>Cover</th>
-                                            <th scope="col">Title</th>
+                                            <th scope='col'>cover</th>
+                                            <th scope="col">title</th>
                                             <th scope="col">rooms</th>
                                             <th scope="col">beds</th>
                                             <th scope="col">bathrooms</th>
-                                            <th scope="col">m2</th>
+                                            <th scope="col">surface</th>
                                             <th scope='col'>address</th>
                                             <th scope='col'>is_hidden</th>
                                             <th scope='col'>Actions</th>

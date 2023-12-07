@@ -7,7 +7,7 @@
         <div class=" my-5 d-flex">
             <a href="{{ route('guest.home') }}" class="btn btn-outline-secondary">
                 <i class="fa-solid fa-arrow-left me-1"></i>
-                Torna alla homepage
+                Back to homepage
             </a>
         </div>
     </div>
@@ -32,7 +32,7 @@
                     {{ $apartment->user_id }}
                 </h5>
                 <p>
-                    <strong>Camere : </strong>
+                    <strong>Rooms : </strong>
                     @if ($apartment->rooms)
                         {{ $apartment->rooms }}
                     @else
@@ -40,7 +40,7 @@
                     @endif
                 </p>
                 <p>
-                    <strong>Letti : </strong>
+                    <strong>Beds : </strong>
 
                     @if ($apartment->beds)
                         {{ $apartment->beds }}
@@ -49,7 +49,7 @@
                     @endif
                 </p>
                 <p>
-                    <strong>Bagni : </strong>
+                    <strong>Bathrooms: </strong>
 
                     @if ($apartment->bathrooms)
                         {{ $apartment->bathrooms }}
@@ -58,7 +58,7 @@
                     @endif
                 </p>
                 <p>
-                    <strong>Posti letto : </strong>
+                    <strong>Beds : </strong>
 
                     @if ($apartment->beds)
                         {{ $apartment->beds }}
@@ -67,7 +67,7 @@
                     @endif
                 </p>
                 <p>
-                    <strong>Metri Quadrati : </strong>
+                    <strong>Surface : </strong>
                     @if ($apartment->m2)
                         {{ $apartment->m2 }}
                     @else
@@ -75,7 +75,7 @@
                     @endif
                 </p>
                 <p>
-                    <strong>Indirizzo : </strong>
+                    <strong>Address : </strong>
                     @if ($apartment->address)
                         {{ $apartment->address }}
                     @else
@@ -83,7 +83,7 @@
                     @endif
                 </p>
                 <p>
-                    <strong>Descrizione : </strong>
+                    <strong>Description : </strong>
                     @if ($apartment->description)
                         {{ $apartment->description }}
                     @else
@@ -91,7 +91,7 @@
                     @endif
                 </p>
                 <p>
-                    <strong>Anteprima : </strong>
+                    <strong>Preview : </strong>
                     @if ($apartment->cover_img_path)
                         {{ $apartment->cover_img_path }}
                     @else
@@ -99,7 +99,7 @@
                     @endif
                 </p>
                 <p>
-                    <strong>Posizione : </strong>
+                    <strong>Position : </strong>
                     @if ($apartment->latitude_int)
                         {{ $apartment->latitude_int }}
                     @else
@@ -112,7 +112,7 @@
                     @endif
                 </p>
                 <p class="m-0">
-                    <strong>Disponibile : </strong>
+                    <strong>Avable : </strong>
                     @if ($apartment->is_hidden)
                         {{ $apartment->is_hidden }}
                     @else
@@ -140,7 +140,7 @@
             @endif
 
             <div class="col-12 border border-3 my-2">
-                <h3 class="my-2">Invia un messaggio al proprietario:</h3>
+                <h3 class="my-2">Send a message to the owner:</h3>
                 <form action="{{ route('invia.messaggio') }}" method="POST">
                     @csrf
                     <div class="d-flex my-2">
@@ -155,7 +155,7 @@
                         @endauth
                     </div>
                     <div class="d-flex my-2">
-                        <label for="name">Nome:</label>
+                        <label for="name">Name:</label>
                         @if (auth()->check())
                             <!--verifica utente registrato ed eventuale autoinserimento nome-->
                             <input type="text" name="name" value="{{ auth()->user()->name }}" class="mx-2">
@@ -165,7 +165,7 @@
                         @endif
                     </div>
                     <div>
-                        <label for="surname">Cognome:</label>
+                        <label for="surname">Surname:</label>
                         @if (auth()->check())
                             <!--verifica utente registrato ed eventuale autoinserimento cognome-->
                             <input type="text" name="surname" value="{{ auth()->user()->surname }}" class="mx-2">
@@ -176,13 +176,12 @@
                     </div>
 
                     <div class="d-flex flex-column justify-content-center my-3">
-                        <label for="message">Messaggio:</label>
+                        <label for="message">Message:</label>
                         <textarea id="message" name="message" rows="4" class="col-12 my-2" placeholder="Scrivi il tuo messaggio"
                             required></textarea>
                     </div>
 
-                    <button type="submit" class="btn btn-secondary mb-2"><i class="fa-solid fa-paper-plane me-2"></i>Invia
-                        messaggio</button>
+                    <button type="submit" class="btn btn-secondary mb-2"><i class="fa-solid fa-paper-plane me-2"></i>Send message</button>
                 </form>
             </div>
         </div>

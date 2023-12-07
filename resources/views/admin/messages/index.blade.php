@@ -5,7 +5,7 @@
             {{-- per tornare alla dashboard --}}
             <a href="{{ route('admin.home') }}" class="btn btn-outline-secondary">
                 <i class="fa-solid fa-arrow-left me-1"></i>
-                Torna alla Dashboard
+                Back to Dashboard
             </a>
         </div>
     </div>
@@ -34,7 +34,7 @@
 
                     @foreach ($messages as $message)
                         <tr>
-                            <td class="col-3">
+                            <td class="col-2">
                                 @if ($message->name && $message->surname)
                                     <h4> From {{ $message->name }} {{ $message->surname }}
                                     </h4>
