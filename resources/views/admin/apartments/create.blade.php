@@ -6,7 +6,7 @@
         <div class=" my-3">
             <a href="{{ route('admin.home') }}" class="btn btn-outline-secondary">
                 <i class="fa-solid fa-arrow-left me-1"></i>
-                Torna alla Dashboard
+                Return to the Dashboard
             </a>
         </div>
     </div>
@@ -18,7 +18,7 @@
         {{-- gestione degli errori --}}
         @if ($errors->any())
             <div class="alert alert-warning">
-                <h5>correggi i seguenti errori</h5>
+                <h5>correct the following errors</h5>
                 <ul>
                     @foreach ($errors->all() as $error)
                         <li>{{ $error }}</li>
@@ -217,7 +217,7 @@
 
             {{-- todo : gestione delle coordinate di latitudine e longitudine  --}}
 
-            <button type="submit" class="btn btn-primary my-3">Salva</button>
+            <button type="submit" class="btn btn-primary my-3">Save</button>
         </form>
     </div>
 @endsection

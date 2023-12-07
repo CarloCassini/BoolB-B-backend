@@ -6,14 +6,14 @@
             {{-- per tornare alla dashboard --}}
             <a href="{{ route('admin.home') }}" class="btn btn-outline-secondary">
                 <i class="fa-solid fa-arrow-left me-1"></i>
-                Torna alla Dashboard
+                Return to Dashboard
             </a>
 
             {{-- per cancellare l'appartamento --}}
             <a href="#"data-bs-toggle="modal" data-bs-target="#modal-{{ $apartment->id }}"
                 class="btn btn-outline-danger ms-auto">
                 <i class="fa-solid fa-trash text-danger"></i>
-                elimina appartamento
+                delete apartment
             </a>
         </div>
     </div>
@@ -25,7 +25,7 @@
         {{-- gestione degli errori --}}
         @if ($errors->any())
             <div class="alert alert-warning">
-                <h5>correggi i seguenti errori</h5>
+                <h5>correct the following errors</h5>
                 <ul>
                     @foreach ($errors->all() as $error)
                         <li>{{ $error }}</li>
@@ -237,7 +237,7 @@
                 </div>
             @enderror
 
-            <button type="submit" class="btn btn-primary my-3">Salva</button>
+            <button type="submit" class="btn btn-primary my-3">Save</button>
         </form>
     </div>
 @endsection
