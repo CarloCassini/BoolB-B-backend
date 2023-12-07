@@ -90,7 +90,7 @@
                                             class="fa-solid fa-circle-info text-primary"></i></a>
                                     <a href="{{ route('admin.apartments.edit', $apartment) }}" class="mx-1"><i
                                             class="fa-solid fa-pencil text-warning"></i></a>
-                                    <a href="#" class="mx-1 debug"><i
+                                    <a href="{{ route('show.statistics', $apartment->id) }}" class="mx-1"><i
                                             class="fa-solid fa-chart-simple text-info"></i></a>
 
                                     {{-- todo xxxxxxxxxxxxxxxxxxxxxxxx --}}
