@@ -35,7 +35,8 @@
                         <div class="border my-1 debug">per arrivare qui ho usato la index in
                             http/controllers/admin/pagecontroller</div>
                         <div class="border my-1">
-                            <a class="my-2 btn btn-warning" href="#">apartment statistics(dedicato a un
+                            <a class="my-2 btn btn-warning" href="#">apartment
+                                statistics(dedicato a un
                                 apaartamento
                                 specifico)</a>
                             <div>
@@ -133,11 +134,11 @@
                                                         <a href="{{ route('admin.apartments.edit', $apartment) }}"
                                                             class="mx-1"><i
                                                                 class="fa-solid fa-pencil text-warning"></i></a>
-                                                        <a href="{{ route('showStatistics', $apartment->id) }}"
-                                                            class="mx-1 debug"><i
+
+                                                        <a href="{{ route('show.statistics', $apartment->id) }}"
+                                                            class="mx-1"><i
                                                                 class="fa-solid fa-chart-simple text-info"></i></a>
 
-                                                        {{-- todo togliere debug icona statistiche --}}
                                                         <a href="{{ route('sponsorSelect', $apartment->id) }}"
                                                             class="mx-1"><i
                                                                 class="fa-solid fa-money-check-dollar text-success"></i></a>

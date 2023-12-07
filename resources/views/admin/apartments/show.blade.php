@@ -24,9 +24,16 @@
                 </a>
                 {{-- per cancellare l'appartamento --}}
                 <a href="#"data-bs-toggle="modal" data-bs-target="#modal-{{ $apartment->id }}"
-                    class="btn btn-outline-danger ">
+                    class="btn btn-outline-danger me-2">
                     <i class="fa-solid fa-trash text-danger"></i>
                     elimina appartamento
+                </a>
+
+
+                {{-- per visualizzare le statistiche dell'appartamento --}}
+                <a href="{{ route('show.statistics', $apartment->id) }}" class="btn btn-outline-info">
+                    <i class="fa-solid fa-chart-simple text-info"></i>
+                    statistiche appartamento
                 </a>
         </div>
     </div>
