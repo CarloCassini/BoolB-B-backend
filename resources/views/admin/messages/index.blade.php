@@ -34,7 +34,7 @@
 
                     @foreach ($messages as $message)
                         <tr>
-                            <td class="col-3">
+                            <td class="col-2">
                                 @if ($message->name && $message->surname)
                                     <h4> From {{ $message->name }} {{ $message->surname }}
                                     </h4>
