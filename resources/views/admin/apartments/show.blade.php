@@ -61,6 +61,7 @@
                                     <i class="fa-solid fa-money-check-dollar"></i>
                                 </div>
                             </a>
+                        </div>
                     @endif
                 </div>
             </div>
