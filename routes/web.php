@@ -42,6 +42,9 @@ Route::middleware(['auth', 'verified'])
 
     // per i messaggi
     Route::resource('/messages', MessageController::class);
+
+    // statistiche appartamenti
+    Route::resource('/statistics', ApartmentsController::class);
   });
 
 
@@ -57,5 +60,8 @@ Route::post('/sponsor/sponsorship', [SponsorsController::class, 'sponsorship'])-
 Route::post('/invia-messaggio', [MessageController::class, 'inviaMessaggio'])->name('invia.messaggio');
 
 require __DIR__ . '/auth.php';
+
+// vista statistiche appartamento
+Route::get('/statistics/{apartment_id}', [ApartmentsController::class, 'visualizzaStatistiche'])->name('showStatistics');
 
 // lista messaggi in dashboard admin

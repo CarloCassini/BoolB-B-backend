@@ -133,9 +133,11 @@
                                                         <a href="{{ route('admin.apartments.edit', $apartment) }}"
                                                             class="mx-1"><i
                                                                 class="fa-solid fa-pencil text-warning"></i></a>
-                                                        <a href="#" class="mx-1 debug"><i
+                                                        <a href="{{ route('showStatistics', $apartment->id) }}"
+                                                            class="mx-1 debug"><i
                                                                 class="fa-solid fa-chart-simple text-info"></i></a>
 
+                                                        {{-- todo togliere debug icona statistiche --}}
                                                         <a href="{{ route('sponsorSelect', $apartment->id) }}"
                                                             class="mx-1"><i
                                                                 class="fa-solid fa-money-check-dollar text-success"></i></a>
