@@ -2,10 +2,16 @@
 
 @section('navigation-buttons')
     <div class="container">
-        <h1 class="my-3 text-center">my apartments</h1>
-        {{-- go to my appartments list --}}
-        <div class="my-5">
-            <a href="{{ route('admin.apartments.create') }}" class="btn btn-outline-success me-3 py-0">Add new Apartment</a>
+        <div class=" my-3 d-flex">
+            {{-- per tornare alla dashboard --}}
+            <a href="{{ route('admin.home') }}" class="btn btn-outline-secondary">
+                <i class="fa-solid fa-arrow-left me-1"></i>
+                Torna alla Dashboard
+            </a>
+            {{-- go to my appartments list --}}
+            <a href="{{ route('admin.apartments.create') }}" class="btn btn-outline-success ms-auto me-3">
+                Add new Apartment
+            </a>
         </div>
     </div>
 @endsection
@@ -26,7 +32,7 @@
                         <th scope="col">bathrooms</th>
                         <th scope="col">m2</th>
                         <th scope='col'>address</th>
-                        <th scope='col'>is_hidden</th>
+                        <th scope='col'><i class="fa-solid fa-eye"></i></th>
                         <th scope='col'>Actions</th>
                         {{-- todo is_hidden must be a btn (as published) --}}
                     </tr>
@@ -81,7 +87,7 @@
                                 <div class="h-100 d-flex align-items-center justify-content-between">
 
                                     <a href="{{ route('admin.apartments.show', $apartment) }}" class="mx-1"><i
-                                            class="fa-solid fa-eye text-primary"></i></a>
+                                            class="fa-solid fa-circle-info text-primary"></i></a>
                                     <a href="{{ route('admin.apartments.edit', $apartment) }}" class="mx-1"><i
                                             class="fa-solid fa-pencil text-warning"></i></a>
                                     <a href="#" class="mx-1 debug"><i

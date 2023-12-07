@@ -18,6 +18,7 @@ use Illuminate\Support\Str;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Route;
 
 use Illuminate\Support\Facades\Http;
 use GuzzleHttp\Client;
@@ -258,7 +259,30 @@ class ApartmentsController extends Controller
         }
         $apartment->delete();
 
-        return redirect()->route('admin.apartments.index');
+        // invio alla pagina my apartment
+        // return redirect()->route('admin.apartments.index');
+
+        // todo invio alla dashboard +++++++++++++++++++++++++
+        // per gli appartamenti
+        $user = Auth::user();
+        $apartments = Apartment::orderBy('id', 'desc')->where('user_id', '=', $user->id)->paginate(12);
+        // fine appartamenti
+
+        // per i messaggi
+        $user_id = $user->id;
+        $messages = [];
+
+        $messagesList = Apartment::join('messages', 'messages.apartment_id', '=', 'apartments.id')
+            ->where('apartments.user_id', '=', $user_id)
+            ->orderBy('messages.created_at', 'desc')->get();
+
+        foreach ($messagesList as $message) {
+            array_push($messages, $message);
+        }
+        // fine messaggi
+
+        return view('admin.dashboard', compact('apartments', 'messages'));
+        // todo +++++++++++++++++++++++++++++++++++++++++++++++
     }
 
     // statistiche appartamento (visualizzazioni + messaggi)

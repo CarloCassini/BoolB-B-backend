@@ -10,13 +10,15 @@ use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Controller;
 use Braintree\Gateway;
 
-class SponsorsController extends Controller {
+class SponsorsController extends Controller
+{
     /**
      * Display a listing of the resource.
      *
     //  * @return \Illuminate\Http\Response
      */
-    public function index() {
+    public function index()
+    {
         $user_id = Auth::user()->id;
         $sponsors = Sponsor::all();
         $userApartments = auth()->user()->apartments;
@@ -28,7 +30,8 @@ class SponsorsController extends Controller {
     }
 
     // crezione sponsor
-    public function sponsorship(Request $request) {
+    public function sponsorship(Request $request)
+    {
         // in data mi arrivano tutti i dati del pagamento stesso
         $data = $request->all();
         $paymentMethod = "creditCard";
@@ -47,9 +50,8 @@ class SponsorsController extends Controller {
             'publicKey' => 'wz8nmzd5x4tv82w8',
             'privateKey' => 'a248f8086c7f1ae66b34ee610471568f'
         ]);
-
         // Gestisci il pagamento in base al metodo selezionato
-        if($paymentMethod === 'creditCard') {
+        if ($paymentMethod === 'creditCard') {
             // Elabora la transazione con carta di credito
             $result = $gateway->transaction()->sale([
                 'amount' => $price,
@@ -58,14 +60,15 @@ class SponsorsController extends Controller {
                     'submitForSettlement' => true,
                 ],
             ]);
-        } elseif($paymentMethod === 'paypal') {
+
+        } elseif ($paymentMethod === 'paypal') {
             // Elabora la transazione con PayPal
             // Implementa la logica per il pagamento PayPal
             // al momento assente
         }
 
         // Gestisci la risposta di Braintree e restituisci una vista appropriata
-        if($result->success) {
+        if ($result->success) {
 
             // *al massimo devo inventarmi un modo di aggiungere tempo alla sponsorizzata
             $endDateForSponsor = [
@@ -89,9 +92,6 @@ class SponsorsController extends Controller {
                 ->where('apartment_sponsor.end_date', '>', $momento_seguente_salvataggio)
                 ->first();
             $services = Service::all();
-            // dump($sponsor);
-            // dd($services);
-            // dd($oggi);
             return view('admin.apartments.show', compact('apartment', 'services', 'sponsor'));
         } else {
             return redirect()->back()->with([
@@ -101,7 +101,8 @@ class SponsorsController extends Controller {
 
     }
 
-    public function selectSponsor($apartment_id) {
+    public function selectSponsor($apartment_id)
+    {
 
         // uso una chiave fissa per le autorizzazioni
         // sandbox_fw47smcq_t2zvx4dq3yfyv9z3
@@ -118,7 +119,8 @@ class SponsorsController extends Controller {
      *
     //  * @return \Illuminate\Http\Response
      */
-    public function create() {
+    public function create()
+    {
         return view("admin.sponsors.create");
     }
 
@@ -128,7 +130,8 @@ class SponsorsController extends Controller {
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request) {
+    public function store(Request $request)
+    {
         //
     }
 
@@ -139,7 +142,8 @@ class SponsorsController extends Controller {
      * @param  int  $id
     //  * @return \Illuminate\Http\Response
     //  */
-    public function show(Sponsor $sponsor) {
+    public function show(Sponsor $sponsor)
+    {
         $apartmentSponsor = Sponsor::all()->where();
 
         return view('admin.sponsors.show', compact('sponsor', 'sponsorship'));
@@ -159,7 +163,8 @@ class SponsorsController extends Controller {
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id) {
+    public function destroy($id)
+    {
         //
     }
 }

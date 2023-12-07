@@ -2,15 +2,15 @@
 
 @section('content')
     <div class="container">
-        {{-- todo xxxxxxxxxxxxxxxxxxxxx --}}
-        {{-- <div class="debug">
-            <a href="{{ route('api/sponsors/generate', 'ciao') }}" class="btn btn-success me-3">Add
-                new Apartment</a>
-        </div> --}}
-        {{-- todo xxxxxxxxxxxxxxxxxxxxx --}}
         <div class="row justify-content-center">
             <div class="card">
-                <div class="card-header">{{ __('User Dashboard') }}</div>
+                <div class="card-header"> Welcome
+                    @if (Auth::user()->name)
+                        {{ Auth::user()->name }}
+                    @else
+                        {{ Auth::user()->email }}
+                    @endif
+                </div>
                 <div class="card-body">
                     @if (session('status'))
                         <div class="alert alert-success" role="alert">
@@ -22,28 +22,35 @@
                     <div class="my-3">
                         {{-- bottoni --}}
                         <div class="d-flex my-3">
-                            <div>
-                                <a class="btn btn-primary me-3" href="{{ route('admin.apartments.index') }}">My
-                                    Apartments</a>
+                            <div class="col-4">
+                                <div>
+                                    <h4>action</h4>
+                                </div>
+                                <div class="d-flex">
+                                    <div>
+                                        <a href="{{ route('admin.apartments.create') }}" class="btn btn-success me-3">Add
+                                            new Apartment</a>
+                                    </div>
+                                </div>
                             </div>
-                            <div>
-                                <a href="{{ route('admin.apartments.create') }}" class="btn btn-success me-3">Add
-                                    new Apartment</a>
+                            <div class=" col-8">
+                                <div>
+                                    <h4>detail pages</h4>
+                                </div>
+                                <div class="d-flex">
+                                    <div>
+                                        <a class="btn btn-primary me-3" href="{{ route('admin.apartments.index') }}"> show
+                                            My
+                                            Apartments</a>
+                                    </div>
+                                    <div>
+                                        <a class="btn btn-primary me-3" href="{{ route('admin.messages.index') }}"> show My
+                                            messages</a>
+                                    </div>
+                                </div>
                             </div>
                         </div>
 
-                        <div class="border my-1 debug">per arrivare qui ho usato la index in
-                            http/controllers/admin/pagecontroller</div>
-                        <div class="border my-1">
-                            <a class="my-2 btn btn-warning" href="#">apartment
-                                statistics(dedicato a un
-                                apaartamento
-                                specifico)</a>
-                            <div>
-                                apre le statistiche dell'appartamento, deve essere legato a una selezione precisa
-                                dell'appartamento di riferimento
-                            </div>
-                        </div>
 
                     </div>
                 </div>
@@ -75,7 +82,7 @@
                                             <th scope="col">bathrooms</th>
                                             <th scope="col">m2</th>
                                             <th scope='col'>address</th>
-                                            <th scope='col'>is_hidden</th>
+                                            <th scope='col'><i class="fa-solid fa-eye"></i></th>
                                             <th scope='col'>Actions</th>
                                             {{-- todo is_hidden must be a btn (as published) --}}
                                         </tr>
@@ -130,7 +137,8 @@
                                                     <div class="h-100 d-flex align-items-center justify-content-between">
 
                                                         <a href="{{ route('admin.apartments.show', $apartment) }}"
-                                                            class="mx-1"><i class="fa-solid fa-eye text-primary"></i></a>
+                                                            class="mx-1"><i
+                                                                class="fa-solid fa-circle-info text-primary"></i></a>
                                                         <a href="{{ route('admin.apartments.edit', $apartment) }}"
                                                             class="mx-1"><i
                                                                 class="fa-solid fa-pencil text-warning"></i></a>

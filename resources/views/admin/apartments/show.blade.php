@@ -2,13 +2,14 @@
 
 @section('navigation-buttons')
     <div class="container">
-        <h1 class="my-3 text-center">dettaglio apartment</h1>
         {{-- per tornare alla index --}}
-        <div class=" my-5 d-flex">
-            <a href="{{ route('admin.apartments.index') }}" class="btn btn-outline-secondary">
+        <div class=" my-3 d-flex">
+            {{-- per tornare alla dashboard --}}
+            <a href="{{ route('admin.home') }}" class="btn btn-outline-secondary">
                 <i class="fa-solid fa-arrow-left me-1"></i>
-                Torna alla lista
+                Torna alla Dashboard
             </a>
+
 
 
             {{-- attivazione sponsor --}}
@@ -68,6 +69,7 @@
                                     <i class="fa-solid fa-money-check-dollar"></i>
                                 </div>
                             </a>
+                        </div>
                     @endif
                 </div>
             </div>
@@ -165,27 +167,6 @@
                     @endif
                 </p>
             </div>
-            {{-- <div class="col-12">
-                <hr>
-                <div class="row row-cols-1 row-cols-md-2">
-                   
-                    <div class="d-flex  flex-wrap">
-                        @foreach ($services as $service)
-                            <div class="col-4 mt-1">
-    
-                                <input type="checkbox" id="service-{{ $service->id }}" value="{{ $service->id }}"
-                                    name="services[]" class="form-check-control me-2"
-                                    @if (in_array($service->id, old('services', $apartment_service ?? []))) checked @endif>
-                                <label for="service-{{ $service->id }}">
-                                    <i class="{{ $service->symbol }}"></i> - {{ $service->label }}
-                                </label>
-                            </div>
-                        @endforeach
-                    </div>
-                </div>
-                </div>
-            </div>
-        </div> --}}
 
             <div class="">
                 <h4>Services</h4>

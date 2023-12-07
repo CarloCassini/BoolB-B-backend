@@ -1,6 +1,6 @@
 <nav class="navbar navbar-expand-sm navbar-dark bg-gradient bg-dark">
     <div class="container">
-        <a class="navbar-brand" href="{{ route('guest.home') }}">Navbar</a>
+        <a class="navbar-brand" href="{{ route('admin.home') }}">Dashboard</a>
         <button class="navbar-toggler d-lg-none" type="button" data-bs-toggle="collapse" data-bs-target="#collapsibleNavId"
             aria-controls="collapsibleNavId" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -14,7 +14,7 @@
                 </li> --}}
                 <li class="nav-item">
                     <a class="nav-link {{ Route::currentRouteName() == 'guest.home' ? 'active' : '' }}"
-                        href="http://localhost:5174/" aria-current="page">Home frontoffice<span
+                        href="http://localhost:5174/" aria-current="page">Public section<span
                             class="visually-hidden">(current)</span></a>
                 </li>
                 @guest
@@ -27,12 +27,12 @@
                         </li>
                     @endif
                 @else
-                    <li class="nav-item">
+                    {{-- <li class="nav-item">
                         <a class="nav-link" href="{{ route('admin.apartments.index') }}"> My Apartments</a>
                     </li>
                     <li class="nav-item">
                         <a class=" nav-link" href="{{ route('admin.messages.index') }}">My Messages</a>
-                    </li>
+                    </li> --}}
                     <li class="nav-item dropdown">
                         <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button"
                             data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
@@ -45,7 +45,7 @@
                         </a>
 
                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item" href="{{ route('admin.home') }}">{{ __('Dashboard') }}</a>
+                            {{-- <a class="dropdown-item" href="{{ route('admin.home') }}">{{ __('Dashboard') }}</a> --}}
                             <a class="dropdown-item" href="{{ route('profile.edit') }}">{{ __('Profile') }}</a>
                             <a class="dropdown-item" href="{{ route('logout') }}"
                                 onclick="event.preventDefault();
