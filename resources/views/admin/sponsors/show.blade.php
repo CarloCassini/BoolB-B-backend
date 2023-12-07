@@ -22,15 +22,15 @@
 
           <div class="container">
               @if ($apartment->sponsors()->where('valid', true)->count() > 0)
-                  Hai gia una sponsorizzazione :
+              You already have a sponsorship :
                   <div>
                       <span>
                           {{ $apartmentSponsor->end_date->format('d/m/y') }}
                       </span>
-                      Alle ore: <span>{{ $apartmentSponsor->end_date->format('H:i') }}</span>
+                      At: <span>{{ $apartmentSponsor->end_date->format('H:i') }}</span>
                   </div>
               @else
-                  <p>ciccio sponsor</p>
+                  <p>sponsor</p>
               @endif
           </div>
 
@@ -43,8 +43,7 @@
 
                           <div class="form-group">
                               <label for="sponsor_id"
-                                  style="font-weight: bold; font-size: 20px; padding-bottom: 1em">Scegli un
-                                  pacchetto:</label><br>
+                                  style="font-weight: bold; font-size: 20px; padding-bottom: 1em">Chose a package: </label><br>
                               <div class="row row-cols-1 row-cols-sm-3">
                                   @foreach ($sponsors as $sponsor)
                                       <div>
@@ -53,10 +52,10 @@
                                                   id="sponsor_{{ $sponsor->id }}" value="{{ $sponsor->id }}" required>
                                               <label class="form-check-label" for="sponsor_{{ $sponsor->id }}">
                                                   <h3>{{ $sponsor->name }}</h3>
-                                                  <h6>Prezzo: {{ $sponsor->price }}€</h6>
-                                                  <h6>Durata:
+                                                  <h6>Price: {{ $sponsor->price }}€</h6>
+                                                  <h6>Duration:
                                                       {{ $sponsor->duration }}
-                                                      ore</h6>
+                                                      hours</h6>
                                               </label>
                                           </div>
                                       </div>
@@ -87,7 +86,7 @@
                               <div id="checkout-message"></div>
                               <div id="dropin-container"></div>
                               <input id="nonce" name="payment_method_nonce" type="hidden" required />
-                              <button id="submit-button" class="styled-btn">Paga</button>
+                              <button id="submit-button" class="styled-btn">Pay</button>
                           </div>
                       </div>
                   </div>

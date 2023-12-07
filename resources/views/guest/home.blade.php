@@ -2,12 +2,12 @@
 
 @section('navigation-buttons')
     <section class="container mt-5 debug text-center">
-        ciccio
+        iserire testo
         <i class="fa-solid fa-poo fa-bounce fa-2xl"></i>
     </section>
 
     <div class="container">
-        <h1 class="my-3 text-center">homepage guest generico</h1>
+        <h1 class="my-3 text-center">Your homepage</h1>
         {{-- go to my appartments list --}}
         @if (Auth::user())
             <div>
