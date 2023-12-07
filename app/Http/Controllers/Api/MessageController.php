@@ -42,8 +42,13 @@ class MessageController extends Controller
         $message->apartment_id = $validatedData['apartment_id'];
         $message->save();
 
-        // return redirect()->back()->with('success', 'Messaggio inviato con successo!');
-
+        return response()->json([
+            'status' => 'success',
+            'message' => 'ok',
+            'results' => 'saved',
+            'success' => 'true',
+            // 'description' => substr($apartments->description, 0, 50)
+        ], 200);
     }
 
     /**
