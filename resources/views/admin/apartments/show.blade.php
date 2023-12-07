@@ -43,21 +43,24 @@
                     {{ asset('/storage/' . $apartment->cover_image_path) }} @endif">
                 <div class="sponsor mt-4">
                     @if ($sponsor)
-                    <div class="card text-bg-primary mb-4" style="max-width: 12rem;">
-                        <div class="card-header">Sponsorizzato</div>
-                        <div class="card-body">
-                          <p class="card-text"> inizio sponsor: {{ $sponsor->start_date }}</p>
-                          <p class="card-text"> fine sponsor: {{ $sponsor->end_date }}</p>
+                        <div class="card text-bg-primary mb-4" style="max-width: 12rem;">
+                            <div class="card-header">Sponsorizzato</div>
+                            <div class="card-body">
+                                <p class="card-text"> inizio sponsor: {{ $sponsor->start_date }}</p>
+                                <p class="card-text"> fine sponsor: {{ $sponsor->end_date }}</p>
+                            </div>
                         </div>
-                      </div>
                     @else
-                    <div class="card text-bg-danger mb-4" style="max-width: 12rem;">
-                        <div class="card-header">Non Sponsorizzato</div>
-                        <div class="card-body">
-                          <p class="card-text">Sponsorizzazione NON ATTIVA </p>
-                        </div>
-                      </div>
-                        
+                        <div class="card text-bg-danger mb-4" style="max-width: 12rem;">
+                            <div class="card-header">Non Sponsorizzato</div>
+                            <div class="card-body">
+                                <p class="card-text">Sponsorizzazione NON ATTIVA </p>
+                            </div>
+                            <a href="{{ route('sponsorSelect', $apartment->id) }}" class="mx-1">
+                                <div class=" btn btn-success"> sponsorize
+                                    <i class="fa-solid fa-money-check-dollar"></i>
+                                </div>
+                            </a>
                     @endif
                 </div>
             </div>

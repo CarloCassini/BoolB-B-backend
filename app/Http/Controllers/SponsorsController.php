@@ -66,8 +66,7 @@ class SponsorsController extends Controller {
 
         // Gestisci la risposta di Braintree e restituisci una vista appropriata
         if($result->success) {
-            // todo: solo se il pagamento è andato a buon fine, salvo nel database
-            // todo: la logica di salvataggio è attiva
+
             // *al massimo devo inventarmi un modo di aggiungere tempo alla sponsorizzata
             $endDateForSponsor = [
                 1 => now()->addDays(1)->format('Y-m-d H:i:s'), // Sponsor 1: 1 giorno dopo la data di inizio
@@ -83,14 +82,16 @@ class SponsorsController extends Controller {
 
             ]);
 
-            $oggi = now();
+            $momento_seguente_salvataggio = now()->addMinute();
             $sponsor = Sponsor::join('apartment_sponsor', 'apartment_sponsor.sponsor_id', '=', 'sponsors.id')
                 ->where('apartment_sponsor.apartment_id', '=', $apartment->id)
-                ->where('apartment_sponsor.start_date', '<', $oggi)
-                ->where('apartment_sponsor.end_date', '>', $oggi)
+                ->where('apartment_sponsor.start_date', '<', $momento_seguente_salvataggio)
+                ->where('apartment_sponsor.end_date', '>', $momento_seguente_salvataggio)
                 ->first();
             $services = Service::all();
-
+            // dump($sponsor);
+            // dd($services);
+            // dd($oggi);
             return view('admin.apartments.show', compact('apartment', 'services', 'sponsor'));
         } else {
             return redirect()->back()->with([
