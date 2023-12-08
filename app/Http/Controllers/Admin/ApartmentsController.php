@@ -286,13 +286,14 @@ class ApartmentsController extends Controller
     }
 
     // statistiche appartamento (visualizzazioni + messaggi)
-    public function showStatistics($apartment_id) {
+    public function showStatistics($apartment_id)
+    {
         // Recupera il numero di visualizzazioni per l'appartamento specifico
         $visualizationCount = Visualization::where('apartment_id', $apartment_id)->count();
-    
+
         // Recupera il numero di messaggi per l'appartamento specifico
         $messageCount = Message::where('apartment_id', $apartment_id)->count();
-    
+
         return view('admin.statistics.show', compact('visualizationCount', 'messageCount', 'apartment_id'));
     }
 }

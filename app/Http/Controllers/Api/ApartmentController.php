@@ -181,7 +181,8 @@ class ApartmentController extends Controller
 
         Log::info("minLat: $minLat, maxLat: $maxLat, minLong: $minLong, maxLong: $maxLong");
 
-        $apartments_query = Apartment::with('services')
+        // cerco gli appartamenti nella zona con sponsorizzazione
+        $apartments_sponsor = Apartment::with('services')
             ->select("apartments.id", "user_id", "title", "rooms", "beds", "bathrooms", "m2", "address", "description", "cover_image_path")
             ->join('apartment_sponsor', 'apartment_sponsor.apartment_id', '=', 'apartments.id')
             ->where('is_hidden', '=', 0)
@@ -189,7 +190,15 @@ class ApartmentController extends Controller
             ->whereBetween('longitude', [$minLong, $maxLong])
             ->orderByDesc('apartment_sponsor.start_date');
 
+        // cerco tutti gli appartamenti nella zona senza sponsor che non sono stati già trovati
+        $apartments_all = Apartment::with('services')
+            // ->join('apartment_sponsor', 'apartment_sponsor.apartment_id', '=', 'apartments.id')
+            ->select("apartments.id", "user_id", "title", "rooms", "beds", "bathrooms", "m2", "address", "description", "cover_image_path")
+            ->where('is_hidden', '=', 0)
+            ->whereBetween('latitude', [$minLat, $maxLat])
+            ->whereBetween('longitude', [$minLong, $maxLong]);
 
+        $apartments_query = $apartments_all;
 
         if (!empty($filters['activeServices'])) {
             $apartments_query->whereHas('services', function ($query) use ($filters) {
@@ -207,7 +216,7 @@ class ApartmentController extends Controller
                 $apartment->description = substr($apartment->description, 0, 50);
             }
         }
-        // dd($apartments_query->toSql());
+
         $apartments = $apartments_query->paginate(18);
 
         return response()->json($apartments);
