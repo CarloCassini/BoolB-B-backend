@@ -101,9 +101,6 @@ class ApartmentController extends Controller
         $visualization->apartment_id = $apartment->id;
         $visualization->ip = $request->ip();
         $visualization->date = Carbon::now();
-
-        $services = Service::all();
-
         // $visualization->fill();
         $visualization->save();
         //+++++++++++++++++++++++++++++++++++++++++
