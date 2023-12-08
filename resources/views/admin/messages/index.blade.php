@@ -18,56 +18,83 @@
             </div>
             <hr class="m-0">
         </div>
+
         <div class="overflow-auto overflow-x-hidden dashboard-space m-0">
 
             <table class="table table-striped table-hover">
                 <thead>
                     {{-- Header --}}
-                    <tr>
-                        <th scope="col">detail</th>
-                        <th scope='col'>message</th>
-                        <th scope="col">action</th>
-                    </tr>
+
 
                 </thead>
                 <tbody>
 
                     @foreach ($messages as $message)
                         <tr>
-                            <td class="col-2">
-                                @if ($message->name && $message->surname)
-                                    <h4> From {{ $message->name }} {{ $message->surname }}
-                                    </h4>
-                                @else
-                                    <h4> From Anonymus
-                                    </h4>
-                                @endif
-                                <h5> {{ $message->sender_email }} </h5>
+                            <td>
+                                <div class="d-flex my-1">
 
-                                <h5 class="text-gradient m-0 fs-5 fw-4 ellipsis"> e-mail:
-                                    <h6>For apartment {{ $message->apartment_id }}</h6>
-                                    <p class="data text-gradient m-0 fs-6 ellipsis">
-                                        {{ date('d/m/Y', strtotime($message->created_at)) }}
-                                    </p>
-                                    <div class="message-overlay"></div>
+                                    <div class="col-3 flex-grow-1 d-none d-md-block">
+                                        <img class="img-fluid" alt="cover" {{-- controllo sul src delle immagini (3 possibilità) --}}
+                                            src="@if (!$message->cover_image_path) https://via.placeholder.com/2000x1500.png/333333?text=Placeholder
+                                        @elseif(Str::startsWith($message->cover_image_path, ['http://', 'https://']))
+                                        {{ $message->cover_image_path }}
+                                        @else
+                                        {{ asset('/storage/' . $message->cover_image_path) }} @endif">
+                                    </div>
+                                    <div class=" flex-column col-12 col-md-9 ">
 
-                                    <!-- Button trigger modal -->
-                                    {{-- <button class="btn btn-primary" data-bs-toggle="modal"
-                                data-bs-target="#exampleModal{{ $message->id }}">
-                                Open
-                            </button> --}}
+                                        <div class=" container d-flex head-message-index align-items-center">
+                                            <div class="d-none d-md-block">
+                                                <h4>
+                                                    {{ $message->title }}
+                                                </h4>
+                                            </div>
+                                            <div class="ms-auto">
+                                                <a href="{{ route('admin.apartments.show', $message->apartment_id) }}"
+                                                    class="mx-1"><i
+                                                        class="fa-solid fa-circle-info text-primary"></i></i></a>
+                                                <a href="#"data-bs-toggle="modal"
+                                                    data-bs-target="#modal-{{ $message->id }}" class="mx-1"><i
+                                                        class="fa-solid fa-trash text-danger"></i></a>
+                                            </div>
+                                        </div>
 
+                                        <div class="container d-flex flex-column display-message-index ">
+                                            <div>
+                                                @if ($message->name && $message->surname)
+                                                    From {{ $message->name }} {{ $message->surname }}
+                                                @else
+                                                    From Anonymus
+                                                @endif
+
+                                            </div>
+                                            <div class=" flex-grow-1 message-card">
+                                                <div class="message-area"> {{ $message->message }}</div>
+                                                <div class="d-flex">
+                                                    <div>
+                                                        <div class="fw-lighter">
+                                                            contact email
+                                                        </div>
+                                                        <div>
+                                                            {{ $message->sender_email }}</div>
+                                                    </div>
+                                                    <div class=" mt-auto ms-auto">
+
+                                                        <div class="fw-lighter">
+                                                            sent at
+                                                        </div>
+                                                        <div>
+                                                            {{ date('d/m/Y', strtotime($message->created_at)) }}</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
                             </td>
-                            <td class="col-8">
-                                {{ $message->message }}
-                            </td>
-                            <td class="col-1">
-                                <a href="{{ route('admin.apartments.show', $message->apartment_id) }}" class="mx-1"><i
-                                        class="fa-solid fa-eye text-primary"></i></a>
-                                <a href="#"data-bs-toggle="modal" data-bs-target="#modal-{{ $message->id }}"
-                                    class="mx-1"><i class="fa-solid fa-trash text-danger"></i></a>
 
-                            </td>
                         </tr>
                         {{-- @empty
                     <div class="message-card-noMessage">
@@ -84,35 +111,6 @@
 
 @section('modals')
     {{-- * modals --}}
-
-    {{-- modals di messages  --}}
-    {{-- <section>
-        @forelse ($messages as $message)
-            <div class="modal fade" id="exampleModal{{ $message->id }}" tabindex="-1" aria-labelledby="exampleModalLabel"
-                aria-hidden="true">
-                <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
-                    <div class="modal-content message-card-noMessage p-3">
-                        <div class="d-flex justify-content-between">
-                            <h2 class="modal-title text-gradient fs-5 fw-3 ellipsis mw-100" id="exampleModalLabel">
-                                From:
-                                {{ $message->sender_email }}
-                            </h2>
-                        </div>
-                        <div class="py-2">{{ $message->message }}</div>
-                        <div class="text-gradient" style="font-size: 12px">
-                            Received on
-
-                            {{ date('d/m/Y', strtotime($message->created_at)) }}
-                            at
-                            {{ date('H:i', strtotime($message->created_at)) }}
-                        </div>
-                    </div>
-                </div>
-            </div>
-        @empty
-        @endforelse
-    </section> --}}
-
     {{-- modals di cancellazione messaggio --}}
     <section>
         @foreach ($messages as $message)

@@ -91,3 +91,22 @@
     background-color: #888;
     border-radius: 3px;
 }
+
+// index dei messages
+.message-space {
+    height: 30vh;
+}
+.message-area {
+    height: 15vh;
+    overflow-x: hidden;
+}
+
+.head-message-index {
+    color: gold;
+}
+.message-card {
+    padding: 20px;
+    border-radius: 20px;
+    color: #777777;
+    background-color: antiquewhite;
+}
