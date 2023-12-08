@@ -21,20 +21,30 @@
         var myChart = new Chart(ctx, {
             type: 'bar', // Tipo di grafico
             data: {
-                labels: ['Visualizzazioni', 'Messaggi'], // Etichette per l'asse x
+                labels: [
+                    @foreach ($visualizationCounts as $data)
+                        '{{ date('F Y', mktime(0, 0, 0, $data->month, 1, $data->year)) }}',
+                    @endforeach
+                ], // Etichette per l'asse x
                 datasets: [{
-                    label: 'numero',
-                    data: [{{ $visualizationCount }},
-                        {{ $messageCount }}
-                    ], // Dati per le statistiche 
-                    backgroundColor: [
-                        'rgba(255, 99, 132, 0.2)', // Colore per visualizzazioni
-                        'rgba(54, 162, 235, 0.2)', // Colore per messaggi
-                    ],
-                    borderColor: [
-                        'rgba(255, 99, 132, 1)', // Bordo per visualizzazioni
-                        'rgba(54, 162, 235, 1)', // Bordo per messaggi
-                    ],
+                    label: 'Visualizzazioni',
+                    data: [
+                        @foreach ($visualizationCounts as $data)
+                            {{ ceil($data->count /= 2) }},
+                        @endforeach
+                    ], // Dati per le visualizzazioni  
+                    backgroundColor: 'rgba(255, 99, 132, 0.2)', // Colore per visualizzazioni
+                    borderColor: 'rgba(255, 99, 132, 1)', // Bordo per visualizzazioni
+                    borderWidth: 1
+                }, {
+                    label: 'Messaggi',
+                    data: [
+                        @foreach ($messageCounts as $data)
+                            {{ $data->count }},
+                        @endforeach
+                    ], // Dati per i messaggi
+                    backgroundColor: 'rgba(54, 162, 235, 0.2)', // Colore per messaggi
+                    borderColor: 'rgba(54, 162, 235, 1)', // Bordo per messaggi
                     borderWidth: 1
                 }]
             },
