@@ -6,6 +6,9 @@ use App\Http\Controllers\Controller;
 use App\Models\Apartment;
 use Illuminate\Http\Request;
 
+use Carbon\Carbon;
+use App\Models\Service;
+use App\Models\Visualization;
 
 class ApartmentController extends Controller
 {
@@ -81,12 +84,25 @@ class ApartmentController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($id, Request $request)
     {
         $apartment = Apartment::with('services', )
             ->select("id", "user_id", "title", "rooms", "beds", "bathrooms", "m2", "address", "description", "cover_image_path", "latitude", "longitude")
             ->where('id', $id)
             ->first();
+
+        // conteggio visualizzazioni +++++++++++++
+        $visualization = new Visualization;
+        $visualization->apartment_id = $apartment->id;
+        $visualization->ip = $request->ip();
+        $visualization->date = Carbon::now();
+
+        $services = Service::all();
+
+        // $visualization->fill();
+        $visualization->save();
+        //+++++++++++++++++++++++++++++++++++++++++
+
 
         if ($apartment) {
             return response()->json([
