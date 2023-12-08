@@ -52,7 +52,6 @@ class MessageController extends Controller
         $messagesList = Apartment::join('messages', 'messages.apartment_id', '=', 'apartments.id')
             ->where('apartments.user_id', '=', $user_id)
             ->orderBy('messages.created_at', 'desc')->get();
-
         foreach ($messagesList as $message) {
             array_push($messages, $message);
         }
