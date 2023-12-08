@@ -286,6 +286,7 @@ class ApartmentsController extends Controller
     }
 
     // statistiche appartamento (visualizzazioni + messaggi)
+<<<<<<< HEAD
     public function showStatistics($apartment_id)
     {
         // Recupera il numero di visualizzazioni per l'appartamento specifico
@@ -295,5 +296,21 @@ class ApartmentsController extends Controller
         $messageCount = Message::where('apartment_id', $apartment_id)->count();
 
         return view('admin.statistics.show', compact('visualizationCount', 'messageCount', 'apartment_id'));
+=======
+    public function showStatistics($apartment_id) {
+        // Recupera il numero di visualizzazioni per l'appartamento specifico (mesi/anni)
+        $visualizationCounts = Visualization::selectRaw('YEAR(date) as year, MONTH(date) as month, COUNT(*) as count')
+        ->where('apartment_id', $apartment_id)
+        ->groupBy('year', 'month')
+        ->get();
+    
+        // Recupera il numero di messaggi per l'appartamento specifico
+        $messageCounts = Message::selectRaw('YEAR(created_at) as year, MONTH(created_at) as month, COUNT(*) as count')
+        ->where('apartment_id', $apartment_id)
+        ->groupBy('year', 'month')
+        ->get();
+    
+        return view('admin.statistics.show', compact('visualizationCounts', 'messageCounts', 'apartment_id'));
+>>>>>>> ce7119a7f8d38b150a29ec58c46eaa5191e487ab
     }
 }
