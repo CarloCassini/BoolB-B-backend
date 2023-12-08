@@ -61,7 +61,7 @@
                                         </div>
 
                                         <div class="container d-flex flex-column display-message-index ">
-                                            <div>
+                                            <div class="message-info">
                                                 @if ($message->name && $message->surname)
                                                     From {{ $message->name }} {{ $message->surname }}
                                                 @else
@@ -69,9 +69,9 @@
                                                 @endif
 
                                             </div>
-                                            <div class=" flex-grow-1 message-card">
+                                            <div class=" flex-grow-1 p-2">
                                                 <div class="message-area"> {{ $message->message }}</div>
-                                                <div class="d-flex">
+                                                <div class="d-flex message-info">
                                                     <div>
                                                         <div class="fw-lighter">
                                                             contact email
