@@ -30,7 +30,7 @@
                     label: 'Visualizzazioni',
                     data: [
                         @foreach ($visualizationCounts as $data)
-                            {{ ceil($data->count /= 2) }},
+                            {{ $data->count }},
                         @endforeach
                     ], // Dati per le visualizzazioni  
                     backgroundColor: 'rgba(255, 99, 132, 0.2)', // Colore per visualizzazioni
