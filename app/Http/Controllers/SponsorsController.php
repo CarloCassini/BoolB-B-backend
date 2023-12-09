@@ -88,8 +88,8 @@ class SponsorsController extends Controller
             // *al massimo devo inventarmi un modo di aggiungere tempo alla sponsorizzata
             $endDateForSponsor = [
                 1 => $new_data_calcoli->addDays(1)->format('Y-m-d H:i:s'), // Sponsor 1: 1 giorno dopo la data di inizio
-                2 => $new_data_calcoli->addDays(3)->format('Y-m-d H:i:s'), // Sponsor 2: 3 giorni dopo la data di inizio
-                3 => $new_data_calcoli->addDays(6)->format('Y-m-d H:i:s'), // Sponsor 3: 6 giorni dopo la data di inizio
+                2 => $new_data_calcoli->addDays(2)->format('Y-m-d H:i:s'), // Sponsor 2: 3 giorni dopo la data di inizio
+                3 => $new_data_calcoli->addDays(3)->format('Y-m-d H:i:s'), // Sponsor 3: 6 giorni dopo la data di inizio
             ];
 
             $endDate = $endDateForSponsor[$data["sponsor_id"]] ?? null;

@@ -35,13 +35,18 @@
                                 <div class="form-group">
                                     <label for="sponsor_id">Choose a package:</label><br>
                                     @foreach ($sponsors as $sponsor)
-                                        <div class="form-check mt-2">
-                                            <input class="form-check-input" type="radio" name="sponsor_id"
+                                        <div class=" form-check mt-2">
+                                            <input class=" d-none form-check-input" type="radio" name="sponsor_id"
                                                 id="sponsor_{{ $sponsor->id }}" value="{{ $sponsor->id }}" required>
                                             <label class="form-check-label" for="sponsor_{{ $sponsor->id }}">
-                                                {{ $sponsor->name }} (Price: {{ $sponsor->price }}€, Duration:
-                                                {{ $sponsor->time }}
-                                                hours)
+                                                <div class=" card card-pay m-2" style="width: 18rem;"
+                                                    id="card-{{ $sponsor->id }}">
+                                                    <div class="card-body">
+                                                        <h5 class="card-title">{{ $sponsor->name }}</h5>
+                                                        <h6>Price: {{ $sponsor->price }}€</h6>
+                                                        <h6>Duration: {{ $sponsor->time }}hours</h6>
+                                                    </div>
+                                                </div>
                                             </label>
                                         </div>
                                     @endforeach
@@ -69,6 +74,27 @@
 @endsection
 
 @section('scripts')
+    <script>
+        // Restituisce una HTMLCollection di elementi con la classe "nome-classe"
+
+        let all_cards = document.getElementsByClassName('card-pay');
+        // Esempio: Modifica lo stile di tutti gli elementi con la classe "nome-classe"
+        for (let i = 1; i < all_cards.length + 1; i++) {
+            let prova = document.getElementById('card-' + i);
+            console.log(prova);
+            prova.addEventListener('click', function() {
+                let all_cardss = document.getElementsByClassName('card-pay');
+                for (let i = 1; i < all_cards.length + 1; i++) {
+                    let provazz = document.getElementById('card-' + i);
+                    console.log('ciccio');
+                    provazz.style.backgroundColor = 'transparent';
+                }
+                this.style.backgroundColor = 'yellow';
+            });
+
+        }
+        // click della card
+    </script>
     <script type="text/javascript">
         // let button = document.querySelector('#submit-button');
         // braintree.dropin.create({
