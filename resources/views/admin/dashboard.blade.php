@@ -63,10 +63,10 @@
                         aria-expanded="false" aria-label="burgher per apartments">
                         <div class=" d-flex justify-content-between align-items-center">
                             <h3>Apartment table</h3>
-                            <span class=" ms-auto navbar-toggler-icon "></span>
+                            <span class=" ms-auto"><i class="fa-solid fa-bars fa-xl"></i></span>
                         </div>
                     </button>
-                    <div class=" collapse navbar-collapse" id="apartmentMenu">
+                    <div class=" collapse show navbar-collapse" id="apartmentMenu">
                         <div>
                             <div class="container dashboard-head overflow-hidden">
                                 <div class=" text-gradient">
@@ -187,7 +187,7 @@
                         aria-label="burgher per apartments">
                         <div class=" d-flex justify-content-between align-items-center">
                             <h3>messages table</h3>
-                            <span class="navbar-toggler-icon"></span>
+                            <span class=" ms-auto"><i class="fa-solid fa-bars fa-xl"></i></span>
                         </div>
                     </button>
                     <div class=" collapse navbar-collapse" id="msgMenu">
