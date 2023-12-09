@@ -257,6 +257,9 @@ class ApartmentsController extends Controller
         if ($apartment->cover_image_path) {
             Storage::delete($apartment->cover_image_path);
         }
+
+        // cancello anche i messaggi che hanno l'appartamento
+        $apartment->messages()->delete();
         $apartment->delete();
 
         // invio alla pagina my apartment
