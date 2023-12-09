@@ -55,7 +55,7 @@
                             </div>
                         </div>
                         {{-- <button id="submit-button" class="btn btn-primary btn-block">Paga</button> --}}
-                        <div class="debug" id="dropin-wrapper" class="mt-3">
+                        <div class="" id="dropin-wrapper" class="mt-3">
                             <div id="checkout-message"></div>
                             <div id="dropin-container"></div>
                             <input type="hidden" id="nonce" name="payment_method_nonce" />
@@ -65,11 +65,6 @@
                 </div>
             </div>
         </div>
-    </div>
-
-    <div class="debug container">
-        <div class="debug">https://www.youtube.com/watch?v=kJ4X4Y1IWzA</div>
-        <div class="debug">https://www.youtube.com/watch?v=1-Ge9IqbwNY</div>
     </div>
 @endsection
 
