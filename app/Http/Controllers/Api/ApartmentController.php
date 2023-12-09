@@ -22,8 +22,8 @@ class ApartmentController extends Controller
         $apartments = Apartment::with('services', )
             ->join('apartment_sponsor', 'apartment_sponsor.apartment_id', '=', 'apartments.id')
             ->select("apartments.id", "user_id", "title", "rooms", "beds", "bathrooms", "m2", "address", "description", "cover_image_path")
-            ->where('apartment_sponsor.start_date', '<', $now)
-            ->where('apartment_sponsor.end_date', '>', $now)
+            ->where('apartment_sponsor.start_date', '<=', $now)
+            ->where('apartment_sponsor.end_date', '>=', $now)
             ->where('is_hidden', '=', 0)
             ->orderByDesc('apartment_sponsor.start_date')
             ->paginate(16);
@@ -181,6 +181,7 @@ class ApartmentController extends Controller
         Log::info("minLat: $minLat, maxLat: $maxLat, minLong: $minLong, maxLong: $maxLong");
 
         // cerco gli appartamenti nella zona con sponsorizzazione
+        $now = now();
         $apartments_sponsor = Apartment::with('services')
             ->select("apartments.id", "apartment_sponsor.apartment_id", "user_id", "title", "rooms", "beds", "bathrooms", "m2", "address", "description", "cover_image_path")
             ->join('apartment_sponsor', 'apartment_sponsor.apartment_id', '=', 'apartments.id')
@@ -188,8 +189,8 @@ class ApartmentController extends Controller
             ->where('is_hidden', '=', 0)
             ->whereBetween('latitude', [$minLat, $maxLat])
             ->whereBetween('longitude', [$minLong, $maxLong])
-            ->where('apartment_sponsor.start_date', '<=', now())
-            ->where('apartment_sponsor.end_date', '>=', now())
+            ->where('apartment_sponsor.start_date', '<=', $now)
+            ->where('apartment_sponsor.end_date', '>=', $now)
             ->orderByDesc('apartment_sponsor.start_date');
 
         // cerco tutti gli appartamenti nella zona senza sponsor che non sono stati già trovati
