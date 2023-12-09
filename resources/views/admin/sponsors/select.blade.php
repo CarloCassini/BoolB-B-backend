@@ -5,7 +5,7 @@
 @endsection
 
 @section('content')
-    <div class="card mt-0 box-shadow">
+    <div class="card mt-0 box-shadow d-flex flex-column gap-3 py-3">
         <div class="card-body d-flex flex-column gap-3 py-3">
 
             {{-- Header --}}

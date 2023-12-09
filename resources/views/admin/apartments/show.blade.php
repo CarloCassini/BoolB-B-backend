@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('navigation-buttons')
-    <div class="container">
+    <div class="container ms-auto mt-3">
         {{-- per tornare alla index --}}
         <div class=" my-3 d-flex">
             {{-- per tornare alla dashboard --}}
@@ -40,7 +40,7 @@
     </div>
 @endsection
 @section('content')
-    <div class="container mt-5">
+    <div class="container mt-5 ms-auto mt-3">
         <div class="row g-3">
             <div class="col-12 col-lg-4">
                 <img class="img-fluid" alt="cover" {{-- controllo sul src delle immagini (3 possibilità) --}}
