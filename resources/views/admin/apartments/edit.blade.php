@@ -2,19 +2,24 @@
 
 @section('navigation-buttons')
     <div class="container">
-        <div class=" my-3 d-flex">
+        <div class=" my-3 d-md-flex d-block ">
             {{-- per tornare alla dashboard --}}
-            <a href="{{ route('admin.home') }}" class="btn btn-outline-secondary">
-                <i class="fa-solid fa-arrow-left me-1"></i>
-                Return to Dashboard
-            </a>
+            <div class="">
+                <a href="{{ route('admin.home') }}" class="btn btn-outline-secondary">
+                    <i class="fa-solid fa-arrow-left me-1"></i>
+                    Return to Dashboard
+                </a>
 
+            </div>
             {{-- per cancellare l'appartamento --}}
-            <a href="#"data-bs-toggle="modal" data-bs-target="#modal-{{ $apartment->id }}"
-                class="btn btn-outline-danger ms-auto">
-                <i class="fa-solid fa-trash text-danger"></i>
-                delete apartment
-            </a>
+
+            <div class="ms-auto mt-3">
+                <a href="#"data-bs-toggle="modal" data-bs-target="#modal-{{ $apartment->id }}"
+                    class="btn btn-outline-danger ms-auto">
+                    <i class="fa-solid fa-trash text-danger"></i>
+                    delete apartment
+                </a>
+            </div>
         </div>
     </div>
 @endsection
@@ -244,7 +249,7 @@
 
 @section('modals')
     {{-- * modals --}}
-    <div class="modal fade" tabindex="-1" id="modal-{{ $apartment->id }}">
+    <div class="modal fade row row-cols-1 row-cols-md-2 row-cols-lg-4 g-2 mt-0" tabindex="-1" id="modal-{{ $apartment->id }}">
         <div class="modal-dialog ">
             <div class="modal-content">
                 <div class="modal-header red-strip">
