@@ -10,6 +10,8 @@ use Illuminate\Support\Facades\Log;
 use Carbon\Carbon;
 use App\Models\Service;
 use App\Models\Visualization;
+use Illuminate\Support\Facades\DB;
+
 
 class ApartmentController extends Controller
 {
@@ -180,43 +182,77 @@ class ApartmentController extends Controller
 
         // cerco gli appartamenti nella zona con sponsorizzazione
         $apartments_sponsor = Apartment::with('services')
-            ->select("apartments.id", "user_id", "title", "rooms", "beds", "bathrooms", "m2", "address", "description", "cover_image_path")
+            ->select("apartments.id", "apartment_sponsor.apartment_id", "user_id", "title", "rooms", "beds", "bathrooms", "m2", "address", "description", "cover_image_path")
             ->join('apartment_sponsor', 'apartment_sponsor.apartment_id', '=', 'apartments.id')
+            // ->distinct('apartment_sponsor.apartment_id')
             ->where('is_hidden', '=', 0)
             ->whereBetween('latitude', [$minLat, $maxLat])
             ->whereBetween('longitude', [$minLong, $maxLong])
+            ->where('apartment_sponsor.start_date', '<=', now())
+            ->where('apartment_sponsor.end_date', '>=', now())
             ->orderByDesc('apartment_sponsor.start_date');
 
         // cerco tutti gli appartamenti nella zona senza sponsor che non sono stati già trovati
         $apartments_all = Apartment::with('services')
-            // ->join('apartment_sponsor', 'apartment_sponsor.apartment_id', '=', 'apartments.id')
             ->select("apartments.id", "user_id", "title", "rooms", "beds", "bathrooms", "m2", "address", "description", "cover_image_path")
             ->where('is_hidden', '=', 0)
             ->whereBetween('latitude', [$minLat, $maxLat])
             ->whereBetween('longitude', [$minLong, $maxLong]);
 
-        $apartments_query = $apartments_all;
-
-        if (!empty($filters['activeServices'])) {
-            $apartments_query->whereHas('services', function ($query) use ($filters) {
-                $query->whereIn('services.id', $filters['activeServices']);
-            });
-        }
-        if (!empty($filters['rooms'])) {
-            $apartments_query->where("rooms", '>=', $filters['rooms']);
-        }
-        if (!empty($filters['beds'])) {
-            $apartments_query->where("beds", '>=', $filters['beds']);
-        }
-        foreach ($apartments_query as $apartment) {
-            if (!empty($apartment->description)) {
-                $apartment->description = substr($apartment->description, 0, 50);
+        // miglioramento logica apartment_sponsor
+        $apartments_query_sponsor = $apartments_sponsor;
+        if ($apartments_query_sponsor) {
+            if (!empty($filters['activeServices'])) {
+                $apartments_query_sponsor->whereHas('services', function ($query) use ($filters) {
+                    $query->whereIn('services.id', $filters['activeServices']);
+                });
+            }
+            if (!empty($filters['rooms'])) {
+                $apartments_query_sponsor->where("rooms", '>=', $filters['rooms']);
+            }
+            if (!empty($filters['beds'])) {
+                $apartments_query_sponsor->where("beds", '>=', $filters['beds']);
+            }
+            foreach ($apartments_query_sponsor as $apartment) {
+                if (!empty($apartment->description)) {
+                    $apartment->description = substr($apartment->description, 0, 50);
+                }
             }
         }
 
-        $apartments = $apartments_query->paginate(18);
+        // miglioramento logica apartment_all
+        $apartments_query_all = $apartments_all;
+        if ($apartments_query_all) {
+            if (!empty($filters['activeServices'])) {
+                $apartments_query_all->whereHas('services', function ($query) use ($filters) {
+                    $query->whereIn('services.id', $filters['activeServices']);
+                });
+            }
+            if (!empty($filters['rooms'])) {
+                $apartments_query_all->where("rooms", '>=', $filters['rooms']);
+            }
+            if (!empty($filters['beds'])) {
+                $apartments_query_all->where("beds", '>=', $filters['beds']);
+            }
+            foreach ($apartments_query_all as $apartment) {
+                if (!empty($apartment->description)) {
+                    $apartment->description = substr($apartment->description, 0, 50);
+                }
+            }
+        }
 
-        return response()->json($apartments);
+        // $apartments = $apartments_query->paginate(18);
+        $apartments_sponsor_ready = $apartments_query_sponsor->paginate(18);
+        $apartments_all_ready = $apartments_query_all->paginate(18);
 
+
+        // return response()->json($apartments);
+        return response()->json([
+            'status' => 'success',
+            'message' => 'ok',
+            // 'results' => $apartments,
+            'results' => ['sponsored' => $apartments_sponsor_ready, 'all' => $apartments_all_ready],
+            // 'description' => substr($apartments->description, 0, 50)
+        ], 200);
     }
 }

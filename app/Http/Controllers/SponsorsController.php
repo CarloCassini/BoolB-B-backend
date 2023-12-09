@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Controller;
 use Braintree\Gateway;
+use Carbon\Carbon;
 
 class SponsorsController extends Controller
 {
@@ -70,17 +71,31 @@ class SponsorsController extends Controller
         // Gestisci la risposta di Braintree e restituisci una vista appropriata
         if ($result->success) {
 
+            $new_data_inizio = now();
+            $new_data_calcoli = now();
+
+            // verifico quale sia l'ultimo record della tabella apartment_sponsor
+            $Sponsor_exist = Apartment::join('apartment_sponsor', 'apartment_sponsor.apartment_id', '=', 'apartments.id')
+                ->where('apartments.id', '=', $apartment->id)
+                ->orderByDesc('apartment_sponsor.start_date')
+                ->first();
+
+            if ($Sponsor_exist) {
+                $new_data_inizio = Carbon::parse($Sponsor_exist->end_date);
+                $new_data_calcoli = Carbon::parse($Sponsor_exist->end_date);
+            }
+
             // *al massimo devo inventarmi un modo di aggiungere tempo alla sponsorizzata
             $endDateForSponsor = [
-                1 => now()->addDays(1)->format('Y-m-d H:i:s'), // Sponsor 1: 1 giorno dopo la data di inizio
-                2 => now()->addDays(3)->format('Y-m-d H:i:s'), // Sponsor 2: 3 giorni dopo la data di inizio
-                3 => now()->addDays(6)->format('Y-m-d H:i:s'), // Sponsor 3: 6 giorni dopo la data di inizio
+                1 => $new_data_calcoli->addDays(1)->format('Y-m-d H:i:s'), // Sponsor 1: 1 giorno dopo la data di inizio
+                2 => $new_data_calcoli->addDays(3)->format('Y-m-d H:i:s'), // Sponsor 2: 3 giorni dopo la data di inizio
+                3 => $new_data_calcoli->addDays(6)->format('Y-m-d H:i:s'), // Sponsor 3: 6 giorni dopo la data di inizio
             ];
 
             $endDate = $endDateForSponsor[$data["sponsor_id"]] ?? null;
 
             $apartment->sponsors()->attach($data["sponsor_id"], [
-                'start_date' => now(),
+                'start_date' => $new_data_inizio,
                 'end_date' => $endDate,
 
             ]);
