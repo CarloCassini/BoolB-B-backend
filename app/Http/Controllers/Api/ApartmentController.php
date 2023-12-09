@@ -182,10 +182,10 @@ class ApartmentController extends Controller
 
         // cerco gli appartamenti nella zona con sponsorizzazione
         $now = now();
+
         $apartments_sponsor = Apartment::with('services')
             ->select("apartments.id", "apartment_sponsor.apartment_id", "user_id", "title", "rooms", "beds", "bathrooms", "m2", "address", "description", "cover_image_path")
             ->join('apartment_sponsor', 'apartment_sponsor.apartment_id', '=', 'apartments.id')
-            // ->distinct('apartment_sponsor.apartment_id')
             ->where('is_hidden', '=', 0)
             ->whereBetween('latitude', [$minLat, $maxLat])
             ->whereBetween('longitude', [$minLong, $maxLong])
@@ -205,7 +205,8 @@ class ApartmentController extends Controller
         if ($apartments_query_sponsor) {
             if (!empty($filters['activeServices'])) {
                 $apartments_query_sponsor->whereHas('services', function ($query) use ($filters) {
-                    $query->whereIn('services.id', $filters['activeServices']);
+                    // $query->whereIn('services.id', $filters['activeServices']);
+                    $query->where('services.id', $filters['activeServices']);
                 });
             }
             if (!empty($filters['rooms'])) {
@@ -226,7 +227,8 @@ class ApartmentController extends Controller
         if ($apartments_query_all) {
             if (!empty($filters['activeServices'])) {
                 $apartments_query_all->whereHas('services', function ($query) use ($filters) {
-                    $query->whereIn('services.id', $filters['activeServices']);
+                    // $query->whereIn('services.id', $filters['activeServices']);
+                    $query->where('services.id', $filters['activeServices']);
                 });
             }
             if (!empty($filters['rooms'])) {
