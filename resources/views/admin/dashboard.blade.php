@@ -217,8 +217,6 @@
                                                         {{ date('d/m/Y', strtotime($message->created_at)) }}
                                                     </p>
                                                     <div class="message-overlay"></div>
-
-
                                                 </td>
                                                 <td>
                                                     <!-- Button trigger modal -->
