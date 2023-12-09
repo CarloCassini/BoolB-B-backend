@@ -10,6 +10,26 @@
     color: red;
 }
 
+body {
+    font-family: "Poppins", sans-serif;
+    background: linear-gradient(-45deg, #c68c7a, #be7d96, #7aa5b4, #86b6aa);
+    background-size: 500% 500%;
+    animation: gradient 25s ease infinite;
+    height: 100vh;
+}
+
+@keyframes gradient {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
 .card-image {
     border-top-right-radius: 5px;
     border-top-left-radius: 5px;
