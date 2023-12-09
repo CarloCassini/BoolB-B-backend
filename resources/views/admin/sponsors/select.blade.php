@@ -10,46 +10,46 @@
 
             {{-- Header --}}
             <div class="container">
-                <div class="d-inline-block text-gradient">
-                    <h1>Sponsor Apartments</h1>
-                </div>
 
-                <div class="container mt-2">
-                    <p> Reach a large audience for your apartment with a tailor-made sponsorship! We offer
-                        a
-                        variety
-                        Of
-                        sponsorship options, both standard and customized, to best suit yours
-                        needs.
-                        Choose
-                        the ideal solution to promote your apartment and attract the maximum number of potential people
-                        clients!
-                    </p>
-                </div>
                 <div class="container">
-                    <form action="{{ route('sponsorship') }}" method="POST" class="col-12 col-lg-6 mx-auto" id="payment-form">
+                    <form action="{{ route('sponsorship') }}" method="POST" class="col-12 col-lg-10 mx-auto" id="payment-form">
                         @csrf
                         <div class="card mb-3" style="box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);">
                             <div class="card-body">
-                                <h2 class="card-title">Buy a sponsorship</h2>
+                                <div>
+                                    <div class="d-inline-block text-gradient">
+                                        <h1>Sponsor Apartments</h1>
+                                    </div>
+                                    <div class="container mt-2">
+                                        <p> Reach a large audience for your apartment with a tailor-made sponsorship! We
+                                            offer a variety Of
+                                            sponsorship options, both standard and customized, to best suit yours
+                                            needs.Choose the ideal
+                                            solution to promote your apartment and attract the maximum number of potential
+                                            people clients!
+                                        </p>
+                                    </div>
+                                </div>
                                 <div class="form-group">
                                     <label for="sponsor_id">Choose a package:</label><br>
-                                    @foreach ($sponsors as $sponsor)
-                                        <div class=" form-check mt-2">
-                                            <input class=" d-none form-check-input" type="radio" name="sponsor_id"
-                                                id="sponsor_{{ $sponsor->id }}" value="{{ $sponsor->id }}" required>
-                                            <label class="form-check-label" for="sponsor_{{ $sponsor->id }}">
-                                                <div class=" card card-pay m-2" style="width: 18rem;"
-                                                    id="card-{{ $sponsor->id }}">
-                                                    <div class="card-body">
-                                                        <h5 class="card-title">{{ $sponsor->name }}</h5>
-                                                        <h6>Price: {{ $sponsor->price }}€</h6>
-                                                        <h6>Duration: {{ $sponsor->time }}hours</h6>
+                                    <div class="d-flex flex-wrap">
+                                        @foreach ($sponsors as $sponsor)
+                                            <div class=" form-check mt-2">
+                                                <input class=" d-none form-check-input" type="radio" name="sponsor_id"
+                                                    id="sponsor_{{ $sponsor->id }}" value="{{ $sponsor->id }}" required>
+                                                <label class="form-check-label" for="sponsor_{{ $sponsor->id }}">
+                                                    <div class=" card card-pay m-2" style="width: 18rem;"
+                                                        id="card-{{ $sponsor->id }}">
+                                                        <div class="card-body">
+                                                            <h5 class="card-title">{{ $sponsor->name }}</h5>
+                                                            <h6>Price: {{ $sponsor->price }}€</h6>
+                                                            <h6>Duration: {{ $sponsor->time }}hours</h6>
+                                                        </div>
                                                     </div>
-                                                </div>
-                                            </label>
-                                        </div>
-                                    @endforeach
+                                                </label>
+                                            </div>
+                                        @endforeach
+                                    </div>
                                 </div>
                                 <input type="text" name="apartment_id" value="{{ $apartment_id }}" class="d-none">
                                 {{-- <div class="debug" id="dropin-wrapper" class="mt-3">
