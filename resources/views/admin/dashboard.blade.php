@@ -57,7 +57,7 @@
             </div>
             <div class="row row-cols-2 m-0 ">
                 {{-- appartamenti --}}
-                <div class="col-9 ">
+                <div class="col-12 col-xl-9 ">
                     <div>
                         <div class="container dashboard-head overflow-hidden">
                             <div class=" text-gradient">
@@ -75,12 +75,12 @@
                                     <thead>
                                         <tr>
                                             <th scope="col">ID</th>
-                                            <th scope='col'>cover</th>
+                                            <th scope="col" class="d-none d-xl-table-cell">cover</th>
                                             <th scope="col">title</th>
-                                            <th scope="col">rooms</th>
-                                            <th scope="col">beds</th>
-                                            <th scope="col">bathrooms</th>
-                                            <th scope="col">surface</th>
+                                            <th scope="col" class="d-none d-xl-table-cell">rooms</th>
+                                            <th scope="col" class="d-none d-xl-table-cell">beds</th>
+                                            <th scope="col" class="d-none d-xl-table-cell">bathrooms</th>
+                                            <th scope="col" class="d-none d-xl-table-cell">surface</th>
                                             <th scope='col'>address</th>
                                             <th scope='col'><i class="fa-solid fa-eye"></i></th>
                                             <th scope='col'>Actions</th>
@@ -94,7 +94,7 @@
                                                 <th scope="row">{{ $apartment->id }}</th>
 
                                                 {{-- * image --}}
-                                                <td>
+                                                <td class="d-none d-xl-table-cell">
                                                     <img class="img-fluid" alt="cover" {{-- controllo sul src delle immagini (3 possibilità) --}}
                                                         src="@if (!$apartment->cover_image_path) https://via.placeholder.com/2000x1500.png/333333?text=Placeholder
                                                         @elseif(Str::startsWith($apartment->cover_image_path, ['http://', 'https://']))
@@ -107,16 +107,17 @@
                                                 <td>{{ $apartment->title }}</td>
 
                                                 {{-- * rooms --}}
-                                                <td>{{ $apartment->rooms }}</td>
+                                                <td class="d-none d-xl-table-cell">{{ $apartment->rooms }}</td>
 
                                                 {{-- * beds --}}
-                                                <td>{{ $apartment->beds }}</td>
+                                                <td class="d-none d-xl-table-cell">{{ $apartment->beds }}</td>
 
                                                 {{-- * bathrooms --}}
-                                                <td>{{ $apartment->bathrooms }}</td>
+                                                <td class="d-none d-xl-table-cell">{{ $apartment->bathrooms }}</td>
 
                                                 {{-- * m2 --}}
-                                                <td><span class="text-nowrap">{{ $apartment->m2 }} &#13217</span></td>
+                                                <td class="d-none d-xl-table-cell"><span
+                                                        class="text-nowrap">{{ $apartment->m2 }} &#13217</span></td>
 
                                                 {{-- * address --}}
                                                 <td>{{ $apartment->address }}</td>
@@ -167,7 +168,7 @@
                     </div>
                 </div>
                 {{-- messaggi --}}
-                <div class="col-3  ">
+                <div class="col-12 col-xl-3  ">
                     <div>
                         <div class="container dashboard-head overflow-hidden">
                             <div class="d-block text-gradient">
