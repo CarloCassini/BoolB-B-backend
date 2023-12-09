@@ -41,7 +41,7 @@
                                                     <div class=" card card-pay m-2" style="width: 18rem;"
                                                         id="card-{{ $sponsor->id }}">
                                                         <div class="card-body">
-                                                            <h5 class="card-title">{{ $sponsor->name }}</h5>
+                                                            <h4 class="card-title">{{ $sponsor->name }}</h4>
                                                             <h6>Price: {{ $sponsor->price }}€</h6>
                                                             <h6>Duration: {{ $sponsor->time }}hours</h6>
                                                         </div>
@@ -83,13 +83,16 @@
             let prova = document.getElementById('card-' + i);
             console.log(prova);
             prova.addEventListener('click', function() {
-                let all_cardss = document.getElementsByClassName('card-pay');
-                for (let i = 1; i < all_cards.length + 1; i++) {
-                    let provazz = document.getElementById('card-' + i);
+                let reset_cards = document.getElementsByClassName('card-pay');
+                for (let i = 1; i < reset_cards.length + 1; i++) {
+                    let reset_color = document.getElementById('card-' + i);
                     console.log('ciccio');
-                    provazz.style.backgroundColor = 'transparent';
+                    reset_color.style.backgroundColor = 'transparent';
+                    reset_color.style.color = 'white';
                 }
-                this.style.backgroundColor = 'yellow';
+                this.style.backgroundColor = '#FF7977';
+                this.style.color = 'black';
+
             });
 
         }
