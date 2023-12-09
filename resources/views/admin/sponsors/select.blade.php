@@ -88,10 +88,10 @@
                     let reset_color = document.getElementById('card-' + i);
                     console.log('ciccio');
                     reset_color.style.backgroundColor = 'transparent';
-                    reset_color.style.color = 'white';
+                    reset_color.style.color = 'black';
                 }
                 this.style.backgroundColor = '#FF7977';
-                this.style.color = 'black';
+                this.style.color = 'white';
 
             });
 
