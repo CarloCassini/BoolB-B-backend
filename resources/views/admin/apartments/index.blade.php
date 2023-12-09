@@ -1,8 +1,8 @@
 @extends('layouts.app')
 
 @section('navigation-buttons')
-    <div class="container">
-        <div class=" my-3 d-flex">
+    <div class="container row row-cols-1 row-cols-md-2 align-center g-3 pb-3">
+        <div class=" my-3 d-flex ">
             {{-- per tornare alla dashboard --}}
             <a href="{{ route('admin.home') }}" class="btn btn-outline-secondary">
                 <i class="fa-solid fa-arrow-left me-1"></i>
@@ -17,11 +17,11 @@
 @endsection
 
 @section('content')
-    <div class="container mt-5">
+    <div class="container mt-5 d-flex flex-column gap-3 py-3">
 
         {{-- se esiste almeno un oggetto in apartment --}}
         @if ($apartments[0])
-            <table class="table table-striped table-hover">
+            <table class="table table-striped table-hover ms-auto mt-3 ">
                 <thead>
                     <tr>
                         <th scope="col">ID</th>
@@ -84,7 +84,7 @@
                             {{-- todo da creare le rotte corrette --}}
 
                             <td class="h-100">
-                                <div class="h-100 d-flex align-items-center justify-content-between">
+                                <div class="h-100 d-flex align-items-center justify-content-between row row-cols-1 row-cols-md-2 align-center g-3 pb-3 ">
 
                                     <a href="{{ route('admin.apartments.show', $apartment) }}" class="mx-1"><i
                                             class="fa-solid fa-circle-info text-primary"></i></a>

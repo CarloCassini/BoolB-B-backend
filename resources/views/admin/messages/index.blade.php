@@ -11,7 +11,7 @@
     </div>
 @endsection
 @section('content')
-    <div class="container ">
+    <div class="container d-flex flex-column gap-3 py-3 ">
         <div class="container overflow-hidden">
             <div class="d-inline-block text-gradient">
                 <h1>My messages</h1>

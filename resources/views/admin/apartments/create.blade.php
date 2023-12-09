@@ -170,7 +170,7 @@
             <div class="form-check p-0" id="ciccio">
                 <div class="d-flex  flex-wrap">
                     @foreach ($services as $service)
-                        <div class=" col-6 col-md-4 col-3 mt-1">
+                        <div class=" col-12 col-md-4 col-lg-3 mt-1">
 
                             <input type="checkbox" id="service-{{ $service->id }}" value="{{ $service->id }}"
                                 name="services[]" class="form-check-control me-2 check-services"

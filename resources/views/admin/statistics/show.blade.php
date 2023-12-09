@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="container">
+    <div class="container col-12 text-center ">
         <a href="{{ route('admin.home') }}" class="btn btn-outline-secondary">
             <i class="fa-solid fa-arrow-left me-1"></i>
             Torna alla Dashboard
