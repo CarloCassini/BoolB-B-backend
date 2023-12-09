@@ -7,8 +7,8 @@
             Torna alla Dashboard
         </a>
         <h1 class="my-3 text-center">Apartment {{ $apartment_id }} statistics</h1>
-        <div class="my-2">
-            <canvas id="myChart" width="400" height="150"></canvas>
+        <div class="my-2 statistics-display">
+            <canvas id="myChart"></canvas>
         </div>
     </div>
 @endsection
