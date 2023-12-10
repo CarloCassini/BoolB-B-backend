@@ -42,7 +42,7 @@
     </div>
 @endsection
 @section('content')
-    <div class="container mt-5 ms-auto mt-3">
+    <div class="container mt-5 ms-auto mt-3 back-btn">
         <div class="row g-3">
             <div class="col-12 col-lg-4">
                 <img class="img-fluid" alt="cover" {{-- controllo sul src delle immagini (3 possibilità) --}}
