@@ -3,6 +3,7 @@
 @section('content')
     <div class="container">
         <div class="row justify-content-center">
+
             <div class="card">
                 {{-- <div class="card-header"> Welcome
                     @if (Auth::user()->name)
@@ -170,14 +171,13 @@
                                         <h1> No Apartments Found :( </h1>
                                     @endif
                                 </div>
+                                {{-- pagination --}}
                                 <div class="nav-btn-container mt-2 container dashboard-head overflow-hidden">
                                     <div class=" text-gradient">
-                                        {{-- se esiste almeno un oggetto in apartment --}}
                                         <div class="my-1 py-2 dashboard-pagination">
                                             {{ $apartments->links('pagination::bootstrap-5') }}
                                         </div>
                                     </div>
-                                    <hr class="m-0">
                                 </div>
                             </div>
                         </div>
