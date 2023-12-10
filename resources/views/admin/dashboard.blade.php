@@ -28,7 +28,7 @@
                                 </div>
                                 <div class="d-flex">
                                     <div>
-                                        <a href="{{ route('admin.apartments.create') }}" class="btn btn-success me-3">Add
+                                        <a href="{{ route('admin.apartments.create') }}" class="btn btn-style me-3">Add
                                             new Apartment</a>
                                     </div>
                                 </div>
@@ -39,12 +39,12 @@
                                 </div>
                                 <div class="d-flex ">
                                     <div>
-                                        <a class="btn btn-primary me-3" href="{{ route('admin.apartments.index') }}"> show
+                                        <a class="btn btn-style me-3" href="{{ route('admin.apartments.index') }}"> show
                                             My
                                             Apartments</a>
                                     </div>
                                     <div>
-                                        <a class="btn btn-primary me-3" href="{{ route('admin.messages.index') }}"> show My
+                                        <a class="btn btn-style me-3" href="{{ route('admin.messages.index') }}"> show My
                                             messages</a>
                                     </div>
                                 </div>
@@ -200,7 +200,7 @@
                                 <div class=" text-gradient">
                                     <div class=" dashboard-head d-flex justify-content-between align-items-center">
                                         <h4>My messages</h4>
-                                        <a class=" btn btn-primary me-3 mb-3"
+                                        <a class=" btn btn-style me-3 mb-3"
                                             href="{{ route('admin.messages.index') }}">show</a>
                                     </div>
                                 </div>
