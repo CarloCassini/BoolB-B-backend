@@ -136,7 +136,11 @@ body {
 .card-pay {
     cursor: pointer;
 }
+.dash-apartment{
+    border-radius: .5rem;
+    background-color: #fff;
 
+}
 .dashboard-menu {
     width: 100%;
     background-color: salmon;
@@ -160,7 +164,7 @@ body {
 .nav-btn-container {
     background-color: white;
     border-radius: 0.5rem;
-    padding: 0 1rem ;
+
     
 }
 .subtitle{
@@ -172,3 +176,12 @@ body {
     color: #ff7977;
     font-weight: 600;
   }
+.preview-msg{
+    max-height: 2rem;
+    max-width: 100%;
+    overflow: hidden;
+}
+.dashboard-container{
+    max-height: 80vh;
+    overflow-y: auto;
+}
