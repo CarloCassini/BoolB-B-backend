@@ -184,7 +184,7 @@ class ApartmentController extends Controller
         $now = now();
 
         $apartments_sponsor = Apartment::with('services')
-            ->select("apartments.id", "apartment_sponsor.apartment_id", "user_id", "title", "rooms", "beds", "bathrooms", "m2", "address", "description", "cover_image_path")
+            ->select("apartments.id", "apartment_sponsor.apartment_id", "user_id", "title", "rooms", "beds", "bathrooms", "m2", "address", "description", "cover_image_path", "latitude", "longitude")
             ->join('apartment_sponsor', 'apartment_sponsor.apartment_id', '=', 'apartments.id')
             ->where('is_hidden', '=', 0)
             ->whereBetween('latitude', [$minLat, $maxLat])
@@ -195,7 +195,7 @@ class ApartmentController extends Controller
 
         // cerco tutti gli appartamenti nella zona senza sponsor che non sono stati già trovati
         $apartments_all = Apartment::with('services')
-            ->select("apartments.id", "user_id", "title", "rooms", "beds", "bathrooms", "m2", "address", "description", "cover_image_path")
+            ->select("apartments.id", "user_id", "title", "rooms", "beds", "bathrooms", "m2", "address", "description", "cover_image_path", "latitude", "longitude")
             ->where('is_hidden', '=', 0)
             ->whereBetween('latitude', [$minLat, $maxLat])
             ->whereBetween('longitude', [$minLong, $maxLong]);
