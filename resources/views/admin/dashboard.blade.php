@@ -4,13 +4,13 @@
     <div class="container">
         <div class="row justify-content-center">
             <div class="card">
-                <div class="card-header"> Welcome
+                {{-- <div class="card-header"> Welcome
                     @if (Auth::user()->name)
                         {{ Auth::user()->name }}
                     @else
                         {{ Auth::user()->email }}
                     @endif
-                </div>
+                </div> --}}
                 <div class="card-body">
                     @if (session('status'))
                         <div class="alert alert-success" role="alert">
@@ -24,7 +24,7 @@
                         <div class="d-flex my-3">
                             <div class="col-4">
                                 <div>
-                                    <h4>action</h4>
+                                    <h4>Action</h4>
                                 </div>
                                 <div class="d-flex">
                                     <div>
@@ -35,9 +35,9 @@
                             </div>
                             <div class=" col-8">
                                 <div>
-                                    <h4>detail pages</h4>
+                                    <h4>Detail pages</h4>
                                 </div>
-                                <div class="d-flex">
+                                <div class="d-flex ">
                                     <div>
                                         <a class="btn btn-primary me-3" href="{{ route('admin.apartments.index') }}"> show
                                             My
