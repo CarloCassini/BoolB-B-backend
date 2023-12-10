@@ -44,7 +44,7 @@ class ServicesSeeder extends Seeder
                 'symbol' => "fa-solid fa-water",
             ],
             [
-                'label' => "Accessibility of public transport",
+                'label' => "Public transport Near-by",
                 'symbol' => "fa-solid fa-train",
             ],
             [
