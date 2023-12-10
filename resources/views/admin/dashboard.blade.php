@@ -57,7 +57,7 @@
             </div>
             <div class="row row-cols-2 m-0 ">
                 {{-- appartamenti --}}
-                <nav class="col-12 col-xl-9 navbar navbar-expand-xl ">
+                <nav class="col-12 col-xl-9 navbar navbar-expand-xl  mb-3 ">
 
                     <button class=" my-2 dashboard-menu d-block d-xl-none navbar-toggler" type="button"
                         data-bs-toggle="collapse" data-bs-target="#apartmentMenu" aria-controls="apartmentMenu"
