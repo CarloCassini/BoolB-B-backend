@@ -1,9 +1,9 @@
 @extends('layouts.app')
 
 @section('navigation-buttons')
-    <div class="container ms-auto mt-3">
+    <div class="container ms-auto mt-3 ">
         {{-- per tornare alla index --}}
-        <div class=" my-3 d-flex back-btn ">
+        <div class=" my-3 d-flex back-btn">
             {{-- per tornare alla dashboard --}}
             <a href="{{ route('admin.home') }}" class="btn btn-style">
                 <i class="fa-solid fa-arrow-left me-1"></i>
@@ -14,7 +14,7 @@
 
             {{-- attivazione sponsor --}}
 
-            <a href="{{ route('sponsorSelect', $apartment->id) }}"button class="btn btn-style ms-auto me-2 ">
+            <a href="{{ route('sponsorSelect', $apartment->id) }}"button class="btn btn-style  ms-auto me-2 ">
                 Sponsor
                 </button>
 

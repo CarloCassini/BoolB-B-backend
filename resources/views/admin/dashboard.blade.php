@@ -68,15 +68,7 @@
                     </button>
                     <div class=" collapse show navbar-collapse" id="apartmentMenu">
                         <div>
-                            <div class="container dashboard-head overflow-hidden">
-                                <div class=" text-gradient">
-                                    {{-- se esiste almeno un oggetto in apartment --}}
-                                    <div class="my-1 py-2 dashboard-pagination">
-                                        {{ $apartments->links('pagination::bootstrap-5') }}
-                                    </div>
-                                </div>
-                                <hr class="m-0">
-                            </div>
+                           
                             <div class="overflow-auto overflow-x-hidden dashboard-space m-0">
 
                                 @if ($apartments[0])
@@ -192,7 +184,7 @@
                     </button>
                     <div class=" collapse navbar-collapse" id="msgMenu">
                         <div>
-                            <div class="container dashboard-head overflow-hidden">
+                            <div class="container dashboard-head overflow-hidden mt-4 ">
                                 <div class="d-block text-gradient">
                                     <div class=" dashboard-head d-flex justify-content-between align-items-center">
                                         <h4>My messages</h4>
@@ -220,7 +212,7 @@
                                                 </td>
                                                 <td>
                                                     <!-- Button trigger modal -->
-                                                    <button class="message-card-btn mt-3" data-bs-toggle="modal"
+                                                    <button class=" message-card-btn mt-3 btn-style " data-bs-toggle="modal"
                                                         data-bs-target="#exampleModal{{ $message->id }}">
                                                         Open
                                                     </button>
@@ -324,5 +316,32 @@
             </div>
         @empty
         @endforelse
+        <div class="container dashboard-head overflow-hidden">
+            <div class=" text-gradient">
+                {{-- se esiste almeno un oggetto in apartment --}}
+                <div class="my-1 py-2 dashboard-pagination">
+                    {{ $apartments->links('pagination::bootstrap-5') }}
+                </div>
+            </div>
+            <hr class="m-0">
+        </div>
     </section>
 @endsection
+
+<style>
+    .btn-style {
+  background-color: transparent;
+  border-radius: 0.5rem;
+  border: 1px solid #ff7977;
+  color: #ff7977;
+  font-weight: 700;
+  transition: 1s;
+}
+.btn-style:hover {
+  background-color: #ff7977;
+  color: #ffffff;
+  transform: translate(2px, -2px);
+  box-shadow: -3px 3px 10px 1px #222222;
+  transition: 0.5s ease-in-out;
+}
+</style>
