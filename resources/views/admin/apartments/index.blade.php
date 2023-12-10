@@ -1,18 +1,15 @@
 @extends('layouts.app')
 
 @section('navigation-buttons')
-    <div class="container row row-cols-1 row-cols-md-2 align-center g-3 pb-3 ">
-        <div class=" container-fluid my-3 d-flex justify-content-center mt-5">
-            {{-- per tornare alla dashboard --}} 
-            <a href="{{ route('admin.home') }}" class="btn btn-outline-secondary">
-                <i class="fa-solid fa-arrow-left me-1"></i>
-                Return to Dashboard
-            </a>
-            {{-- go to my appartments list --}}
-            <a href="{{ route('admin.apartments.create') }}" class="btn btn-outline-success ms-auto me-3">
-                Add new Apartment
-            </a>
-        </div>
+    {{-- per tornare alla dashboard --}}
+    <div class=" container-fluid my-3 d-flex justify-content-center mt-5">
+        <a href="{{ route('admin.home') }}" class="btn btn-style my-3">
+            <i class="fa-solid fa-arrow-left me-1"></i>
+            Return to Dashboard
+        </a>
+        <a href="{{ route('admin.apartments.create') }}" class="btn btn-style my-3 ms-auto me-3">
+            Add new Apartment
+        </a>
     </div>
 @endsection
 
@@ -84,7 +81,8 @@
                             {{-- todo da creare le rotte corrette --}}
 
                             <td class="h-100">
-                                <div class="h-100 d-flex align-items-center justify-content-between row row-cols-1 row-cols-md-2 align-center g-3 pb-3 ">
+                                <div
+                                    class="h-100 d-flex align-items-center justify-content-between row row-cols-1 row-cols-md-2 align-center g-3 pb-3 ">
 
                                     <a href="{{ route('admin.apartments.show', $apartment) }}" class="mx-1"><i
                                             class="fa-solid fa-circle-info text-primary"></i></a>
