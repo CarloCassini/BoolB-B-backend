@@ -3,9 +3,9 @@
 @section('navigation-buttons')
     <div class="container ms-auto mt-3">
         {{-- per tornare alla index --}}
-        <div class=" my-3 d-flex">
+        <div class=" my-3 d-flex back-btn ">
             {{-- per tornare alla dashboard --}}
-            <a href="{{ route('admin.home') }}" class="btn btn-outline-secondary">
+            <a href="{{ route('admin.home') }}" class="btn btn-style">
                 <i class="fa-solid fa-arrow-left me-1"></i>
                 Return to Dashboard
             </a>
@@ -14,29 +14,31 @@
 
             {{-- attivazione sponsor --}}
 
-            <a href="{{ route('sponsorSelect', $apartment->id) }}"button class="btn btn-outline-primary ms-auto me-2 ">
+            <a href="{{ route('sponsorSelect', $apartment->id) }}"button class="btn btn-style ms-auto me-2 ">
                 Sponsor
                 </button>
 
                 {{-- per modificare l'appartamento --}}
-                <a href="{{ route('admin.apartments.edit', $apartment) }}" class="btn btn-outline-warning  me-2 ">
+                <a href="{{ route('admin.apartments.edit', $apartment) }}" class="btn btn-style  me-2 ">
                     <i class="fa-solid fa-pencil "></i>
                     apartment modification
                 </a>
+
                 {{-- per cancellare l'appartamento --}}
                 <a href="#"data-bs-toggle="modal" data-bs-target="#modal-{{ $apartment->id }}"
-                    class="btn btn-outline-danger me-2">
+                    class="btn-style btn me-2">
                     <i class="fa-solid fa-trash text-danger"></i>
                     delete apartment
                 </a>
 
 
                 {{-- per visualizzare le statistiche dell'appartamento --}}
-                <a href="{{ route('show.statistics', $apartment->id) }}" class="btn btn-outline-info">
+                <a href="{{ route('show.statistics', $apartment->id) }}" class="btn btn-style">
                     <i class="fa-solid fa-chart-simple text-info"></i>
                     statistiche appartamento
                 </a>
         </div>
+
     </div>
 @endsection
 @section('content')
