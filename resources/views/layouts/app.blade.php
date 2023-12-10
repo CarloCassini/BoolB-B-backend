@@ -46,8 +46,12 @@
                 </h3>
         @endif
 
-        <main class="">
-            @yield('navigation-buttons')
+        <main>
+            <div class="container">
+                <div class="nav-btn-container my-2 px-3">
+                    @yield('navigation-buttons')
+                </div>
+            </div>
             @yield('content')
         </main>
     </div>

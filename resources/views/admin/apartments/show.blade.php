@@ -1,9 +1,9 @@
 @extends('layouts.app')
 
 @section('navigation-buttons')
-    <div class="container ms-auto mt-3 ">
+    
         {{-- per tornare alla index --}}
-        <div class=" my-3 d-flex nav-btn-container flex-wrap">
+        <div class="d-flex flex-wrap">
             {{-- per tornare alla dashboard --}}
             <div class="me-5 my-2">
                 <a href="{{ route('admin.home') }}" class="btn btn-style">
@@ -12,7 +12,7 @@
                 </a>
             </div>
             {{-- attivazione sponsor --}}
-            <div class="d-flex flex-wrap my-2">
+            <div class="d-flex flex-wrap ms-auto my-2">
                 <a href="{{ route('sponsorSelect', $apartment->id) }}"button class="btn btn-style me-3">
                 Sponsor
                 </button>
@@ -91,6 +91,7 @@
                                 {{--* Apartments Stats --}}
                                 <div class="col-lg-4">
                                     <h4 class="subtitle">Apartment Info</h4>
+                                    {{-- * Rooms --}}
                                     <p class="my-2">
                                         <strong>Rooms : </strong>
                                         @if ($apartment->rooms)
@@ -99,6 +100,7 @@
                                             -
                                         @endif
                                     </p>
+                                    {{-- * Beds --}}
                                     <p class="my-2">
                                         <strong>Beds: </strong>
                     
@@ -108,6 +110,7 @@
                                             -
                                         @endif
                                     </p>
+                                    {{-- * Bathrooms --}}
                                     <p class="my-2">
                                         <strong>Bathrooms:</strong>
                     
@@ -117,15 +120,7 @@
                                             -
                                         @endif
                                     </p>
-                                    <p class="my-2">
-                                        <strong>Beds : </strong>
-                    
-                                        @if ($apartment->beds)
-                                            {{ $apartment->beds }}
-                                        @else
-                                            -
-                                        @endif
-                                    </p>
+                                    {{-- * Surface --}}
                                     <p class="my-2">
                                         <strong>Surface: </strong>
                                         @if ($apartment->m2)
@@ -134,6 +129,7 @@
                                             -
                                         @endif
                                     </p>
+                                    {{-- * Address --}}
                                     <p class="my-2">
                                         <strong>Address : </strong>
                                         @if ($apartment->address)
@@ -142,14 +138,8 @@
                                             -
                                         @endif
                                     </p>
-                                    <p class="my-2">
-                                        <strong>Description : </strong>
-                                        @if ($apartment->description)
-                                            {{ $apartment->description }}
-                                        @else
-                                            -
-                                        @endif
-                                    </p>
+
+                                    {{-- * Preview --}}
                                     <p class="my-2">
                                         <strong>Preview : </strong>
                                         @if ($apartment->cover_img_path)
@@ -158,6 +148,8 @@
                                             -
                                         @endif
                                     </p>
+
+                                    {{-- * Position --}}
                                     <p  class="my-2">
                                         <strong>Position : </strong>
                                         @if ($apartment->latitude_int)
@@ -171,10 +163,20 @@
                                             -
                                         @endif
                                     </p>
+                                    {{-- * Avable --}}
                                     <p class="my-2">
                                         <strong>Avable : </strong>
                                         @if ($apartment->is_hidden)
                                             {{ $apartment->is_hidden }}
+                                        @else
+                                            -
+                                        @endif
+                                    </p>
+                                    {{-- * Description --}}
+                                    <strong>Description : </strong>
+                                    <p class="my-2">
+                                        @if ($apartment->description)
+                                            {{ $apartment->description }}
                                         @else
                                             -
                                         @endif

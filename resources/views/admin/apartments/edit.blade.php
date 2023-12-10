@@ -1,27 +1,14 @@
 @extends('layouts.app')
 
 @section('navigation-buttons')
-    <div class="container">
-        <div class=" my-3 d-md-flex d-block ">
+    
             {{-- per tornare alla dashboard --}}
-            <div class="">
-                <a href="{{ route('admin.home') }}" class="btn btn-outline-secondary">
+
+                <a href="{{ route('admin.home') }}" class="btn btn-style my-3">
                     <i class="fa-solid fa-arrow-left me-1"></i>
                     Return to Dashboard
-                </a>
-
-            </div>
-            {{-- per cancellare l'appartamento --}}
-
-            <div class="ms-auto mt-3">
-                <a href="#"data-bs-toggle="modal" data-bs-target="#modal-{{ $apartment->id }}"
-                    class="btn btn-outline-danger ms-auto">
-                    <i class="fa-solid fa-trash text-danger"></i>
-                    delete apartment
-                </a>
-            </div>
-        </div>
-    </div>
+                </a
+    
 @endsection
 
 @section('content')
@@ -45,119 +32,36 @@
             @csrf
             @method('PUT')
 
-            {{-- title --}}
-            <h6>fields with * are required</h6>
-            <div>
-                <label for="title" class="form-label">Title*</label>
-                <input type="text" name="title" id="title"
-                    class="form-control @error('title') is-invalid @enderror"
-                    value="{{ old('title') ?? $apartment->title }}" required>
-                <div class="invalid-feedback">
-                    title can't be null.
-                </div>
-                @error('title')
-                    <div class="invalid-feedback">
-                        {{ $message }}
-                    </div>
-                @enderror
-            </div>
-
-            {{-- description --}}
-            <div class="col-12 mb-4">
-                <label for="description" class="form-label">description</label>
-                <textarea name="description" id="description" class="form-control @error('description') is-invalid @enderror"
-                    rows="5">{{ old('description') ?? $apartment->description }}</textarea>
-                @error('description')
-                    <div class="invalid-feedback">
-                        {{ $message }}
-                    </div>
-                @enderror
-            </div>
-
+            <span class="muted">fields with <span class="text-warning">*</span> are required</span>
             <div class="row">
 
-                {{-- rooms --}}
-                <div class="col-3">
-                    <div>
-                        <label for="rooms" class="form-label">rooms*</label>
-                        <input type="number" name="rooms" id="rooms"
-                            class="form-control @error('rooms') is-invalid @enderror"
-                            value="{{ old('rooms') ?? $apartment->rooms }}" min="1" required>
+                {{--* title --}}
+                <div class="col-lg-6 col-sm-12 mb-4">
+    
+                        <label for="title" class="form-label ">Title <span class="text-warning">*</span></label>
+                        <input type="text" name="title" id="title"
+                            class="form-control @error('title') is-invalid @enderror"
+                            value="{{ old('title') ?? $apartment->title }}" required>
                         <div class="invalid-feedback">
-                            must be a number higher than zero.
+                            title can't be null.
                         </div>
-                        @error('rooms')
+                        @error('title')
                             <div class="invalid-feedback">
                                 {{ $message }}
                             </div>
                         @enderror
-                    </div>
                 </div>
-                {{-- beds --}}
-                <div class="col-3">
-                    <div>
-                        <label for="beds" class="form-label">beds*</label>
-                        <input type="number" name="beds" id="beds"
-                            class="form-control @error('beds') is-invalid @enderror"
-                            value="{{ old('beds') ?? $apartment->beds }}" min="0" required>
-                        <div class="invalid-feedback">
-                            must be a number higher or equal zero.
-                        </div>
-                        @error('beds')
-                            <div class="invalid-feedback">
-                                {{ $message }}
-                            </div>
-                        @enderror
-                    </div>
-                </div>
-                {{-- bathrooms --}}
-                <div class="col-3">
-                    <div>
-                        <label for="bathrooms" class="form-label">bathrooms*</label>
-                        <input type="number" name="bathrooms" id="bathrooms"
-                            class="form-control @error('bathrooms') is-invalid @enderror"
-                            value="{{ old('bathrooms') ?? $apartment->bathrooms }}" min="0" required>
-                        <div class="invalid-feedback">
-                            must be a number higher or equal zero.
-                        </div>
-                        @error('bathrooms')
-                            <div class="invalid-feedback">
-                                {{ $message }}
-                            </div>
-                        @enderror
-                    </div>
-                </div>
-                {{-- m2 --}}
-                <div class="col-3">
-                    <div>
-                        <label for="m2" class="form-label">m2*</label>
-                        <input type="number" name="m2" id="m2"
-                            class="form-control @error('m2') is-invalid @enderror"
-                            value="{{ old('m2') ?? $apartment->m2 }}" min="1" required>
-                        <div class="invalid-feedback">
-                            must be a number higher than zero.
-                        </div>
-                        @error('m2')
-                            <div class="invalid-feedback">
-                                {{ $message }}
-                            </div>
-                        @enderror
-                    </div>
-                </div>
-            </div>
-
-
-            {{-- address --}}
-            <div class="row my-3">
-                {{-- * mi porto dietro i valori dell'appartamento per usarli negli script --}}
+                {{--* address --}}
+            
+                {{-- ? mi porto dietro i valori dell'appartamento per usarli negli script --}}
                 <div class="div d-none">
                     <span
                         id="start-address-full">{{ $apartment->latitude . '|' . $apartment->longitude . '|' . $apartment->address }}</span>
                     <span id="start-address-human">{{ $apartment->address }}</span>
                 </div>
-                {{-- todo xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx --}}
-                <div class="col-12 ">
-                    <label for="address-txt" class="form-label">address*</label>
+                
+                <div class="col-lg-6 col-sm-12 ">
+                    <label for="address-txt" class="form-label">address <span class="text-warning">*</span></label>
                     <input type="text" class="form-control @error('address') is-invalid @enderror"
                         value="{{ old('address-txt') ?? $apartment->address }}" required id="address-txt">
                     <div id="suggerimenti"></div>
@@ -171,78 +75,190 @@
                     @enderror
                 </div>
                 <input type="text" class="d-none form-control" value="" name='address' id="address">
-            </div>
-            {{-- todo xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx --}}
-
-            {{-- Services  --}}
-            <label class="form-label my-1  @error('services') is-invalid @enderror" id="services-label">services</label>
-            @error('services')
-                <div class="invalid-feedback">
-                    {{ $message }}
-                </div>
-            @else
-                <div class="invalid-feedback">
-                    choose at least one service
-                </div>
-            @enderror
-
-            <div class="form-check p-0">
-                <div class="d-flex  flex-wrap">
-                    @foreach ($services as $service)
-                        <div class="col-3 mt-1">
-
-                            <input type="checkbox" id="service-{{ $service->id }}" value="{{ $service->id }}"
-                                name="services[]" class="form-check-control me-2 check-services"
-                                @if (in_array($service->id, old('services', $apartment_service ?? []))) checked @endif>
-                            <label for="service-{{ $service->id }}">
-                                <i class="{{ $service->symbol }}"></i> - {{ $service->label }}
-                            </label>
+            
+                {{--* description --}}
+                <div class="col-sm-12 col-lg-6 mb-4">
+                    <label for="description" class="form-label">Description</label>
+                    <textarea name="description" id="description" class="form-control @error('description') is-invalid @enderror"
+                        rows="6">{{ old('description') ?? $apartment->description }}</textarea>
+                    @error('description')
+                        <div class="invalid-feedback">
+                            {{ $message }}
                         </div>
-                    @endforeach
+                    @enderror
                 </div>
-            </div>
 
-            {{-- Cover Image --}}
-            <div class="my-3">
-                <label for="cover_image_path" class="form-label">Cover Image</label>
-                <input type="file" name="cover_image_path" id="cover_image_path"
-                    class="form-control @error('cover_image_path') is-invalid @enderror"
-                    value="{{ old('cover_image_path') }}">
-                @error('cover_image_path')
-                    <div class="invalid-feedback">
-                        {{ $message }}
-                    </div>
-                @enderror
-            </div>
-
-            {{-- gestione campo is_hidden --}}
-            <div class=" form-check @error('is_hidden') is-invalid @enderror p-0">
-                <p>does your apartment should be:</p>
-                <div class="d-flex gap-3">
-                    @if (old('is_hidden') != null)
-                        <input type="radio" id="css" name="is_hidden" value="0"
-                            @if (old('is_hidden') == '0') checked @endif>
-                        <label for="css">visible</label>
-                        <input type="radio" id="html" name="is_hidden" value="1"
-                            @if (old('is_hidden') == '1') checked @endif>
-                        <label for="html">hidden</label>
+                {{--* Services  --}}
+                <div class="col-lg-6 col-sm-12 mb-4">
+                    
+                    <label class="form-label my-1  @error('services') is-invalid @enderror" id="services-label">services <span class="text-warning">* (At least one)</span></label>
+                    @error('services')
+                        <div class="invalid-feedback">
+                            {{ $message }}
+                        </div>
                     @else
-                        <input type="radio" id="css" name="is_hidden" value="0"
-                            @if ($apartment->is_hidden == '0') checked @endif>
-                        <label for="css">visible</label>
-                        <input type="radio" id="html" name="is_hidden" value="1"
-                            @if ($apartment->is_hidden == '1') checked @endif>
-                        <label for="html">hidden</label>
-                    @endif
+                        <div class="invalid-feedback">
+                            choose at least one service
+                        </div>
+                    @enderror
+                    <div class="form-check p-0">
+                        <div class="card p-2">
+                            
+                            <div class="row">
+                            @foreach ($services as $service)
+    
+                                <div class="col-lg-6 col-sm-12 mt-1">
+    
+                                    <input type="checkbox" id="service-{{ $service->id }}" value="{{ $service->id }}"
+                                        name="services[]" class="form-check-control me-2 check-services"
+                                        @if (in_array($service->id, old('services', $apartment_service ?? []))) checked @endif>
+                                    <label for="service-{{ $service->id }}">
+                                        <i class="{{ $service->symbol }}"></i> - {{ $service->label }}
+                                    </label>
+                                </div>
+                            @endforeach
+                        </div>
+    
+                        </div>
+                    </div>
+                </div>
+                
+                {{--* rooms --}}
+                <div class="col-lg-3 col-sm-12">
+                    <div>
+                        <label for="rooms" class="form-label">Rooms <span class="text-warning">*</span></label>
+                        <input type="number" name="rooms" id="rooms"
+                            class="form-control @error('rooms') is-invalid @enderror"
+                            value="{{ old('rooms') ?? $apartment->rooms }}" min="1" required>
+                        <div class="invalid-feedback">
+                            must be a number higher than zero.
+                        </div>
+                        @error('rooms')
+                            <div class="invalid-feedback">
+                                {{ $message }}
+                            </div>
+                        @enderror
+                    </div>
+                </div>
+                {{--* beds --}}
+                <div class="col-lg-3 col-sm-12">
+                    <div>
+                        <label for="beds" class="form-label">Beds <span class="text-warning">*</span></label>
+                        <input type="number" name="beds" id="beds"
+                            class="form-control @error('beds') is-invalid @enderror"
+                            value="{{ old('beds') ?? $apartment->beds }}" min="0" required>
+                        <div class="invalid-feedback">
+                            must be a number higher or equal zero.
+                        </div>
+                        @error('beds')
+                            <div class="invalid-feedback">
+                                {{ $message }}
+                            </div>
+                        @enderror
+                    </div>
+                </div>
+                {{--* bathrooms --}}
+                <div class="col-lg-3 col-sm-12">
+                    <div>
+                        <label for="bathrooms" class="form-label">Bathrooms <span class="text-warning">*</span></label>
+                        <input type="number" name="bathrooms" id="bathrooms"
+                            class="form-control @error('bathrooms') is-invalid @enderror"
+                            value="{{ old('bathrooms') ?? $apartment->bathrooms }}" min="0" required>
+                        <div class="invalid-feedback">
+                            must be a number higher or equal zero.
+                        </div>
+                        @error('bathrooms')
+                            <div class="invalid-feedback">
+                                {{ $message }}
+                            </div>
+                        @enderror
+                    </div>
+                </div>
+                {{--* m2 --}}
+                <div class="col-lg-3 col-sm-12">
+                    <div>
+                        <label for="m2" class="form-label">m2 <span class="text-warning">*</span></label>
+                        <input type="number" name="m2" id="m2"
+                            class="form-control @error('m2') is-invalid @enderror"
+                            value="{{ old('m2') ?? $apartment->m2 }}" min="1" required>
+                        <div class="invalid-feedback">
+                            must be a number higher than zero.
+                        </div>
+                        @error('m2')
+                            <div class="invalid-feedback">
+                                {{ $message }}
+                            </div>
+                        @enderror
+                    </div>
+                </div>
+                {{--* Cover Image --}}
+                <div class="my-3 col-12">
+                    <label for="cover_image_path" class="form-label">Cover Image</label>
+                    <input type="file" name="cover_image_path" id="cover_image_path"
+                        class="form-control @error('cover_image_path') is-invalid @enderror"
+                        value="{{ old('cover_image_path') }}">
+                    @error('cover_image_path')
+                        <div class="invalid-feedback">
+                            {{ $message }}
+                        </div>
+                    @enderror
+                </div>
+                {{--* gestione campo is_hidden --}}
+                <div class="col-lg-6 col-sm-12">
+
+                    <div class=" form-check @error('is_hidden') is-invalid @enderror p-0">
+                        <p>Your apartment should be: <span class="text-warning">*</span></p>
+                        <div class="nav-btn-container p-1 ps-3">
+
+                            <div class="d-flex gap-3">
+                                @if (old('is_hidden') != null)
+                                    <input type="radio" id="css" name="is_hidden" value="0"
+                                        @if (old('is_hidden') == '0') checked @endif>
+                                    <label for="css">visible</label>
+                                    <input type="radio" id="html" name="is_hidden" value="1"
+                                        @if (old('is_hidden') == '1') checked @endif>
+                                    <label for="html">hidden</label>
+                                @else
+                                    <input type="radio" id="css" name="is_hidden" value="0"
+                                        @if ($apartment->is_hidden == '0') checked @endif>
+                                    <label for="css">visible</label>
+                                    <input type="radio" id="html" name="is_hidden" value="1"
+                                        @if ($apartment->is_hidden == '1') checked @endif>
+                                    <label for="html">hidden</label>
+                                @endif
+                            </div>
+                        </div>
+                    </div>
+                    @error('is_hidden')
+                        <div class="invalid-feedback">
+                            {{ $message }}
+                        </div>
+                    @enderror
+                </div>
+                <div class="col-lg-6 col-sm-12">
+                    <div class="nav-btn-container">
+
+                        <div class="d-flex justify-content-between">
+
+                            <a href="#"data-bs-toggle="modal" data-bs-target="#modal-{{ $apartment->id }}"
+                                class="btn btn-style my-3">
+                                <i class="fa-solid fa-trash text-danger"></i>
+                                delete apartment
+                            </a>
+    
+                            <button type="submit" class="btn btn-style my-3">Save</button>
+                        </div>
+
+                    </div>
                 </div>
             </div>
-            @error('is_hidden')
-                <div class="invalid-feedback">
-                    {{ $message }}
-                </div>
-            @enderror
+            
 
-            <button type="submit" class="btn btn-primary my-3">Save</button>
+
+            
+
+
+
         </form>
     </div>
 @endsection

@@ -48,11 +48,12 @@ body {
     color: #333333;
     position: absolute;
     display: none;
-    border: 1px solid #ccc;
+    border: 1px solid #ff7977;
     max-width: 50%;
     max-height: 200px;
     overflow-y: auto;
-    background-color: #999999;
+    background-color: #fff;
+    z-index: 3;
 }
 
 #suggerimenti ul {
@@ -159,7 +160,8 @@ body {
 .nav-btn-container {
     background-color: white;
     border-radius: 0.5rem;
-    padding: 1rem;
+    padding: 0 1rem ;
+    
 }
 .subtitle{
     color: #ff7977;
