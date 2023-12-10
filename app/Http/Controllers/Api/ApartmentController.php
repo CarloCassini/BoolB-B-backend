@@ -201,14 +201,22 @@ class ApartmentController extends Controller
             ->whereBetween('longitude', [$minLong, $maxLong]);
 
         // miglioramento logica apartment_sponsor
+
         $apartments_query_sponsor = $apartments_sponsor;
         if ($apartments_query_sponsor) {
             if (!empty($filters['activeServices'])) {
-                $apartments_query_sponsor->whereHas('services', function ($query) use ($filters) {
-                    // $query->whereIn('services.id', $filters['activeServices']);
-                    $query->where('services.id', $filters['activeServices']);
-                });
+                foreach ($filters['activeServices'] as $service) {
+                    $apartments_query_sponsor->whereHas('services', function ($query) use ($service) {
+                        $query->where('services.id', $service);
+                    });
+                }
             }
+            // if (!empty($filters['activeServices'])) {
+            //     $apartments_query_sponsor->whereHas('services', function ($query) use ($filters) {
+            //         // $query->whereIn('services.id', $filters['activeServices']);
+            //         $query->where('services.id', $filters['activeServices']);
+            //     });
+            // }
             if (!empty($filters['rooms'])) {
                 $apartments_query_sponsor->where("rooms", '>=', $filters['rooms']);
             }
@@ -226,11 +234,18 @@ class ApartmentController extends Controller
         $apartments_query_all = $apartments_all;
         if ($apartments_query_all) {
             if (!empty($filters['activeServices'])) {
-                $apartments_query_all->whereHas('services', function ($query) use ($filters) {
-                    // $query->whereIn('services.id', $filters['activeServices']);
-                    $query->where('services.id', $filters['activeServices']);
-                });
+                foreach ($filters['activeServices'] as $service) {
+                    $apartments_query_all->whereHas('services', function ($query) use ($service) {
+                        $query->where('services.id', $service);
+                    });
+                }
             }
+            // if (!empty($filters['activeServices'])) {
+            //     $apartments_query_all->whereHas('services', function ($query) use ($filters) {
+            //         // $query->whereIn('services.id', $filters['activeServices']);
+            //         $query->where('services.id', $filters['activeServices']);
+            //     });
+            // }
             if (!empty($filters['rooms'])) {
                 $apartments_query_all->where("rooms", '>=', $filters['rooms']);
             }
