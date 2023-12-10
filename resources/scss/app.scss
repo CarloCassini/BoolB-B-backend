@@ -156,8 +156,17 @@ body {
     box-shadow: -3px 3px 10px 1px #222222;
     transition: 0.5s ease-in-out;
 }
-.back-btn {
+.nav-btn-container {
     background-color: white;
     border-radius: 0.5rem;
     padding: 1rem;
 }
+.subtitle{
+    color: #ff7977;
+    letter-spacing: .2rem;
+    margin: 1rem 0;
+}
+.logo-txt {
+    color: #ff7977;
+    font-weight: 600;
+  }
