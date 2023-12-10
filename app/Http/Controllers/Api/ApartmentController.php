@@ -26,7 +26,7 @@ class ApartmentController extends Controller
             ->where('apartment_sponsor.end_date', '>=', $now)
             ->where('is_hidden', '=', 0)
             ->orderByDesc('apartment_sponsor.start_date')
-            ->paginate(16);
+            ->paginate(50);
 
 
         foreach ($apartments as $apartment) {
@@ -54,7 +54,7 @@ class ApartmentController extends Controller
         $apartments = Apartment::with('services', )
             ->select("id", "user_id", "title", "rooms", "beds", "bathrooms", "m2", "address", "description", "cover_image_path")
             ->where('is_hidden', '=', 0)
-            ->paginate(16);
+            ->paginate(50);
 
 
         foreach ($apartments as $apartment) {
@@ -137,7 +137,7 @@ class ApartmentController extends Controller
             ->join('apartment_service', 'apartments.id', '=', 'apartment_service.apartment_id')
             ->where('is_hidden', '=', 0 && 'apartment_service.service_id', '=', $service_id)
             // ->where('apartment_service.service_id', '=', $service_id)
-            ->paginate(10);
+            ->paginate(50);
 
         foreach ($apartments as $apartment) {
             if (!empty($apartment->description)) {
@@ -260,8 +260,8 @@ class ApartmentController extends Controller
         }
 
         // $apartments = $apartments_query->paginate(18);
-        $apartments_sponsor_ready = $apartments_query_sponsor->paginate(18);
-        $apartments_all_ready = $apartments_query_all->paginate(18);
+        $apartments_sponsor_ready = $apartments_query_sponsor->paginate(50);
+        $apartments_all_ready = $apartments_query_all->paginate(50);
 
 
         // return response()->json($apartments);
