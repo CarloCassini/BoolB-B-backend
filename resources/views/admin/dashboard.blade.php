@@ -200,7 +200,7 @@
                                 <div class=" text-gradient">
                                     <div class=" dashboard-head d-flex justify-content-between align-items-center">
                                         <h4>My messages</h4>
-                                        <a class=" btn btn-primary me-3"
+                                        <a class=" btn btn-primary me-3 mb-3"
                                             href="{{ route('admin.messages.index') }}">show</a>
                                     </div>
                                 </div>
