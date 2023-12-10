@@ -70,7 +70,7 @@
                     <div class="me-1">
                         <div class=" collapse show navbar-collapse" id="apartmentMenu">
                             <div>
-                                <div class="back-btn overflow-auto overflow-x-hidden dashboard-space m-0">
+                                <div class="nav-btn-container overflow-auto overflow-x-hidden dashboard-space m-0">
 
                                     @if ($apartments[0])
                                         <table class="table table-striped table-hover m-0">
@@ -170,7 +170,7 @@
                                         <h1> No Apartments Found :( </h1>
                                     @endif
                                 </div>
-                                <div class="back-btn mt-2 container dashboard-head overflow-hidden">
+                                <div class="nav-btn-container mt-2 container dashboard-head overflow-hidden">
                                     <div class=" text-gradient">
                                         {{-- se esiste almeno un oggetto in apartment --}}
                                         <div class="my-1 py-2 dashboard-pagination">
@@ -196,7 +196,7 @@
                     </button>
                     <div class=" mb-3 collapse navbar-collapse" id="msgMenu">
                         <div>
-                            <div class="container dashboard-head overflow-hidden my-2 back-btn ">
+                            <div class="container dashboard-head overflow-hidden my-2 nav-btn-container ">
                                 <div class=" text-gradient">
                                     <div class=" dashboard-head d-flex justify-content-between align-items-center">
                                         <h4>My messages</h4>
@@ -206,7 +206,7 @@
                                 </div>
                                 <hr class="m-0 mt-auto">
                             </div>
-                            <div class=" back-btn overflow-scroll overflow-x-hidden dashboard-space m-0 ">
+                            <div class=" nav-btn-container overflow-scroll overflow-x-hidden dashboard-space m-0 ">
                                 <table class="table table-striped table-hover">
                                     <tbody>
                                         @foreach ($messages as $message)
