@@ -1,16 +1,12 @@
 <nav class="navbar navbar-expand-lg bg-gradient bg-light sticky-top">
     <div class="container-fluid">
-        <img
-        src="../../../storage/app/public/airbnb-logo-small-center.png"
-        alt="Logo"
-        width="30"
-        height="24"
-        class="d-inline-block align-text-top logo-img"
-      />
-      {{-- <span class="logo-txt ms-1">Boolbnb</span> --}}
+        <img src="../../../img/airbnb-logo-small-center.png" alt="Logo" width="30" height="24"
+            class="d-inline-block align-text-top logo-img" />
+        {{-- <span class="logo-txt ms-1">Boolbnb</span> --}}
         <a class="logo-txt ms-1 text-decoration-none" href="{{ route('admin.home') }}">Dashboard</a>
-        <button class="navbar-toggler d-lg-none" type="button" data-bs-toggle="collapse" data-bs-target="#collapsibleNavId"
-            aria-controls="collapsibleNavId" aria-expanded="false" aria-label="Toggle navigation">
+        <button class="navbar-toggler d-lg-none" type="button" data-bs-toggle="collapse"
+            data-bs-target="#collapsibleNavId" aria-controls="collapsibleNavId" aria-expanded="false"
+            aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="collapsibleNavId">
@@ -20,7 +16,7 @@
                         href="{{ route('guest.home') }}" aria-current="page">Home<span
                             class="visually-hidden">(current)</span></a>
                 </li> --}}
-                
+
                 <li class="nav-item">
                     <a class="nav-link {{ Route::currentRouteName() == 'guest.home' ? 'active' : '' }}"
                         href="http://localhost:5174/" aria-current="page">Public section<span
