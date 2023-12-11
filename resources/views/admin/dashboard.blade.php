@@ -13,7 +13,9 @@
     My
     Apartments
 </a>
-
+<a class="text-decoration-none btn btn-style my-3 me-3" href="{{ route('admin.messages.index') }}">
+    My Messages
+</a>
 @endsection
 @section('content')
     
@@ -137,7 +139,7 @@
                     <div class="dashboard-container">
 
                     @foreach ($messages as $message)
-                    {{-- <a class="text-decoration-none" href="{{ route('admin.messages.index') }}"> --}}
+                    <a class="text-decoration-none" href="{{ route('admin.messages.index') }}">
                         <div class="card mb-3">
                             <div class="card-header d-flex justify-content-between">
                                 <div>
