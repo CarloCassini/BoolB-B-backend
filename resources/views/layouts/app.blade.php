@@ -48,7 +48,8 @@
 
         <main>
             <div class="container">
-                <div class="nav-btn-container my-2 px-3">
+                
+                <div class="nav-btn-container my-3 px-3">
                     @yield('navigation-buttons')
                 </div>
             </div>

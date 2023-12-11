@@ -1,253 +1,180 @@
 @extends('layouts.app')
 
+@section('navigation-buttons')
+@if (session('status'))
+<div class="alert alert-success" role="alert">
+    {{ session('status') }}
+</div>
+@endif
+<a href="{{ route('admin.apartments.create') }}" class="btn btn-style my-3 me-3">Add
+    new Apartment</a>
+<a class="btn btn-style my-3 me-3" href="{{ route('admin.apartments.index') }}"> 
+    show
+    My
+    Apartments
+</a>
+
+@endsection
 @section('content')
-    <div class="container">
-        <div class="row justify-content-center">
+    
+        <div class="container">
+            <div class="row">
+                {{-- * User Apartments --}}
+                
+                <div class="col-lg-7 col-sm-12">
+                    <div class="dashboard-container">
 
-            <div class="card">
-                {{-- <div class="card-header"> Welcome
-                    @if (Auth::user()->name)
-                        {{ Auth::user()->name }}
-                    @else
-                        {{ Auth::user()->email }}
-                    @endif
-                </div> --}}
-                <div class="card-body">
-                    @if (session('status'))
-                        <div class="alert alert-success" role="alert">
-                            {{ session('status') }}
-                        </div>
-                    @endif
-
-                    {{ __('You are logged in!') }}
-                    <div class="my-3">
-                        {{-- bottoni --}}
-                        <div class="d-flex my-3">
-                            <div class="col-4">
-                                <div>
-                                    <h4>Action</h4>
-                                </div>
-                                <div class="d-flex">
-                                    <div>
-                                        <a href="{{ route('admin.apartments.create') }}" class="btn btn-style me-3">Add
-                                            new Apartment</a>
+                        @if ($apartments[0])
+                            @foreach ($apartments as $apartment)                    
+                                <div class="card mb-3" {{-- @if($apartment->is_hidden) data-bs-theme="dark" @endif --}}>
+                                    <div class="row g-0">
+                                        {{-- * image --}}
+                                        <div class="col-md-4">
+                                          <img class="img-fluid rounded-start" alt="cover" {{-- controllo sul src delle immagini (3 possibilità) --}}
+                                              src="@if (!$apartment->cover_image_path) https://via.placeholder.com/2000x1500.png/333333?text=Placeholder
+                                              @elseif(Str::startsWith($apartment->cover_image_path, ['http://', 'https://']))
+                                                 {{ $apartment->cover_image_path }}
+                                              @else
+                                                 {{ asset('/storage/' . $apartment->cover_image_path) }} @endif">
+                                        </div>
+                                        {{-- * apartment data --}}
+                                        <div class="col-md-8">
+                                            <div class="card-body">
+                                              {{-- * title + id --}}
+                                              <div class="d-flex justify-content-between">
+                                                  <h5 class="card-title">{{ $apartment->title }}</h5>
+                                                  <h5 class="logo-txt">{{ $apartment->id }}</h5>
+                                              </div>
+                                              <div class="row">
+                                                  {{-- * Rooms --}}
+                                                  <div class="col-4">
+                                                          <strong>
+                                                              Rooms
+                                                          </strong>
+                                                      {{ $apartment->rooms }}
+                                                  </div>
+                                                  {{-- * Beds --}}
+                                                  <div class="col-4">
+                                                          <strong>
+                                                              Beds
+                                                          </strong>
+                                                      {{ $apartment->beds }}
+                                                  </div>
+                                                  {{-- * Bathrooms --}}
+                                                <div class="col-4">
+                                                        <strong>
+                                                            Bathrooms
+                                                        </strong>
+                                                    {{ $apartment->bathrooms }}
+                                                </div>
+                                                {{-- * Surface --}}
+                                                <div class="col-4">
+                                                    <strong>
+                                                        Surface
+                                                    </strong>
+                                                    {{ $apartment->m2 }} &#13217
+                                                </div>
+                                                {{-- * Visibile --}}
+                                                <div class="col-4">
+                                                    <strong>
+                                                        Visibile
+                                                    </strong>
+                                                    @if ($apartment->is_hidden == '0')
+                                                    <i class="fa-solid fa-square-check text-success"></i>
+                                                    @else
+                                                        <i class="fa-solid fa-square-xmark text-danger"></i>
+                                                    @endif
+                                                
+                                                </div>
+                                                {{-- * Edit --}}
+                                                </div>
+                                                <div class="d-fle justify-content-between">
+                                                    <a href="{{ route('admin.apartments.show', $apartment) }}" class="text-decoration-none btn btn-style">
+                                                        <i class="fa-solid fa-eye"></i>
+                                                            {{-- View --}}
+                                                    </a>
+                                                    <a href="{{ route('admin.apartments.edit', $apartment) }}" class="mx-1 btn btn-style">
+                                                        <i class="fa-solid fa-pencil"></i>
+                                                            {{-- Edit --}}
+                                                    </a>
+                                                    <a href="{{ route('show.statistics', $apartment->id) }}" class="mx-1 btn btn-style">
+                                                        <i class="fa-solid fa-chart-simple"></i>
+                                                            {{-- Stats --}}
+                                                    </a>
+                                                    <a href="{{ route('sponsorSelect', $apartment->id) }}"class="mx-1 btn btn-style">
+                                                        <i class="fa-solid fa-money-check-dollar "></i>
+                                                            {{-- Sponsor --}}
+                                                    </a>
+                                                    <a href="#"data-bs-toggle="modal"data-bs-target="#modal-{{ $apartment->id }}"class="mx-1 btn btn-style">
+                                                        <i class="fa-solid fa-trash"></i>
+                                                            {{-- Delete --}}
+                                                    </a>
+                                               {{--      <a class="btn btn-style my-3 me-3" href="{{ route('admin.apartments.messages.index',$apartment->id) }}"> show My
+                                                        messages
+                                                    </a> --}}
+                                                </div>
+                                                {{-- * address --}}
+                                                <p class="card-text"><small class="text-body-secondary">{{ $apartment->address }}</small></p>
+                                            </div>
+                                        </div>
+    
                                     </div>
+    
+                                </div>
+                            @endforeach
+                        @else
+                            <h1> No Apartments Found :( </h1>
+                        @endif
+                        {{ $apartments->links('pagination::bootstrap-5') }}
+
+                    </div>
+                    
+                </div>
+
+                {{-- * User Last Messages --}}
+
+                <div class="col-lg-5 col-sm-12">
+                    <div class="dashboard-container">
+
+                    @foreach ($messages as $message)
+                    {{-- <a class="text-decoration-none" href="{{ route('admin.messages.index') }}"> --}}
+                        <div class="card mb-3">
+                            <div class="card-header d-flex justify-content-between">
+                                <div>
+
+                                    <span class="logo-txt">New Message</span> for: {{ $message->apartment_id }}
+                                </div>
+                                <div>
+                                    From: {{ $message->name }} {{ $message->surname }}
                                 </div>
                             </div>
-                            <div class=" col-8">
+                            <div class="card-body">
+                                <span class="preview-msg">
+                                    {{ strlen($message->message) > 30 ? substr($message->message, 0, 30) . '...' : $message->message }}
+                                </span>
+                            </div>
+                            <div class="card-footer d-flex justify-content-between">
                                 <div>
-                                    <h4>Detail pages</h4>
+                                    {{ date('d/m/Y', strtotime($message->created_at)) }} 
                                 </div>
-                                <div class="d-flex ">
-                                    <div>
-                                        <a class="btn btn-style me-3" href="{{ route('admin.apartments.index') }}"> show
-                                            My
-                                            Apartments</a>
-                                    </div>
-                                    <div>
-                                        <a class="btn btn-style me-3" href="{{ route('admin.messages.index') }}"> show My
-                                            messages</a>
-                                    </div>
+                                <div>
+                                    reply to: {{ $message->sender_email }}
                                 </div>
                             </div>
                         </div>
-
-
+                    </a>
+                    @endforeach
                     </div>
                 </div>
             </div>
-            <div class="row row-cols-2 m-0 ">
-                {{-- appartamenti --}}
-                <nav class="col-12 col-xl-9 navbar navbar-expand-xl  mb-3 ">
-
-                    <button class=" my-2 dashboard-menu d-block d-xl-none navbar-toggler" type="button"
-                        data-bs-toggle="collapse" data-bs-target="#apartmentMenu" aria-controls="apartmentMenu"
-                        aria-expanded="false" aria-label="burgher per apartments">
-                        <div class=" d-flex justify-content-between align-items-center">
-                            <h3>Apartment table</h3>
-                            <span class=" ms-auto"><i class="fa-solid fa-bars fa-xl"></i></span>
-                        </div>
-                    </button>
-                    <div class="me-1">
-                        <div class=" collapse show navbar-collapse" id="apartmentMenu">
-                            <div>
-                                <div class="nav-btn-container overflow-auto overflow-x-hidden dashboard-space m-0">
-
-                                    @if ($apartments[0])
-                                        <table class="table table-striped table-hover m-0">
-                                            <thead>
-                                                <tr>
-                                                    <th scope="col">ID</th>
-                                                    <th scope="col" class="d-none d-xl-table-cell">cover</th>
-                                                    <th scope="col">title</th>
-                                                    <th scope="col" class="d-none d-xl-table-cell">rooms</th>
-                                                    <th scope="col" class="d-none d-xl-table-cell">beds</th>
-                                                    <th scope="col" class="d-none d-xl-table-cell">bathrooms</th>
-                                                    <th scope="col" class="d-none d-xl-table-cell">surface</th>
-                                                    <th scope='col'>address</th>
-                                                    <th scope='col'><i class="fa-solid fa-eye"></i></th>
-                                                    <th scope='col'>Actions</th>
-                                                    {{-- todo is_hidden must be a btn (as published) --}}
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                @foreach ($apartments as $apartment)
-                                                    <tr>
-                                                        {{-- * id --}}
-                                                        <th scope="row">{{ $apartment->id }}</th>
-
-                                                        {{-- * image --}}
-                                                        <td class="d-none d-xl-table-cell">
-                                                            <img class="img-fluid" alt="cover" {{-- controllo sul src delle immagini (3 possibilità) --}}
-                                                                src="@if (!$apartment->cover_image_path) https://via.placeholder.com/2000x1500.png/333333?text=Placeholder
-                                                                @elseif(Str::startsWith($apartment->cover_image_path, ['http://', 'https://']))
-                                                                   {{ $apartment->cover_image_path }}
-                                                                @else
-                                                                   {{ asset('/storage/' . $apartment->cover_image_path) }} @endif">
-                                                        </td>
-
-                                                        {{-- * title --}}
-                                                        <td>{{ $apartment->title }}</td>
-
-                                                        {{-- * rooms --}}
-                                                        <td class="d-none d-xl-table-cell">{{ $apartment->rooms }}</td>
-
-                                                        {{-- * beds --}}
-                                                        <td class="d-none d-xl-table-cell">{{ $apartment->beds }}</td>
-
-                                                        {{-- * bathrooms --}}
-                                                        <td class="d-none d-xl-table-cell">{{ $apartment->bathrooms }}</td>
-
-                                                        {{-- * m2 --}}
-                                                        <td class="d-none d-xl-table-cell"><span
-                                                                class="text-nowrap">{{ $apartment->m2 }} &#13217</span>
-                                                        </td>
-
-                                                        {{-- * address --}}
-                                                        <td>{{ $apartment->address }}</td>
-
-                                                        {{-- * is_hidden --}}
-                                                        <td>
-                                                            @if ($apartment->is_hidden == '0')
-                                                                <i class="fa-solid fa-square-check text-success"></i>
-                                                            @else
-                                                                <i class="fa-solid fa-square-xmark text-danger"></i>
-                                                            @endif
-                                                        </td>
-
-                                                        {{-- * actions buttons --}}
-                                                        {{-- todo da creare le rotte corrette --}}
-
-                                                        <td class="h-100">
-                                                            <div
-                                                                class="h-100 d-flex align-items-center justify-content-between">
-
-                                                                <a href="{{ route('admin.apartments.show', $apartment) }}"
-                                                                    class="mx-1"><i
-                                                                        class="fa-solid fa-circle-info text-primary"></i></a>
-                                                                <a href="{{ route('admin.apartments.edit', $apartment) }}"
-                                                                    class="mx-1"><i
-                                                                        class="fa-solid fa-pencil text-warning"></i></a>
-
-                                                                <a href="{{ route('show.statistics', $apartment->id) }}"
-                                                                    class="mx-1"><i
-                                                                        class="fa-solid fa-chart-simple text-info"></i></a>
-
-                                                                <a href="{{ route('sponsorSelect', $apartment->id) }}"
-                                                                    class="mx-1"><i
-                                                                        class="fa-solid fa-money-check-dollar text-success"></i></a>
-
-                                                                <a href="#"data-bs-toggle="modal"
-                                                                    data-bs-target="#modal-{{ $apartment->id }}"
-                                                                    class="mx-1"><i
-                                                                        class="fa-solid fa-trash text-danger"></i></a>
-                                                            </div>
-                                                        </td>
-                                                    </tr>
-                                                @endforeach
-                                            </tbody>
-                                        </table>
-                                    @else
-                                        <h1> No Apartments Found :( </h1>
-                                    @endif
-                                </div>
-                                {{-- pagination --}}
-                                <div class="nav-btn-container mt-2 container dashboard-head overflow-hidden">
-                                    <div class=" text-gradient">
-                                        <div class="my-1 py-2 dashboard-pagination">
-                                            {{ $apartments->links('pagination::bootstrap-5') }}
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                    </div>
-                </nav>
-                {{-- messaggi --}}
-                <nav class="col-12 col-xl-3 navbar navbar-expand-xl mb-3 ">
-                    <button class=" my-2 dashboard-menu d-block d-xl-none navbar-toggler" type="button"
-                        data-bs-toggle="collapse" data-bs-target="#msgMenu" aria-controls="msgMenu" aria-expanded="false"
-                        aria-label="burgher per apartments">
-                        <div class=" d-flex justify-content-between align-items-center">
-                            <h3>messages table</h3>
-                            <span class=" ms-auto"><i class="fa-solid fa-bars fa-xl"></i></span>
-                        </div>
-                    </button>
-                    <div class=" mb-3 collapse navbar-collapse" id="msgMenu">
-                        <div>
-                            <div class="container dashboard-head overflow-hidden my-2 nav-btn-container ">
-                                <div class=" text-gradient">
-                                    <div class=" dashboard-head d-flex justify-content-between align-items-center">
-                                        <h4>My messages</h4>
-                                        <a class=" btn btn-style me-3 mb-3"
-                                            href="{{ route('admin.messages.index') }}">show</a>
-                                    </div>
-                                </div>
-                                <hr class="m-0 mt-auto">
-                            </div>
-                            <div class=" nav-btn-container overflow-scroll overflow-x-hidden dashboard-space m-0 ">
-                                <table class="table table-striped table-hover">
-                                    <tbody>
-                                        @foreach ($messages as $message)
-                                            <tr>
-                                                <td>
-                                                    <h4> From {{ $message->name }} {{ $message->surname }}</h4>
-                                                    <h5 class="text-gradient m-0 fs-5 fw-4 ellipsis"> e-mail:
-                                                        {{ $message->sender_email }} </h5>
-                                                    <h6>For apartment {{ $message->apartment_id }}</h6>
-                                                    <p class="data text-gradient m-0 fs-6 ellipsis">
-                                                        {{ date('d/m/Y', strtotime($message->created_at)) }}
-                                                    </p>
-                                                    <div class="message-overlay"></div>
-                                                </td>
-                                                <td>
-                                                    <!-- Button trigger modal -->
-                                                    <button class=" message-card-btn mt-3 btn-style "
-                                                        data-bs-toggle="modal"
-                                                        data-bs-target="#exampleModal{{ $message->id }}">
-                                                        Open
-                                                    </button>
-                                                </td>
-                                            </tr>
-                                            {{-- @empty
-                                                        <div class="message-card-noMessage">
-                                                            <p class="message-heading">
-                                                                No message for this apartment</p>
-                                                        </div> --}}
-                                        @endforeach
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-
-                    </div>
-                </nav>
+        </div>
+       
+               
 
             </div>
 
         </div>
-    </div>
+    
 @endsection
 
 @section('modals')

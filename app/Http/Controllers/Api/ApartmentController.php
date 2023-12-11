@@ -51,7 +51,7 @@ class ApartmentController extends Controller
      */
     public function index()
     {
-        $apartments = Apartment::with('services', )
+        $apartments = Apartment::with('services',)
             ->select("id", "user_id", "title", "rooms", "beds", "bathrooms", "m2", "address", "description", "cover_image_path")
             ->where('is_hidden', '=', 0)
             ->paginate(50);
