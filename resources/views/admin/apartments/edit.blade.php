@@ -1,14 +1,12 @@
 @extends('layouts.app')
 
 @section('navigation-buttons')
-    
-            {{-- per tornare alla dashboard --}}
+    {{-- per tornare alla dashboard --}}
 
-                <a href="{{ route('admin.home') }}" class="btn btn-style my-3">
-                    <i class="fa-solid fa-arrow-left me-1"></i>
-                    Return to Dashboard
-                </a
-    
+    <a href="{{ route('admin.home') }}" class="btn btn-style my-3">
+        <i class="fa-solid fa-arrow-left me-1"></i>
+        Return to Dashboard
+    </a>
 @endsection
 
 @section('content')
@@ -35,31 +33,31 @@
             <span class="muted">fields with <span class="text-warning">*</span> are required</span>
             <div class="row">
 
-                {{--* title --}}
+                {{-- * title --}}
                 <div class="col-lg-6 col-sm-12 mb-4">
-    
-                        <label for="title" class="form-label ">Title <span class="text-warning">*</span></label>
-                        <input type="text" name="title" id="title"
-                            class="form-control @error('title') is-invalid @enderror"
-                            value="{{ old('title') ?? $apartment->title }}" required>
+
+                    <label for="title" class="form-label ">Title <span class="text-warning">*</span></label>
+                    <input type="text" name="title" id="title"
+                        class="form-control @error('title') is-invalid @enderror"
+                        value="{{ old('title') ?? $apartment->title }}" required>
+                    <div class="invalid-feedback">
+                        title can't be null.
+                    </div>
+                    @error('title')
                         <div class="invalid-feedback">
-                            title can't be null.
+                            {{ $message }}
                         </div>
-                        @error('title')
-                            <div class="invalid-feedback">
-                                {{ $message }}
-                            </div>
-                        @enderror
+                    @enderror
                 </div>
-                {{--* address --}}
-            
+                {{-- * address --}}
+
                 {{-- ? mi porto dietro i valori dell'appartamento per usarli negli script --}}
                 <div class="div d-none">
                     <span
                         id="start-address-full">{{ $apartment->latitude . '|' . $apartment->longitude . '|' . $apartment->address }}</span>
                     <span id="start-address-human">{{ $apartment->address }}</span>
                 </div>
-                
+
                 <div class="col-lg-6 col-sm-12 ">
                     <label for="address-txt" class="form-label">address <span class="text-warning">*</span></label>
                     <input type="text" class="form-control @error('address') is-invalid @enderror"
@@ -75,8 +73,8 @@
                     @enderror
                 </div>
                 <input type="text" class="d-none form-control" value="" name='address' id="address">
-            
-                {{--* description --}}
+
+                {{-- * description --}}
                 <div class="col-sm-12 col-lg-6 mb-4">
                     <label for="description" class="form-label">Description</label>
                     <textarea name="description" id="description" class="form-control @error('description') is-invalid @enderror"
@@ -88,10 +86,11 @@
                     @enderror
                 </div>
 
-                {{--* Services  --}}
+                {{-- * Services  --}}
                 <div class="col-lg-6 col-sm-12 mb-4">
-                    
-                    <label class="form-label my-1  @error('services') is-invalid @enderror" id="services-label">services <span class="text-warning">* (At least one)</span></label>
+
+                    <label class="form-label my-1  @error('services') is-invalid @enderror" id="services-label">services
+                        <span class="text-warning">* (At least one)</span></label>
                     @error('services')
                         <div class="invalid-feedback">
                             {{ $message }}
@@ -103,27 +102,27 @@
                     @enderror
                     <div class="form-check p-0">
                         <div class="card p-2">
-                            
+
                             <div class="row">
-                            @foreach ($services as $service)
-    
-                                <div class="col-lg-6 col-sm-12 mt-1">
-    
-                                    <input type="checkbox" id="service-{{ $service->id }}" value="{{ $service->id }}"
-                                        name="services[]" class="form-check-control me-2 check-services"
-                                        @if (in_array($service->id, old('services', $apartment_service ?? []))) checked @endif>
-                                    <label for="service-{{ $service->id }}">
-                                        <i class="{{ $service->symbol }}"></i> - {{ $service->label }}
-                                    </label>
-                                </div>
-                            @endforeach
-                        </div>
-    
+                                @foreach ($services as $service)
+                                    <div class="col-lg-6 col-sm-12 mt-1">
+
+                                        <input type="checkbox" id="service-{{ $service->id }}"
+                                            value="{{ $service->id }}" name="services[]"
+                                            class="form-check-control me-2 check-services"
+                                            @if (in_array($service->id, old('services', $apartment_service ?? []))) checked @endif>
+                                        <label for="service-{{ $service->id }}">
+                                            <i class="{{ $service->symbol }}"></i> - {{ $service->label }}
+                                        </label>
+                                    </div>
+                                @endforeach
+                            </div>
+
                         </div>
                     </div>
                 </div>
-                
-                {{--* rooms --}}
+
+                {{-- * rooms --}}
                 <div class="col-lg-3 col-sm-12">
                     <div>
                         <label for="rooms" class="form-label">Rooms <span class="text-warning">*</span></label>
@@ -140,7 +139,7 @@
                         @enderror
                     </div>
                 </div>
-                {{--* beds --}}
+                {{-- * beds --}}
                 <div class="col-lg-3 col-sm-12">
                     <div>
                         <label for="beds" class="form-label">Beds <span class="text-warning">*</span></label>
@@ -157,7 +156,7 @@
                         @enderror
                     </div>
                 </div>
-                {{--* bathrooms --}}
+                {{-- * bathrooms --}}
                 <div class="col-lg-3 col-sm-12">
                     <div>
                         <label for="bathrooms" class="form-label">Bathrooms <span class="text-warning">*</span></label>
@@ -174,7 +173,7 @@
                         @enderror
                     </div>
                 </div>
-                {{--* m2 --}}
+                {{-- * m2 --}}
                 <div class="col-lg-3 col-sm-12">
                     <div>
                         <label for="m2" class="form-label">m2 <span class="text-warning">*</span></label>
@@ -191,7 +190,7 @@
                         @enderror
                     </div>
                 </div>
-                {{--* Cover Image --}}
+                {{-- * Cover Image --}}
                 <div class="my-3 col-12">
                     <label for="cover_image_path" class="form-label">Cover Image</label>
                     <input type="file" name="cover_image_path" id="cover_image_path"
@@ -203,7 +202,7 @@
                         </div>
                     @enderror
                 </div>
-                {{--* gestione campo is_hidden --}}
+                {{-- * gestione campo is_hidden --}}
                 <div class="col-lg-6 col-sm-12">
 
                     <div class=" form-check @error('is_hidden') is-invalid @enderror p-0">
@@ -245,17 +244,17 @@
                                 <i class="fa-solid fa-trash text-danger"></i>
                                 delete apartment
                             </a>
-    
+
                             <button type="submit" class="btn btn-style my-3">Save</button>
                         </div>
 
                     </div>
                 </div>
             </div>
-            
 
 
-            
+
+
 
 
 
@@ -265,7 +264,8 @@
 
 @section('modals')
     {{-- * modals --}}
-    <div class="modal fade row row-cols-1 row-cols-md-2 row-cols-lg-4 g-2 mt-0" tabindex="-1" id="modal-{{ $apartment->id }}">
+    <div class="modal fade row row-cols-1 row-cols-md-2 row-cols-lg-4 g-2 mt-0" tabindex="-1"
+        id="modal-{{ $apartment->id }}">
         <div class="modal-dialog ">
             <div class="modal-content">
                 <div class="modal-header red-strip">

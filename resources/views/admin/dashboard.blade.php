@@ -13,9 +13,7 @@
     My
     Apartments
 </a>
-<a class="btn btn-style my-3 me-3" href="{{ route('admin.messages.index') }}"> show My
-    messages
-</a>
+
 @endsection
 @section('content')
     
@@ -111,6 +109,9 @@
                                                         <i class="fa-solid fa-trash"></i>
                                                             {{-- Delete --}}
                                                     </a>
+                                               {{--      <a class="btn btn-style my-3 me-3" href="{{ route('admin.apartments.messages.index',$apartment->id) }}"> show My
+                                                        messages
+                                                    </a> --}}
                                                 </div>
                                                 {{-- * address --}}
                                                 <p class="card-text"><small class="text-body-secondary">{{ $apartment->address }}</small></p>
@@ -124,9 +125,8 @@
                         @else
                             <h1> No Apartments Found :( </h1>
                         @endif
-                        <div class="m-0 my-1 p-0 py-2 dashboard-pagination">
-                            {{ $apartments->links('pagination::bootstrap-5') }}
-                        </div>
+                        {{ $apartments->links('pagination::bootstrap-5') }}
+
                     </div>
                     
                 </div>
@@ -137,7 +137,7 @@
                     <div class="dashboard-container">
 
                     @foreach ($messages as $message)
-                    <a class="text-decoration-none" href="{{ route('admin.messages.index') }}">
+                    {{-- <a class="text-decoration-none" href="{{ route('admin.messages.index') }}"> --}}
                         <div class="card mb-3">
                             <div class="card-header d-flex justify-content-between">
                                 <div>

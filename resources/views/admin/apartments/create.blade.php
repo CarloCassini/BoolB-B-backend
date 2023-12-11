@@ -1,15 +1,12 @@
 @extends('layouts.app')
 
 @section('navigation-buttons')
-    <div class="container">
-        {{-- per tornare alla dashboard --}}
-        <div class=" my-3">
-            <a href="{{ route('admin.home') }}" class="btn btn-outline-secondary">
-                <i class="fa-solid fa-arrow-left me-1"></i>
-                Return to the Dashboard
-            </a>
-        </div>
-    </div>
+    {{-- per tornare alla dashboard --}}
+
+    <a href="{{ route('admin.home') }}" class="btn btn-style my-3">
+        <i class="fa-solid fa-arrow-left me-1"></i>
+        Return to Dashboard
+    </a>
 @endsection
 
 @section('content')
