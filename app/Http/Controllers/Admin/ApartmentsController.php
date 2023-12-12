@@ -127,7 +127,7 @@ class ApartmentsController extends Controller
         $user = Auth::user();
         if ($user->id != $apartment->user_id) {
             return redirect()->back()->with([
-                'not_allowed_message' => 'sorry, u can\'t touch this'
+                'not_allowed_message' => 'access denied'
             ]);
         }
         // *fine gestione rotta protetta
@@ -166,7 +166,7 @@ class ApartmentsController extends Controller
         $user = Auth::user();
         if ($user->id != $apartment->user_id) {
             return redirect()->back()->with([
-                'not_allowed_message' => 'sorry, u can\'t touch this'
+                'not_allowed_message' => 'access denied'
             ]);
         }
         // *fine gestione rotta protetta
@@ -189,7 +189,7 @@ class ApartmentsController extends Controller
         $user = Auth::user();
         if ($user->id != $apartment->user_id) {
             return redirect()->back()->with([
-                'not_allowed_message' => 'sorry, u can\'t touch this'
+                'not_allowed_message' => 'access denied'
             ]);
         }
         // *fine gestione rotta protetta
@@ -248,7 +248,7 @@ class ApartmentsController extends Controller
         $user = Auth::user();
         if ($user->id != $apartment->user_id) {
             return redirect()->back()->with([
-                'not_allowed_message' => 'sorry, u can\'t touch this'
+                'not_allowed_message' => 'access denied'
             ]);
         }
         // *fine gestione rotta protetta
