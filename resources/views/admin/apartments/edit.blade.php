@@ -59,7 +59,9 @@
                 </div>
 
                 <div class="col-lg-6 col-sm-12 ">
-                    <label for="address-txt" class="form-label">address <span class="text-warning">*</span></label>
+                    <label for="address-txt" class="form-label">address <span class="text-warning">*</span>
+                        <div class="fw-light">type your address then press enter to choose one suggestion</div>
+                    </label>
                     <input type="text" class="form-control @error('address') is-invalid @enderror"
                         value="{{ old('address-txt') ?? $apartment->address }}" required id="address-txt">
                     <div id="suggerimenti"></div>
