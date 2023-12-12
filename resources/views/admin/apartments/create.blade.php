@@ -134,7 +134,10 @@
             <div class="row my-3">
                 {{-- todo xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx --}}
                 <div class="col-12 ">
-                    <label for="address-txt" class="form-label">address*</label>
+                    <label for="address-txt" class="form-label">
+                        address*
+                        <div class="fw-light">type your address then press enter to choose one suggestion</div>
+                    </label>
                     <input type="text" class="form-control @error('address') is-invalid @enderror"
                         value="{{ old('address-txt') }}" required id="address-txt">
                     <div id="suggerimenti"></div>
@@ -237,11 +240,12 @@
         });
         // ++++++++++++++++++++
 
-        typeAddress.addEventListener("input", () => {
-            if (typeAddress.value.length >= searchLengthStart) {
-                showSuggestions(typeAddress.value);
-            }
-        });
+        // la seguente funzione commentata fa partire la ricerca ad ogni cambio di carattere
+        // typeAddress.addEventListener("input", () => {
+        //     if (typeAddress.value.length >= searchLengthStart) {
+        //         showSuggestions(typeAddress.value);
+        //     }
+        // });
 
         function showSuggestions(keyword) {
             let addressToSearch = typeAddress.value;

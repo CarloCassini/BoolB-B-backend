@@ -335,12 +335,12 @@
         start_value.value = startAddress_Full;
         // ++++++++++++++++++++
 
-
-        typeAddress.addEventListener("input", () => {
-            if (typeAddress.value.length >= searchLengthStart) {
-                showSuggestions(typeAddress.value);
-            }
-        });
+        // la seguente funzione commentata fa partire la ricerca ad ogni cambio di carattere
+        // typeAddress.addEventListener("input", () => {
+        //     if (typeAddress.value.length >= searchLengthStart) {
+        //         showSuggestions(typeAddress.value);
+        //     }
+        // });
 
         function showSuggestions(keyword) {
             let addressToSearch = typeAddress.value;
